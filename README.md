@@ -8,7 +8,7 @@ The purpose of this repo is to provide the following information
 ## Requirements
 Docker compose needs to be installed on your machine
 
-Confluent hub should also be installsed.
+Confluent hub should also be installed.
 
 see https://docs.confluent.io/platform/current/connect/confluent-hub/client.html
 
