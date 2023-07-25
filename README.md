@@ -14,7 +14,7 @@ see https://docs.confluent.io/platform/current/connect/confluent-hub/client.html
 
 after confluent hub has been installed instal kafka connect for jdbc
 ```
-confluent-hub install confluentinc/kafka-connect-jdbc:10.7.3
+confluent-hub install confluentinc/kafka-connect-jdbc:10.7.3 --/component-dir ~/connect 
 ```
 
 ## MYSQL

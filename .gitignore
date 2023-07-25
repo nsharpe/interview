@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 
 local_docker/
+connect/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

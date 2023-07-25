@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG CP_VERSION
+ARG CP_VERSION=3.2.0
 ARG BASE_PREFIX=confluentinc
 ARG CONNECT_IMAGE=cp-kafka-connect
 
