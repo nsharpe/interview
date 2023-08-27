@@ -3,7 +3,7 @@
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
 * Answer complex interview questions in real time
-* Demonstrate knowledge in a variety of technologies
+* Demonstrate basic knowledge in a variety of technologies
 
 ## Requirements
 Docker compose needs to be installed on your machine
