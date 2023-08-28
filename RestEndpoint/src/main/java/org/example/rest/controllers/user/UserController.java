@@ -2,15 +2,15 @@ package org.example.rest.controllers.user;
 
 import org.example.rest.models.RestUser;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-
-@RestController()
+@RestController
 public class UserController {
 
     @GetMapping("/user")
-    public RestUser getUser(){
+    public @ResponseBody RestUser getUser( ){
 
         RestUser toReturn = new RestUser();
 

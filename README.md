@@ -2,20 +2,41 @@
 
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
-* Answer complex interview questions in real time
-* Demonstrate basic knowledge in a variety of technologies
+* Demonstrate basic knowledge in a variety of technologies and frameworks
+* Demonstrate the ability to combine several technologies into a single deployable package
+* Demonstrate the usefullness of Docker Compose
+* Provide a template to try new technologies
+
+## What the application does
+Maintain records of the tv watch histories of individuals. 
+
+## Assumptions
+
+* This is not intended to be replace the interview process.
+* The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfeering with tasks by other developers.
 
 ## Requirements
-Docker compose needs to be installed on your machine
+Docker compose needs to be installed on your machine. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
 
-Confluent hub should also be installed.
+You have jdk 17+ installed
 
-see https://docs.confluent.io/platform/current/connect/confluent-hub/client.html
+## Running the application
 
-after confluent hub has been installed instal kafka connect for jdbc
-```
-confluent-hub install confluentinc/kafka-connect-jdbc:10.7.3 --/component-dir ~/connect 
-```
+To run the application using your local machine first run
+
+`docker-compose up`
+
+This will instantation a local instance of databases and other technologies on your machine which the application run against.
+
+Once Docker Compose is up and running run
+`./gradlew clean build` in your terminal
+
+## Interacting with the application
+
+To see a list of all the endpoints, while the application is running go to
+http://localhost:8080/swagger-ui/index.html
+
+The health of the endpoint can be viewed through http://localhost:8080/actuator/health
 
 ## MYSQL
 
