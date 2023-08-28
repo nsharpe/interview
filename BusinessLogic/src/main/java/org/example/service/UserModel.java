@@ -1,8 +1,8 @@
-package org.example.rest.models;
+package org.example.service;
 
 import java.time.LocalDateTime;
 
-public class RestUser {
+public class UserModel {
 
     private String email;
 

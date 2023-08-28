@@ -29,7 +29,10 @@ To run the application using your local machine first run
 This will instantation a local instance of databases and other technologies on your machine which the application run against.
 
 Once Docker Compose is up and running run
-`./gradlew clean build` in your terminal
+`./gradlew clean bootRun` in your terminal
+
+If you want to interact with the rest endpoints without connecting to a database you can run
+`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=RestOnly'`
 
 ## Interacting with the application
 

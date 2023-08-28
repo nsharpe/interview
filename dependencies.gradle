@@ -1,0 +1,13 @@
+buildscript {
+    ext {
+        spring = [
+                base    : project(':BusinessLogic'),
+                cashe   : 'org.springframework.boot:spring-boot-starter-cache'
+        ]
+
+        test = [
+                springTest: 'org.springframework.boot:spring-boot-starter-test',
+                reactor:    'io.projectreactor:reactor-test'
+        ]
+    }
+}
