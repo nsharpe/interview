@@ -4,11 +4,20 @@ import java.time.LocalDateTime;
 
 public class UserModel {
 
-    private String email;
+    private Integer id;
 
-    private int id;
+    private String email;
+    private String name;
 
     private LocalDateTime createdOn;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -18,12 +27,12 @@ public class UserModel {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreatedOn() {

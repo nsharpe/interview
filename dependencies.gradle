@@ -1,8 +1,11 @@
 buildscript {
     ext {
         spring = [
-                base    : project(':BusinessLogic'),
-                cashe   : 'org.springframework.boot:spring-boot-starter-cache'
+                base        : project(':BusinessLogic'),
+                starter     : 'org.springframework.boot:spring-boot-starter',
+                cashe       : 'org.springframework.boot:spring-boot-starter-cache',
+                actuator    : 'org.springframework.boot:spring-boot-starter-actuator',
+                validation  : 'org.springframework.boot:spring-boot-starter-validation'
         ]
 
         test = [

@@ -2,7 +2,6 @@ rootProject.name = 'Interview'
 include 'BusinessLogic'
 include 'KafkaConsumer'
 include 'RestEndpoint'
-include 'SpringBase'
 include 'MySqlDriver'
 include 'CassandraDriver'
 

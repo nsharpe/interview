@@ -1,4 +1,4 @@
-package org.example.rest.controllers.user;
+package org.example.rest.controllers;
 
 import org.example.service.UserModel;
 import org.example.service.UserService;

@@ -7,11 +7,13 @@ plugins {
 apply from: rootProject.file("dependencies.gradle")
 
 dependencies {
-    dependencies {
-        spring.values().forEach {
-            implementation it
-        }
+    spring.values().forEach {
+        implementation it
     }
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 }
