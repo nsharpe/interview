@@ -6,6 +6,9 @@ import org.example.repository.UserRepository;
 import org.example.rest.exceptions.NotFoundException;
 import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 
 public class UserDatabase implements UserRepository {
 
@@ -16,6 +19,7 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
+    @Cacheable(value = "users",key = "#id")
     public UserModel getUser(long id) {
         return  mysqlRepository.findById(id)
                 .orElseThrow( () -> new NotFoundException("User " + id +" not found"))
@@ -28,6 +32,7 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
+    @CachePut(value = "users",key = "#id")
     public UserModel updateUser(long id, UpdateUserModel updateUserModel) {
         UserMysql mysqlView = mysqlRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User " + id +" not found"));
@@ -38,6 +43,7 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
+    @CacheEvict(value = "users",key = "#id")
     public void deleteUser(long id) {
         mysqlRepository.deleteById(id);
     }
