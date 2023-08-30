@@ -4,6 +4,7 @@ import org.example.mysql.database.UserMysqlRepository;
 import org.example.mysql.schema.UserMysql;
 import org.example.repository.UserRepository;
 import org.example.rest.exceptions.NotFoundException;
+import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
 
 public class UserDatabase implements UserRepository {
@@ -15,9 +16,9 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
-    public UserModel getUser(int i) {
-        return  mysqlRepository.findById(i)
-                .orElseThrow( () -> new NotFoundException("User " + i +" not found"))
+    public UserModel getUser(long id) {
+        return  mysqlRepository.findById(id)
+                .orElseThrow( () -> new NotFoundException("User " + id +" not found"))
                 .toModel();
     }
 
@@ -27,7 +28,17 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public UserModel updateUser(long id, UpdateUserModel updateUserModel) {
+        UserMysql mysqlView = mysqlRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User " + id +" not found"));
+
+        mysqlView.update(updateUserModel);
+
+        return mysqlRepository.save(mysqlView).toModel();
+    }
+
+    @Override
+    public void deleteUser(long id) {
         mysqlRepository.deleteById(id);
     }
 }

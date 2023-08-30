@@ -1,12 +1,15 @@
 package org.example.repository;
 
+import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
 
 public interface UserRepository {
 
-    UserModel getUser(int i);
+    UserModel getUser(long i);
 
     UserModel createUser(UserModel model);
 
-    void deleteUser(int id);
+    UserModel updateUser(long id, UpdateUserModel updateUserModel);
+
+    void deleteUser(long id);
 }

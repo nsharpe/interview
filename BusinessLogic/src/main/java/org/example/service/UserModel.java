@@ -4,18 +4,18 @@ import java.time.LocalDateTime;
 
 public class UserModel {
 
-    private Integer id;
+    private Long id;
 
     private String email;
     private String name;
 
     private LocalDateTime createdOn;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

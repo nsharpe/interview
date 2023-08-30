@@ -6,13 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.jpa.repository.Temporal;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +24,7 @@ public class UserMysql {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     @Column(unique = true, updatable = false)
     private String email;
     private String name;
@@ -63,11 +62,16 @@ public class UserMysql {
         return toReturn;
     }
 
-    public Integer getId() {
+    @Transient
+    public void update(UpdateUserModel updateUserModel){
+        setName(updateUserModel.getName());
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
