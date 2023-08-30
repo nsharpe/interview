@@ -27,6 +27,7 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
+    @CacheEvict(value = "users",key = "#result.getId()")
     public UserModel createUser(UserModel model) {
         return mysqlRepository.save(new UserMysql(model)).toModel();
     }
