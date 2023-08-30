@@ -23,4 +23,8 @@ public class UserService {
     public UserModel createUser(UserModel userModel){
         return userRepository.createUser(userModel);
     }
+
+    public void deleteUser(int id){
+        userRepository.deleteUser(id);
+    }
 }

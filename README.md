@@ -4,11 +4,18 @@ The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
 * Demonstrate basic knowledge in a variety of technologies and frameworks
 * Demonstrate the ability to combine several technologies into a single deployable package
-* Demonstrate the usefullness of Docker Compose
+* Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
 
+This environment does not cover
+* Unit tests
+* Integration Tests
+* Deployment best practices
+
+Time permiting the above should be addressed.
+
 ## What the application does
-Maintain records of the tv watch histories of individuals. 
+Maintain records of the tv watch histories of individuals.
 
 ## Assumptions
 
@@ -22,17 +29,25 @@ You have jdk 17+ installed
 
 ## Running the application
 
+You can run the application two ways.  One with h2 as the database, and secondarily with mysql as the database.
+
+### Run with H2
+
+`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=rest_only'`
+
+
+### Run with MySql
 To run the application using your local machine first run
 
 `docker-compose up`
 
-This will instantation a local instance of databases and other technologies on your machine which the application run against.
+This will run local instance of databases and other technologies on your machine which the application run against.
 
 Once Docker Compose is up and running run
-`./gradlew clean bootRun` in your terminal
+`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=mysql'`
+in your terminal
 
-If you want to interact with the rest endpoints without connecting to a database you can run
-`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=rest_only'`
+
 
 ## Interacting with the application
 

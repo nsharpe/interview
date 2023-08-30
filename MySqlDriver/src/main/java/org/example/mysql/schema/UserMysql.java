@@ -6,16 +6,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import org.example.service.UserModel;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.repository.Temporal;
 
 import java.time.LocalDateTime;
 
 
 @Entity
 @Table(name = "external_user")
-@SQLDelete(sql = "UPDATE external_user SET deletionDate = now() WHERE id=?")
+@SQLDelete(sql = "UPDATE external_user SET deletion_date = now() WHERE id=?")
+@Where(clause="deletion_date IS NULL")
 public class UserMysql {
 
     @Id
@@ -24,7 +29,14 @@ public class UserMysql {
     @Column(unique = true, updatable = false)
     private String email;
     private String name;
+
+    @CreationTimestamp
+    @Column(name="creation_date",
+            updatable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime creationDate;
+
+    @Column(name="deletion_date")
     private LocalDateTime deletionDate;
 
     public UserMysql(){

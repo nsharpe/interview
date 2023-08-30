@@ -7,4 +7,6 @@ public interface UserRepository {
     UserModel getUser(int i);
 
     UserModel createUser(UserModel model);
+
+    void deleteUser(int id);
 }
