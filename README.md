@@ -23,9 +23,12 @@ Maintain records of the tv watch histories of individuals.
 * The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfeering with tasks by other developers.
 
 ## Requirements
-Docker compose needs to be installed on your machine. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
-
 You have jdk 17+ installed
+
+## Optional
+Docker compose needs to be installed on your machine for local integration tests. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
+
+In otherwords, if running against a local mysql, cassandra, or other database/tool, you will need the above installed
 
 ## Running the application
 
@@ -33,18 +36,29 @@ You can run the application two ways.  One with h2 as the database, and secondar
 
 ### Run with H2
 
-`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=rest_only'`
+```
+./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=rest_only'
+```
 
 
 ### Run with MySql
+
+First ensure that all optional installations are installed
+
 To run the application using your local machine first run
 
-`docker-compose up`
+```
+docker-compose up
+```
 
 This will run local instance of databases and other technologies on your machine which the application run against.
 
 Once Docker Compose is up and running run
-`./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=mysql'`
+
+```
+./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=mysql'
+```
+
 in your terminal
 
 
@@ -54,7 +68,36 @@ in your terminal
 To see a list of all the endpoints, while the application is running go to
 http://localhost:8080/swagger-ui/index.html
 
-The health of the endpoint can be viewed through http://localhost:8080/actuator/health
+The health of the syste can be viewed through  
+http://localhost:8080/actuator/health
+
+In order to see how many entries have been cached
+http://localhost:8080/actuator/metrics/cache.size
+
+
+## MYSQL
+
+To connect to the database run the following
+```
+docker exec -it mysql mysql --user=root --password=rootIsABadPassword
+```
+
+some helpful commands
+
+If you are unfamiliar with mysql the show command is helpful.
+```
+show databases;
+```
+
+To view all users run
+```agsl
+select * from interview_db.external_user;
+```
+
+
+## Kafka
+// TODO
+Creating a topic
 
 ## Framework Documentation
 This was generated via the start.spring.io process
@@ -87,21 +130,3 @@ The following guides illustrate how to use some features concretely:
 These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
-
-## MYSQL
-
-To connect to the database run the following
-```
-docker exec -it mysql mysql --user=root --password=rootIsABadPassword
-```
-
-some helpful commands
-```
-show databases;
-```
-
-
-## Kafka
-
-Creating a topic
-
