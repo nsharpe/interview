@@ -2,6 +2,12 @@ package org.example.rest.controllers.user;
 
 import org.example.service.UserModel;
 
+/**
+ * This is all the information required to create a user.
+ * This is separate from the `UserModel` class as there are different requirements from creation, views and puts
+ *
+ *
+ */
 public class CreateUserModel {
 
     private String email;
