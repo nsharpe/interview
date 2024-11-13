@@ -12,15 +12,15 @@ This environment does not cover
 * Integration Tests
 * Deployment best practices
 
-Time permiting the above should be addressed.
+Time permitting the above should be addressed.
 
 ## What the application does
-Maintain records of the tv watch histories of individuals.
+Maintain records of the tv watch histories of individuals via a rest service.
 
 ## Assumptions
 
 * This is not intended to be replace the interview process.
-* The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfeering with tasks by other developers.
+* The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfering with tasks by other developers.
 
 ## Requirements
 You have jdk 17+ installed
@@ -35,7 +35,7 @@ In otherwords, if running against a local mysql, cassandra, or other database/to
 You can run the application two ways.  One with h2 as the database, and secondarily with mysql as the database.
 
 ### Run with H2
-
+H2 environments are an in memory database.  They are generally helpful with testing where data persistance is not an issue.
 ```
 ./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=rest_only'
 ```
