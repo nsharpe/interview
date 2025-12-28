@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestOnlyApplication {
+public class PublicRestEndpointApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RestOnlyApplication.class,args);
+        SpringApplication.run(PublicRestEndpointApplication.class,args);
     }
 }
