@@ -3,18 +3,21 @@ plugins {
 }
 
 allprojects {
-    apply plugin:'java'
-    group 'org.example'
-    version '1.0-SNAPSHOT'
-    sourceCompatibility = '17'
+    group = 'org.example'
+    version = '1.0-SNAPSHOT'
+}
 
-    repositories {
-        mavenCentral()
-    }
+test {
+    failOnNoDiscoveredTests = false
+}
 
-    dependencies {
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+subprojects{
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
     }
 
     test {

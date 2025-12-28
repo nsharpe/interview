@@ -1,10 +1,16 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.3'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'java-library'
+    id 'org.springframework.boot' version '4.0.1'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
-apply from: rootProject.file("dependencies.gradle")
+apply from: rootProject.file("spring-dependencies.gradle")
+
+//FIXME: Add tests
+test {
+    failOnNoDiscoveredTests = false
+}
 
 dependencies {
     spring.values().forEach {
@@ -13,7 +19,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

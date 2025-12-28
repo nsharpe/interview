@@ -1,10 +1,15 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.3'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'org.springframework.boot' version '4.0.1'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
-apply from: rootProject.file("dependencies.gradle")
+apply from: rootProject.file("spring-dependencies.gradle")
+
+//FIXME: Add tests
+test {
+    failOnNoDiscoveredTests = false
+}
 
 dependencies {
     implementation project(":MySqlDriver")
@@ -24,4 +29,8 @@ dependencies {
 
     // Cache
     implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.1.8'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

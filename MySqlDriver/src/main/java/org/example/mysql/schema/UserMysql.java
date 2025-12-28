@@ -1,5 +1,6 @@
 package org.example.mysql.schema;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "external_user")
 @SQLDelete(sql = "UPDATE external_user SET deletion_date = now() WHERE id=?")
-@Where(clause="deletion_date IS NULL")
+@SQLRestriction("deletion_date IS NULL")
 public class UserMysql {
 
     @Id
