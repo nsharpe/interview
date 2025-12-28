@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'com.github.spotbugs' version '6.0.1'
+    id 'io.freefair.lombok' version '9.1.0'
 }
 
 allprojects {
@@ -13,11 +15,17 @@ test {
 
 subprojects{
     apply plugin: 'java'
+    apply plugin: 'com.github.spotbugs'
+    apply plugin: 'io.freefair.lombok'
 
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(21))
         }
+    }
+
+    spotbugs {
+        excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))
     }
 
     test {

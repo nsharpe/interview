@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 rootProject.name = 'Interview'
 
 include 'BusinessLogic'
-include 'RestEndpoint'
+include 'PublicRestEndpoint'
 include 'MySqlDriver'
+include 'IntegrationTests'
 
