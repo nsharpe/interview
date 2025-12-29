@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "external_user")
-@SQLDelete(sql = "UPDATE external_user SET deletion_date = now() WHERE id=?")
-@SQLRestriction("deletion_date IS NULL")
+@SQLDelete(sql = "UPDATE external_user SET deletion_timestamp = now() WHERE id=?")
+@SQLRestriction("deletion_timestamp IS NULL")
 @Getter
 @Setter
 @AllArgsConstructor

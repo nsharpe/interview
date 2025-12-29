@@ -2,14 +2,13 @@
 
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
+* Provide example of integration tests with separate executables each living in it's own submodule
 * Demonstrate basic knowledge in a variety of technologies and frameworks
-* Demonstrate the ability to combine several technologies into a single deployable package
+* Demonstrate the ability to combine several technologies into a multiple deployable package
 * Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
 
 This environment does not cover
-* Unit tests
-* Integration Tests
 * Deployment best practices
 
 Time permitting the above should be addressed.
@@ -23,7 +22,7 @@ Maintain records of the tv watch histories of individuals via a rest service.
 * The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfering with tasks by other developers.
 
 ## Requirements
-You have jdk 17+ installed
+You have jdk 21+ installed
 
 ## Optional
 Docker compose needs to be installed on your machine for local integration tests. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
