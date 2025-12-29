@@ -8,11 +8,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 
@@ -21,90 +27,42 @@ import java.time.LocalDateTime;
 @Table(name = "external_user")
 @SQLDelete(sql = "UPDATE external_user SET deletion_date = now() WHERE id=?")
 @SQLRestriction("deletion_date IS NULL")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserMysql {
+    private static ModelMapper MODEL_MAPPER = new ModelMapper();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, updatable = false)
     private String email;
-    private String name;
+    private String firstName;
+    private String lastName;
 
     @CreationTimestamp
-    @Column(name="creation_date",
+    @Column(name="creation_timestamp",
             updatable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime creationDate;
+    private LocalDateTime creationTimestamp;
 
-    @Column(name="deletion_date")
-    private LocalDateTime deletionDate;
+    @Column(name="deletion_timestamp")
+    private LocalDateTime deletionTimestamp;
 
-    public UserMysql(){
-        // NOOP: required to make jpa work
+    public static UserMysql of(UserModel userModel){
+        return MODEL_MAPPER.map(userModel, UserMysql.class);
     }
-
-    public UserMysql(UserModel userModel){
-        this.id = userModel.getId();
-        this.email = userModel.getEmail();
-        this.name = userModel.getName();
-        this.creationDate = userModel.getCreatedOn();
-    }
-
 
     @Transient
     public UserModel toModel(){
-        UserModel toReturn = new UserModel();
-
-        toReturn.setCreatedOn(creationDate);
-        toReturn.setId(id);
-        toReturn.setEmail(email);
-        toReturn.setName(name);
-
-        return toReturn;
+        return MODEL_MAPPER.map(this, UserModel.class);
     }
 
     @Transient
     public void update(UpdateUserModel updateUserModel){
-        setName(updateUserModel.getName());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDateTime getDeletionDate() {
-        return deletionDate;
-    }
-
-    public void setDeletionDate(LocalDateTime deletionDate) {
-        this.deletionDate = deletionDate;
+        MODEL_MAPPER.map(updateUserModel, this);
     }
 }

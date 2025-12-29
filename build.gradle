@@ -28,7 +28,11 @@ subprojects{
         excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))
     }
 
-    test {
-        useJUnitPlatform()
+    dependencies {
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.12.2'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.12.2'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
+
 }

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.example.rest.controllers.user.CreateUserModel;
 import org.example.service.UpdateUserModel;
 import org.example.service.UserModel;
@@ -51,7 +52,7 @@ public class UserController {
                     @ApiResponse(responseCode = "500", description = "Email already exists")})
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserModel getUser(@RequestBody CreateUserModel userModel){
+    public UserModel getUser(@RequestBody @Valid CreateUserModel userModel){
         return userService.createUser(userModel.toUserModel());
     }
 

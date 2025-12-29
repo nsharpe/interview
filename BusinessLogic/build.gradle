@@ -9,7 +9,8 @@ test {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    api 'org.modelmapper:modelmapper:3.2.6'
+
+    api 'com.fasterxml.jackson.core:jackson-databind:2.20.1'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1'
 }

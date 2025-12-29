@@ -1,26 +1,46 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.0.1'
+    id 'org.springframework.boot' version '3.5.9'
     id 'io.spring.dependency-management' version '1.1.7'
 }
+
+bootRun{
+    enabled = false
+}
+
+bootJar{
+    enabled = false
+}
+
+def testcontainersVersion = '1.21.4'
 
 dependencies {
     implementation project( ':PublicRestEndpoint')
     implementation project( ':MySqlDriver')
+    implementation project( ':BusinessLogic')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+
 
     runtimeOnly 'com.mysql:mysql-connector-j'
+    testRuntimeOnly 'com.mysql:mysql-connector-j'
 
-    implementation platform('org.junit:junit-bom:5.10.0')
-    implementation 'org.junit.jupiter:junit-jupiter'
-    implementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.12.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.12.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation("org.testcontainers:junit-jupiter")
-    implementation("org.testcontainers:mysql")
+    implementation platform("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+
+    testImplementation 'org.testcontainers:testcontainers'
+    testImplementation 'org.testcontainers:mysql'
+
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'io.rest-assured:rest-assured:5.5.6'
 }
 
 dependencyManagement {
     imports {
-        mavenBom("org.testcontainers:testcontainers-bom:1.19.3") // Use the latest version
+        mavenBom("org.testcontainers:testcontainers-bom:2.0.3") // Use the latest version
     }
 }
 
