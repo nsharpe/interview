@@ -1,7 +1,7 @@
 package org.example.repository;
 
-import org.example.service.UpdateUserModel;
-import org.example.service.UserModel;
+import org.example.service.user.UpdateUserModel;
+import org.example.service.user.UserModel;
 
 public interface UserRepository {
 

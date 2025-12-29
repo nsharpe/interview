@@ -2,7 +2,7 @@ package org.example.rest;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import org.example.repository.UserRepository;
-import org.example.service.UserService;
+import org.example.service.user.UserService;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

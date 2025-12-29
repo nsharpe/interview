@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.user;
 
 import lombok.RequiredArgsConstructor;
 import org.example.BadInput;

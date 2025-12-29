@@ -1,7 +1,7 @@
 package org.example.mysql.schema;
 
-import org.example.service.UpdateUserModel;
-import org.example.service.UserModel;
+import org.example.service.user.UpdateUserModel;
+import org.example.service.user.UserModel;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

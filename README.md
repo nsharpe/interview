@@ -2,6 +2,7 @@
 
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
+* Provides example of starting an application as a monolith while still separating things out for future microservice architectures 
 * Provide example of integration tests with separate executables each living in it's own submodule
 * Demonstrate basic knowledge in a variety of technologies and frameworks
 * Demonstrate the ability to combine several technologies into a multiple deployable package

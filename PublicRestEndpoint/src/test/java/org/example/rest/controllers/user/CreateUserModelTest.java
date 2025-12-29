@@ -1,6 +1,6 @@
 package org.example.rest.controllers.user;
 
-import org.example.service.UserModel;
+import org.example.service.user.UserModel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
