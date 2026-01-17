@@ -18,14 +18,14 @@ class UserMysqlTest {
                 .email("test@test.com")
                 .firstName("joe")
                 .lastName("smith")
-                .creationTimeStamp(now)
+                .creationTimestamp(now)
                 .build();
 
         UserMysql userMysql = UserMysql.of(userModel);
 
         assertEquals(userModel.getId(), userMysql.getId());
         assertEquals(userModel.getEmail(), userMysql.getEmail());
-        assertEquals(userModel.getCreationTimeStamp(),userMysql.getCreationTimestamp());
+        assertEquals(userModel.getCreationTimestamp(),userMysql.getCreationTimestamp());
         assertEquals(userModel.getFirstName(),userMysql.getFirstName());
         assertEquals(userModel.getLastName(),userMysql.getLastName());
         assertNull(userMysql.getDeletionTimestamp());

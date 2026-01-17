@@ -6,7 +6,7 @@ pluginManagement {
     }
 
     plugins {
-        id("com.android.application") version "8.1.0" apply false // Apply false means it's for subprojects
+        id("com.android.application") version "8.1.0" apply false // Apply false means it"s for subprojects
         id("org.jetbrains.kotlin.android") version "1.9.0" apply false
         // Add other plugins here, e.g.,
         id("com.gradleup.shadow") version "8.3.4" apply false
@@ -21,12 +21,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'Interview'
+rootProject.name = "Interview"
 
-include 'BusinessLogic'
-include 'PublicRestEndpoint'
-include 'MySqlDriver'
-include 'IntegrationTests'
-include 'MediaManagement'
-include 'Users'
-
+include( "BusinessLogic")
+include( "PublicRestEndpoint")
+include( "MySqlDriver")
+include( "IntegrationTests")
+include( "MediaManagement")
+include( "Users")
+include("SpringPod")

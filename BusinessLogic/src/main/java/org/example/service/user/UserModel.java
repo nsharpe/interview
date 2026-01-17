@@ -21,5 +21,5 @@ public class UserModel {
     private String firstName;
     private String lastName;
 
-    private LocalDateTime creationTimeStamp;
+    private LocalDateTime creationTimestamp;
 }
