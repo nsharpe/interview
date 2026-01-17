@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,8 +20,11 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.modelmapper.convention.MatchingStrategies.STRICT;
 
 
 @Entity
@@ -33,6 +38,9 @@ import java.util.UUID;
 @Builder
 public class EpisodeMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
+    static{
+        MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+    }
 
     // This id is intended to reduce join cost
     @Id
@@ -43,8 +51,14 @@ public class EpisodeMysql {
     @Column( name = "public_id", updatable = false, unique = true, nullable = false)
     private UUID publicId;
 
-    @Column(unique = true)
     private String title;
+    private Duration length;
+    private int season;
+    private int episode;
+
+    @ManyToOne
+    @JoinColumn(name = "series_id")
+    private SeriesMysql series;
 
     @CreationTimestamp
     @Column(name="creation_timestamp",

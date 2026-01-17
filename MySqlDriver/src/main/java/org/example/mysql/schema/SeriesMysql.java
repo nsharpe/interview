@@ -21,6 +21,8 @@ import org.modelmapper.ModelMapper;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.modelmapper.convention.MatchingStrategies.STRICT;
+
 
 @Entity
 @Table(name = "series")
@@ -33,6 +35,9 @@ import java.util.UUID;
 @Builder
 public class SeriesMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
+    static{
+        MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+    }
 
     // This id is intended to reduce join cost
     @Id

@@ -27,4 +27,5 @@ include 'BusinessLogic'
 include 'PublicRestEndpoint'
 include 'MySqlDriver'
 include 'IntegrationTests'
+include 'MediaManagement'
 

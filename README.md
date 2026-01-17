@@ -2,10 +2,9 @@
 
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
-* Provides example of starting an application as a monolith while still separating things out for future microservice architectures 
+* Provides examples of monorepo architecture for small/medium sized project 
 * Provide example of integration tests with separate executables each living in it's own submodule
 * Demonstrate basic knowledge in a variety of technologies and frameworks
-* Demonstrate the ability to combine several technologies into a multiple deployable package
 * Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
 
@@ -15,12 +14,17 @@ This environment does not cover
 Time permitting the above should be addressed.
 
 ## What the application does
-Maintain records of the tv watch histories of individuals via a rest service.
+This is a mock application for a netflix like company.
+
+This is a monorepo with several executables required to do the following
+* Manage Users
+* Manage TvSeries/movies (Does not actually store media files as part of this demo)
+* Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
 
 ## Assumptions
 
 * This is not intended to be replace the interview process.
-* The task is to research if cassandra should replace mysql for optimization purposes.  The application is setup in such a way where development can go forward without interfering with tasks by other developers.
+* Shows how to setup a project in a way where work can be parallelized between multiple developers.
 
 ## Requirements
 You have jdk 21+ installed

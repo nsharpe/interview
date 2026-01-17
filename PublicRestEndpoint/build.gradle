@@ -12,7 +12,6 @@ test {
 }
 
 dependencies {
-    implementation project(":MySqlDriver")
 
     spring.values().forEach {
         implementation it
@@ -22,13 +21,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
-    //Sql
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // SQL
+    implementation project(":MySqlDriver")
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'com.h2database:h2'
 
     // Cache
-    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.1.8'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

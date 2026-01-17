@@ -20,9 +20,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MatchingStrategy;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.modelmapper.convention.MatchingStrategies.STRICT;
 
 
 @Entity
@@ -36,6 +39,9 @@ import java.util.UUID;
 @Builder
 public class UserMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
+    static{
+        MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

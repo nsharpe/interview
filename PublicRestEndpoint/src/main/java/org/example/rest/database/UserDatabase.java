@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
+import java.util.UUID;
+
 public class UserDatabase implements UserRepository {
 
     private final UserMysqlRepository mysqlRepository;
@@ -23,6 +25,14 @@ public class UserDatabase implements UserRepository {
     public UserModel getUser(long id) {
         return  mysqlRepository.findById(id)
                 .orElseThrow( () -> new NotFoundException("User " + id +" not found"))
+                .toModel();
+    }
+
+    @Override
+    @Cacheable(value = "users",key = "#publicId")
+    public UserModel getUser(UUID publicId) {
+        return  mysqlRepository.findByPublicId(publicId)
+                .orElseThrow( () -> new NotFoundException("User " + publicId +" not found"))
                 .toModel();
     }
 
