@@ -2,6 +2,7 @@ package org.example.users.repository;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.mysql.MysqlSoftDelete;
+import org.example.mysql.MysqlTimeStamp;
 import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,17 +56,18 @@ public class UserMysql {
     private String firstName;
     private String lastName;
 
-    @CreationTimestamp
-    @Column(name="creation_timestamp",
-            updatable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime creationTimestamp;
+    @Embedded
+    private MysqlTimeStamp timeStamp;
 
-    @Column(name="deletion_timestamp")
-    private LocalDateTime deletionTimestamp;
+    @Embedded
+    private MysqlSoftDelete softDelete;
 
     public static UserMysql of(UserModel userModel){
-        return MODEL_MAPPER.map(userModel, UserMysql.class);
+        UserMysql toReturn = MODEL_MAPPER.map(userModel, UserMysql.class);
+        toReturn.setTimeStamp(MysqlTimeStamp.builder()
+                .creationTimestamp(userModel.getCreationTimestamp())
+                .build());
+        return toReturn;
     }
 
     @PrePersist
@@ -75,7 +79,10 @@ public class UserMysql {
 
     @Transient
     public UserModel toModel(){
-        return MODEL_MAPPER.map(this, UserModel.class);
+        UserModel toReturn = MODEL_MAPPER.map(this, UserModel.class);
+        toReturn.setCreationTimestamp(this.timeStamp.getCreationTimestamp());
+        toReturn.setLastUpdate(this.timeStamp.getLastUpdatedDate());
+        return toReturn;
     }
 
     @Transient

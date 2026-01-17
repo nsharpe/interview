@@ -25,10 +25,10 @@ class UserMysqlTest {
 
         assertEquals(userModel.getId(), userMysql.getId());
         assertEquals(userModel.getEmail(), userMysql.getEmail());
-        assertEquals(userModel.getCreationTimestamp(),userMysql.getCreationTimestamp());
+        assertEquals(userModel.getCreationTimestamp(),userMysql.getTimeStamp().getCreationTimestamp());
         assertEquals(userModel.getFirstName(),userMysql.getFirstName());
         assertEquals(userModel.getLastName(),userMysql.getLastName());
-        assertNull(userMysql.getDeletionTimestamp());
+        assertNull(userMysql.getSoftDelete());
     }
 
     @Test

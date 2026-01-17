@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":PublicRestEndpoint"))
     implementation(project(":MySqlDriver"))
     implementation(project(":Core"))
+    implementation(project(":Users"))
 
     implementation("org.springframework.boot:spring-boot-starter")
 

@@ -3,6 +3,8 @@ package org.example.test.user;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.example.integration.TimeTestUtil;
 import org.example.test.util.TestApplications;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.AfterAll;
@@ -10,18 +12,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.testcontainers.containers.wait.strategy.DockerHealthcheckWaitStrategy;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestUsersIntegration extends TestContainers {
 
@@ -59,12 +58,15 @@ public class TestUsersIntegration extends TestContainers {
                 .body("firstName", equalTo("John")) // Verify specific fields in the response body
                 .body("lastName", equalTo("Smith"))
                 .body("email", equalTo("john.smith@test.com"))
-                .body("id", notNullValue()).extract().body().jsonPath();
+                .body("id", notNullValue())
+                .extract()
+                .body()
+                .jsonPath();
 
         int id = jsonPath.get("id");
 
         // get user
-        given()
+        Response getBody = given()
                 .when().get("/user/{id}", id)
                 .then()
                 .statusCode(200)
@@ -72,7 +74,12 @@ public class TestUsersIntegration extends TestContainers {
                 .body("firstName", equalTo("John")) // Verify specific fields in the response body
                 .body("lastName", equalTo("Smith"))
                 .body("email", equalTo("john.smith@test.com"))
-                .body("id", equalTo(id));
+                .body("id", equalTo(id))
+                .extract()
+                .response();
+
+        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("creationTimestamp")));
+        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("lastUpdate")));
 
         // delete user
         given()
