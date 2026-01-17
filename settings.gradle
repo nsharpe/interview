@@ -28,4 +28,5 @@ include 'PublicRestEndpoint'
 include 'MySqlDriver'
 include 'IntegrationTests'
 include 'MediaManagement'
+include 'Users'
 
