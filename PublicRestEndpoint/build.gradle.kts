@@ -3,6 +3,7 @@ group = "org.example.public.rest"
 dependencies {
     implementation(project(":Core"))
     implementation(project(":SpringPod"))
+    implementation(project(":Users"))
 
     // Web and documentation
     implementation("org.springframework.boot:spring-boot-starter-web")

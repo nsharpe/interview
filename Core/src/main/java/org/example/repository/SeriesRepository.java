@@ -1,8 +1,6 @@
 package org.example.repository;
 
 import org.example.service.series.SeriesModel;
-import org.example.service.user.UpdateUserModel;
-import org.example.service.user.UserModel;
 
 import java.util.UUID;
 

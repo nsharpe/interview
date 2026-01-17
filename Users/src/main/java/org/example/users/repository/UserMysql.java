@@ -1,4 +1,4 @@
-package org.example.mysql.schema;
+package org.example.users.repository;
 
 
 import jakarta.persistence.Column;
@@ -14,13 +14,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.service.user.UpdateUserModel;
-import org.example.service.user.UserModel;
+import org.example.users.UpdateUserModel;
+import org.example.users.UserModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.MatchingStrategy;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

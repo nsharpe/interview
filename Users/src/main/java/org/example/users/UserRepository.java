@@ -1,7 +1,4 @@
-package org.example.repository;
-
-import org.example.service.user.UpdateUserModel;
-import org.example.service.user.UserModel;
+package org.example.users;
 
 import java.util.UUID;
 

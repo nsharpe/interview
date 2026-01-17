@@ -6,9 +6,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.example.rest.controllers.user.CreateUserModel;
-import org.example.service.user.UpdateUserModel;
-import org.example.service.user.UserModel;
-import org.example.service.user.UserService;
+
+import org.example.users.UpdateUserModel;
+import org.example.users.UserModel;
+import org.example.users.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

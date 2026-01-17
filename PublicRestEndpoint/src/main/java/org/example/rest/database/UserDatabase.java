@@ -1,11 +1,12 @@
 package org.example.rest.database;
 
-import org.example.mysql.database.UserMysqlRepository;
-import org.example.mysql.schema.UserMysql;
-import org.example.repository.UserRepository;
 import org.example.rest.exceptions.NotFoundException;
-import org.example.service.user.UpdateUserModel;
-import org.example.service.user.UserModel;
+
+import org.example.users.UpdateUserModel;
+import org.example.users.UserModel;
+import org.example.users.UserRepository;
+import org.example.users.repository.UserMysql;
+import org.example.users.repository.UserMysqlRepository;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

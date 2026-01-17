@@ -1,7 +1,7 @@
 package org.example.rest.database;
 
-import org.example.mysql.database.UserMysqlRepository;
-import org.example.repository.UserRepository;
+import org.example.users.UserRepository;
+import org.example.users.repository.UserMysqlRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

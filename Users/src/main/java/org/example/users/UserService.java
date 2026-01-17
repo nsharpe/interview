@@ -1,8 +1,7 @@
-package org.example.service.user;
+package org.example.users;
 
 import lombok.RequiredArgsConstructor;
 import org.example.BadInput;
-import org.example.repository.UserRepository;
 
 @RequiredArgsConstructor
 public class UserService {

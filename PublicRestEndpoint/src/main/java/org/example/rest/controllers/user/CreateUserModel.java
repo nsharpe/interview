@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.service.user.UserModel;
+import org.example.users.UserModel;
 import org.modelmapper.ModelMapper;
 
 /**

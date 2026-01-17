@@ -1,6 +1,5 @@
-package org.example.mysql.database;
+package org.example.users.repository;
 
-import org.example.mysql.schema.UserMysql;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
