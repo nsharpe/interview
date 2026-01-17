@@ -23,10 +23,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "Interview"
 
-include( "Core")
-include( "PublicRestEndpoint")
-include( "MySqlDriver")
-include( "IntegrationTests")
-include( "MediaManagement")
-include( "Users")
+include("Core")
+include("PublicRestEndpoint")
+include("MySqlDriver")
+include("IntegrationTests")
+include("MediaManagement")
+include("Users")
 include("SpringPod")
+include("SpringWeb")

@@ -1,6 +1,6 @@
-package org.example.repository;
+package org.example.media.management.repository;
 
-import org.example.service.series.SeriesModel;
+import org.example.media.management.series.SeriesModel;
 
 import java.util.UUID;
 

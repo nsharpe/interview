@@ -1,11 +1,11 @@
-package org.example.rest.controllers;
+package org.example.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.example.exceptions.ExampleException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
@@ -16,13 +16,14 @@ public class ControllerAdvice {
     public ResponseEntity<String> handleAllExceptions(Exception ex, WebRequest request) {
         log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
 
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatusCode status = HttpStatus.INTERNAL_SERVER_ERROR;
+        String message = "An internal server error occurred";
 
-        ResponseStatus ann = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
-        if (ann != null) {
-            status = ann.value();
+        if(ex instanceof ExampleException reportableException){
+            status = HttpStatusCode.valueOf(reportableException.httpStatusCode());
+            message = reportableException.publicMessage();
         }
 
-        return new ResponseEntity<>("An internal server error occurred", status);
+        return new ResponseEntity<>(message, status);
     }
 }

@@ -1,6 +1,6 @@
 package org.example.rest.database;
 
-import org.example.rest.exceptions.NotFoundException;
+import org.example.exceptions.NotFoundException;
 
 import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
