@@ -1,7 +1,7 @@
 group = "org.example.public.rest"
 
 dependencies {
-    implementation(project(":BusinessLogic"))
+    implementation(project(":Core"))
     implementation(project(":SpringPod"))
 
     // Web and documentation

@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Interview"
 
-include( "BusinessLogic")
+include( "Core")
 include( "PublicRestEndpoint")
 include( "MySqlDriver")
 include( "IntegrationTests")

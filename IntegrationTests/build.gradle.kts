@@ -12,7 +12,7 @@ dependencies {
     // Project dependencies use the project() function
     implementation(project(":PublicRestEndpoint"))
     implementation(project(":MySqlDriver"))
-    implementation(project(":BusinessLogic"))
+    implementation(project(":Core"))
 
     implementation("org.springframework.boot:spring-boot-starter")
 
