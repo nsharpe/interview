@@ -8,9 +8,11 @@ import java.nio.file.Paths;
 public class TestImages {
     private TestImages(){}
 
-    public static final ImageFromDockerfile PUBLIC_REST_ENDPOINT_IMAGE = create("media-player-test-image",
+    public static final ImageFromDockerfile PUBLIC_REST_ENDPOINT_IMAGE = create("public-rest-endpoint-test-image",
             "../PublicRestEndpoint/build/libs/public-rest-endpoint-app.jar");
 
+    public static final ImageFromDockerfile MEDIA_MANAGEMENT_IMAGE = create("media-management-image",
+            "../MediaManagement/build/libs/media-management-app.jar");
 
     private static ImageFromDockerfile create(String dockerImageName,String path){
        Path absolutePath = Paths.get(path).toAbsolutePath();

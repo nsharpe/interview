@@ -44,6 +44,10 @@ H2 environments are an in memory database.  They are generally helpful with test
 ./gradlew clean publicRestEndpoint:bootRun --args='--spring.profiles.active=memory_db'
 ```
 
+```
+./gradlew clean mediaManagement:bootRun --args='--spring.profiles.active=memory_db'
+```
+
 
 ### Run with MySql
 

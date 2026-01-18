@@ -4,6 +4,10 @@ tasks.bootBuildImage {
     imageName = "media-player-media-management"
 }
 
+tasks.bootJar{
+    archiveFileName = "media-management-app.jar"
+}
+
 dependencies {
     implementation(project(":SpringWeb"))
     implementation(project(":Series"))

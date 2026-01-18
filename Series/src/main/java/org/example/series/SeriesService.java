@@ -5,12 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.example.exceptions.NotFoundException;
 import org.example.series.mysql.SeriesMysql;
 import org.example.series.mysql.SeriesMysqlRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class SeriesRepository {
+public class SeriesService {
 
     private SeriesMysqlRepository repository;
 
@@ -34,7 +35,8 @@ public class SeriesRepository {
         return repository.save(SeriesMysql.of(seriesModel,uuid)).toModel();
     }
 
-    public void deleteSeries(long id){
-        repository.deleteById(id);
+    @Transactional
+    public void deleteSeries(UUID id){
+        repository.deleteByPublicId(id);
     }
 }

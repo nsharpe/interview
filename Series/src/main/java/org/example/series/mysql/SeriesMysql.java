@@ -23,7 +23,9 @@ import org.example.series.SeriesUpdateModel;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import static org.modelmapper.convention.MatchingStrategies.STRICT;
@@ -42,6 +44,14 @@ public class SeriesMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
     static{
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+        MODEL_MAPPER.addMappings(
+
+        new PropertyMap<SeriesMysql, SeriesModel>() {
+            @Override
+            protected void configure() {
+                map(source.getPublicId(),destination.getId());
+            }
+        });
     }
 
     // This id is intended to reduce join cost
@@ -55,6 +65,12 @@ public class SeriesMysql {
 
     @Column(unique = true)
     private String title;
+
+    @Column(nullable = false)
+    private Locale locale;
+
+    @Column
+    private String description;
 
     @Embedded
     private MysqlTimeStamp timeStamp;
@@ -72,7 +88,10 @@ public class SeriesMysql {
 
     @Transient
     public SeriesModel toModel(){
-        return MODEL_MAPPER.map(this,SeriesModel.class);
+        SeriesModel seriesModel = MODEL_MAPPER.map(this,SeriesModel.class);
+        seriesModel.setCreationTimestamp(timeStamp.getCreationTimestamp());
+        seriesModel.setLastUpdate(timeStamp.getLastUpdatedDate());
+        return seriesModel;
     }
 
     public static SeriesMysql of(SeriesCreateModel seriesCreateModel){
