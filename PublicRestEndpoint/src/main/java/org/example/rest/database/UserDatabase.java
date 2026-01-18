@@ -25,7 +25,7 @@ public class UserDatabase implements UserRepository {
     @Cacheable(value = "users",key = "#id")
     public UserModel getUser(long id) {
         return  mysqlRepository.findById(id)
-                .orElseThrow( () -> new NotFoundException("User " + id +" not found"))
+                .orElseThrow( () -> new NotFoundException("user",id) )
                 .toModel();
     }
 
@@ -33,7 +33,7 @@ public class UserDatabase implements UserRepository {
     @Cacheable(value = "users",key = "#publicId")
     public UserModel getUser(UUID publicId) {
         return  mysqlRepository.findByPublicId(publicId)
-                .orElseThrow( () -> new NotFoundException("User " + publicId +" not found"))
+                .orElseThrow( () -> new NotFoundException("user", publicId))
                 .toModel();
     }
 

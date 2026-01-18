@@ -1,7 +1,11 @@
-package org.example.mysql.database;
+package org.example.series.mysql;
 
-import org.example.mysql.schema.SeriesMysql;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public interface SeriesMysqlRepository extends CrudRepository<SeriesMysql, Long> {
+
+    Optional<SeriesMysql> findByPublicId(UUID id);
 }

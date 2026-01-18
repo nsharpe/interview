@@ -1,24 +1,29 @@
-package org.example.mysql.schema;
+package org.example.series.mysql;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.example.mysql.MysqlSoftDelete;
+import org.example.mysql.MysqlTimeStamp;
+import org.example.series.SeriesCreateModel;
+import org.example.series.SeriesModel;
+import org.example.series.SeriesUpdateModel;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.modelmapper.convention.MatchingStrategies.STRICT;
@@ -51,19 +56,32 @@ public class SeriesMysql {
     @Column(unique = true)
     private String title;
 
-    @CreationTimestamp
-    @Column(name="creation_timestamp",
-            updatable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime creationTimestamp;
+    @Embedded
+    private MysqlTimeStamp timeStamp;
 
-    @Column(name="deletion_timestamp")
-    private LocalDateTime deletionTimestamp;
+    @Embedded
+    private MysqlSoftDelete delete;
 
     @PrePersist
     public void generatePublicUid() {
         if (this.publicId == null) {
             this.publicId = UUID.randomUUID(); // Generate only if not already set
         }
+    }
+
+
+    @Transient
+    public SeriesModel toModel(){
+        return MODEL_MAPPER.map(this,SeriesModel.class);
+    }
+
+    public static SeriesMysql of(SeriesCreateModel seriesCreateModel){
+        return MODEL_MAPPER.map(seriesCreateModel,SeriesMysql.class);
+    }
+
+    public static SeriesMysql of(SeriesUpdateModel seriesUpdateModel, UUID id){
+        SeriesMysql toReturn = MODEL_MAPPER.map(seriesUpdateModel,SeriesMysql.class);
+        toReturn.setPublicId(id);
+        return toReturn;
     }
 }

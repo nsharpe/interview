@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Interview"
+rootProject.name = "MediaPlayer"
 
 include("Core")
 include("PublicRestEndpoint")
@@ -31,3 +31,4 @@ include("MediaManagement")
 include("Users")
 include("SpringPod")
 include("SpringWeb")
+include("Series")

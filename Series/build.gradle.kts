@@ -2,6 +2,8 @@ plugins {
     `java-library`
 }
 
+group = "org.example.tvseries"
+
 tasks.bootJar{
     enabled = false
 }
@@ -11,9 +13,6 @@ tasks.bootRun{
 }
 
 dependencies {
-    api("org.springframework.boot:spring-boot-starter-data-jpa")
-
     api(project(":Core"))
-
-    runtimeOnly("com.mysql:mysql-connector-j")
+    api(project(":MySqlDriver"))
 }

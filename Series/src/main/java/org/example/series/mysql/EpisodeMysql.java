@@ -1,7 +1,8 @@
-package org.example.mysql.schema;
+package org.example.series.mysql;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,13 +16,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.example.mysql.MysqlSoftDelete;
+import org.example.mysql.MysqlTimeStamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.modelmapper.convention.MatchingStrategies.STRICT;
@@ -60,14 +61,11 @@ public class EpisodeMysql {
     @JoinColumn(name = "series_id")
     private SeriesMysql series;
 
-    @CreationTimestamp
-    @Column(name="creation_timestamp",
-            updatable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime creationTimestamp;
+    @Embedded
+    private MysqlTimeStamp timeStamp;
 
-    @Column(name="deletion_timestamp")
-    private LocalDateTime deletionTimestamp;
+    @Embedded
+    private MysqlSoftDelete delete;
 
     @PrePersist
     public void generatePublicUid() {

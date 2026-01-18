@@ -4,6 +4,14 @@ plugins{
 
 group = "org.example.web"
 
+tasks.bootJar{
+    enabled = false
+}
+
+tasks.bootRun{
+    enabled = false
+}
+
 dependencies {
     api(project(":SpringPod"))
     api(project(":Core"))

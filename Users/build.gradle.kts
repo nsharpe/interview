@@ -3,7 +3,14 @@ plugins {
 }
 
 group = "org.example.user"
-version = "1.0-SNAPSHOT"
+
+tasks.bootJar{
+    enabled = false
+}
+
+tasks.bootRun{
+    enabled = false
+}
 
 dependencies {
     implementation(project(":Core"))

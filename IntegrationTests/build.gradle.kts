@@ -15,8 +15,6 @@ dependencies {
     implementation(project(":Core"))
     implementation(project(":Users"))
 
-    implementation("org.springframework.boot:spring-boot-starter")
-
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("com.mysql:mysql-connector-j")
 

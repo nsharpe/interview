@@ -1,5 +1,9 @@
 group = "org.example.public.rest"
 
+tasks.bootBuildImage {
+    imageName = "media-player-public-rest-endpoint"
+}
+
 dependencies {
     implementation(project(":SpringWeb"))
     implementation(project(":Users"))
