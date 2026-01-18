@@ -6,6 +6,10 @@ tasks.bootJar {
     enabled = false
 }
 
+tasks.test{
+    dependsOn(":PublicRestEndpoint:bootJar")
+}
+
 val testcontainersVersion = "1.21.4"
 
 dependencies {

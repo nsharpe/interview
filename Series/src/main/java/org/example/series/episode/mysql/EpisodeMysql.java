@@ -1,4 +1,4 @@
-package org.example.series.mysql;
+package org.example.series.episode.mysql;
 
 
 import jakarta.persistence.Column;
@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.mysql.MysqlSoftDelete;
 import org.example.mysql.MysqlTimeStamp;
+import org.example.series.mysql.SeriesMysql;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;

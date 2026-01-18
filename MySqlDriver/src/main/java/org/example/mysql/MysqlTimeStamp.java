@@ -10,7 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -24,9 +24,9 @@ public class MysqlTimeStamp {
     @Column(name="creation_timestamp",
             updatable = false,
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime creationTimestamp;
+    private OffsetDateTime creationTimestamp;
 
     @UpdateTimestamp
     @Column(name = "last_updated_date")
-    private LocalDateTime lastUpdatedDate;
+    private OffsetDateTime lastUpdatedDate;
 }

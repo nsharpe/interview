@@ -5,7 +5,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.TimeTestUtil;
-import org.example.test.util.TestApplications;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,20 +26,19 @@ public class TestUsersIntegration extends TestContainers {
     @BeforeAll
     public static void beforeAll() {
         MYSQL_CONTAINER.start();
-         TestApplications.publicRest(MYSQL_CONTAINER.getMappedPort(3306))
-                 .properties("")
-                 .run();
+        PUBLIC_REST_CONTAINER.start();
     }
 
     @AfterAll
     public static void afterAll() {
         MYSQL_CONTAINER.stop();
+        PUBLIC_REST_CONTAINER.stop();
     }
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
-        RestAssured.baseURI = "http://localhost:8080";
+        RestAssured.baseURI = "http://localhost:"+PUBLIC_REST_CONTAINER.getMappedPort(8080);
     }
 
     @Test
@@ -78,8 +76,10 @@ public class TestUsersIntegration extends TestContainers {
                 .extract()
                 .response();
 
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("creationTimestamp")));
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("lastUpdate")));
+        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("creationTimestamp")),
+                "creationTimestamp="+getBody.jsonPath().get("creationTimestamp"));
+        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("lastUpdate")),
+                "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete user
         given()

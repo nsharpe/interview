@@ -1,4 +1,4 @@
-package org.example.series;
+package org.example.series.episode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

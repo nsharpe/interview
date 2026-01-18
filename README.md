@@ -41,7 +41,7 @@ You can run the application two ways.  One with h2 as the database, and secondar
 ### Run with H2
 H2 environments are an in memory database.  They are generally helpful with testing where data persistance is not an issue.
 ```
-./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=memory_db'
+./gradlew clean publicRestEndpoint:bootRun --args='--spring.profiles.active=memory_db'
 ```
 
 
@@ -60,7 +60,7 @@ This will run local instance of databases and other technologies on your machine
 Once Docker Compose is up and running run
 
 ```
-./gradlew clean restEndpoint:bootRun --args='--spring.profiles.active=local'
+./gradlew clean publicRestEndpoint:bootRun --args='--spring.profiles.active=local'
 ```
 
 in your terminal

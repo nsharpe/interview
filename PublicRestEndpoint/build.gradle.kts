@@ -1,7 +1,11 @@
 group = "org.example.public.rest"
 
 tasks.bootBuildImage {
-    imageName = "media-player-public-rest-endpoint"
+    imageName.set("media-player/public-rest-endpoint:test")
+}
+
+tasks.bootJar {
+    archiveFileName = "public-rest-endpoint-app.jar"
 }
 
 dependencies {

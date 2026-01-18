@@ -19,12 +19,10 @@ import org.example.mysql.MysqlSoftDelete;
 import org.example.mysql.MysqlTimeStamp;
 import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.modelmapper.convention.MatchingStrategies.STRICT;
