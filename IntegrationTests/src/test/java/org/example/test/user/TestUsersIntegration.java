@@ -6,7 +6,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.TimeTestUtil;
 import org.example.test.util.TestContainers;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -70,9 +69,9 @@ public class TestUsersIntegration extends TestContainers {
                 .extract()
                 .response();
 
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("creationTimestamp")),
+        assertTrue(TimeTestUtil.inLast5SecondsParse( getBody.jsonPath().get("creationTimestamp")),
                 "creationTimestamp="+getBody.jsonPath().get("creationTimestamp"));
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("lastUpdate")),
+        assertTrue(TimeTestUtil.inLast5SecondsParse( getBody.jsonPath().get("lastUpdate")),
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete user

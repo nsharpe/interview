@@ -20,6 +20,9 @@ dependencies {
 
     api("org.springframework.boot:spring-boot-starter")
 
+    api("org.springframework.retry:spring-retry")
+    api("org.springframework:spring-aspects")
+
     api("com.fasterxml.jackson.core:jackson-databind:2.20.1")
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1")
 }

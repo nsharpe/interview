@@ -13,6 +13,6 @@ tasks.bootRun{
 }
 
 dependencies {
-    implementation(project(":Core"))
+    api(project(":Core"))
     api(project(":MySqlDriver"))
 }

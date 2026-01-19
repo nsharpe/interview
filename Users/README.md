@@ -1,7 +1,7 @@
 # Users
 
 ## Purpose
-Provides all information required 
+Provides all information required for identifying any subscriber, administrator etc.
 
 ### FIXME
 There should eventually be two conserns, `users` and `authentication`. As development on this module occurs we will need to consider spliting the module into two.

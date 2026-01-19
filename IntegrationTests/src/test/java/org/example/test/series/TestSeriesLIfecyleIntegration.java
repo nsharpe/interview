@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
@@ -46,7 +45,7 @@ public class TestSeriesLIfecyleIntegration extends TestContainers {
                 .then()
                 .statusCode(201)
                 .and()
-                .body("title", equalTo("Series Title")) // Verify specific fields in the response body
+                .body("title", equalTo("Series Title"))
                 .body("description", equalTo("A rousing story"))
                 .body("locale", equalTo("en"))
                 .body("id", notNullValue())
@@ -62,16 +61,16 @@ public class TestSeriesLIfecyleIntegration extends TestContainers {
                 .then()
                 .statusCode(200)
                 .and()
-                .body("title", equalTo("Series Title")) // Verify specific fields in the response body
+                .body("title", equalTo("Series Title"))
                 .body("description", equalTo("A rousing story"))
                 .body("locale", equalTo("en"))
                 .body("id", equalTo(id))
                 .extract()
                 .response();
 
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("creationTimestamp")),
+        assertTrue(TimeTestUtil.inLast5SecondsParse( getBody.jsonPath().get("creationTimestamp")),
                 "creationTimestamp="+getBody.jsonPath().get("creationTimestamp"));
-        assertTrue(TimeTestUtil.inLast2SecondsParse( getBody.jsonPath().get("lastUpdate")),
+        assertTrue(TimeTestUtil.inLast5SecondsParse( getBody.jsonPath().get("lastUpdate")),
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete series

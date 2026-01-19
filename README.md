@@ -2,14 +2,20 @@
 
 The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
-* Provides examples of monorepo architecture for small/medium sized project 
-* Provide example of integration tests with separate executables each living in it's own submodule
+* Provides examples of monorepo architecture for small/medium sized project
+* Demonstrate module setup to allow for parallel development between multiple developers in a single repo
+* Provide example of integration tests with separate executables each living in it's own submodule. See [IntegrationTests](IntegrationTests/README.md)
 * Demonstrate basic knowledge in a variety of technologies and frameworks
 * Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
 
-This environment does not cover
+This environment does not cover the following as these are tasks that can be worked in parallel and under normal circumstances would be given to another developer to perform
 * Deployment best practices
+* Indexes in mysql
+* Database Migrations
+* Optimal algorithms for some operations
+* Authentication
+* Debug Ports on test containers
 
 Time permitting the above should be addressed.
 
@@ -17,8 +23,8 @@ Time permitting the above should be addressed.
 This is a mock application for a netflix like company.
 
 This is a monorepo with several executables required to do the following
-* Manage Users
-* Manage TvSeries/movies (Does not actually store media files as part of this demo)
+* Manage Users.  See [Users](Users/README.md)
+* Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](Series/README.md) for definitions
 * Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
 
 ## Assumptions
@@ -33,6 +39,10 @@ You have jdk 21+ installed
 Docker compose needs to be installed on your machine for local integration tests. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
 
 In otherwords, if running against a local mysql, cassandra, or other database/tool, you will need the above installed
+
+## IDE Setup
+
+It is recomended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that has not been setup yet. 
 
 ## Running the application
 
