@@ -56,6 +56,7 @@ public class SeasonMysql {
                     @Override
                     protected void configure() {
                         map(source.getPublicId(),destination.getId());
+                        map(source.getId(), destination.getInternalId());
                     }
                 });
     }

@@ -1,6 +1,7 @@
 package org.example.series.season;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,9 @@ public class SeasonModel extends SeasonBaseModel{
 
     private UUID id;
     private UUID seriesId;
+
+    @JsonIgnore
+    private long internalId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")

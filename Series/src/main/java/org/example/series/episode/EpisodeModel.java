@@ -1,25 +1,30 @@
 package org.example.series.episode;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EpisodeModel {
+public class EpisodeModel extends EpisodeBaseModel {
 
-    private UUID publicId;
-    private String title;
-    private Duration length;
-    private int season;
-    private int episode;
-    private UUID seriesPublicId;
+    private UUID id;
+    private UUID season;
+    private UUID series;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private OffsetDateTime creationTimestamp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private OffsetDateTime lastUpdate;
 }
