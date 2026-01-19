@@ -29,6 +29,7 @@ import org.example.series.season.SeasonUpdateModel;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -49,6 +50,14 @@ public class SeasonMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
     static{
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+        MODEL_MAPPER.addMappings(
+
+                new PropertyMap<SeasonMysql, SeasonModel>() {
+                    @Override
+                    protected void configure() {
+                        map(source.getPublicId(),destination.getId());
+                    }
+                });
     }
 
     // This id is intended to reduce join cost
@@ -62,7 +71,7 @@ public class SeasonMysql {
 
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+    @Column(name="season_order", nullable = false)
     private int order;
 
     @ManyToOne
@@ -85,6 +94,11 @@ public class SeasonMysql {
     @Transient
     public SeasonModel toModel(){
         SeasonModel seasonModel = MODEL_MAPPER.map(this,SeasonModel.class);
+
+        if(series != null){
+            seasonModel.setSeriesId(series.getPublicId());
+        }
+
         seasonModel.setCreationTimestamp(timeStamp.getCreationTimestamp());
         seasonModel.setLastUpdate(timeStamp.getLastUpdatedDate());
         return seasonModel;

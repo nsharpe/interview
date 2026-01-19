@@ -20,7 +20,6 @@ public abstract class SeasonBaseModel implements Comparable<SeasonBaseModel>, Se
 
     public static final Comparator<SeasonBaseModel> COMPARATOR = Comparator.nullsFirst(Comparator.comparingInt(SeasonBaseModel::getOrder));
 
-    private UUID seriesId;
     private int order;
     private String title;
 

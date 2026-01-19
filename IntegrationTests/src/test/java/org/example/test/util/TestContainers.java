@@ -44,6 +44,7 @@ public abstract class TestContainers {
                 .withEnv("SERVER_ADDRESS", "0.0.0.0")
                 .withEnv("SPRING_PROFILE", "integration")
                 .withEnv("MYSQL_HOST","mysql-db")
+                .withEnv("SPRING_JPA_SHOW_SQL","true")
                 .withNetwork(NETWORK)
                 .withEnv("MANAGEMENT_SERVER_ADDRESS", "0.0.0.0")
                 .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Docker-Build")))

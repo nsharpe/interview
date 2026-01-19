@@ -20,6 +20,9 @@ dependencies {
     implementation(project(":Core"))
     implementation(project(":Users"))
 
+    // Source: https://mvnrepository.com/artifact/net.datafaker/datafaker
+    implementation("net.datafaker:datafaker:2.5.3")
+
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("com.mysql:mysql-connector-j")
 

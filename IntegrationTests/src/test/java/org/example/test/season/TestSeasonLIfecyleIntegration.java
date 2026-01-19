@@ -1,4 +1,4 @@
-package org.example.test.user;
+package org.example.test.season;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
@@ -8,64 +8,75 @@ import org.example.integration.util.TimeTestUtil;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
+import static org.example.integration.generate.PostPayloadGenerator.createSeasonPojo;
+import static org.example.integration.generate.PostPayloadGenerator.createSeriesPojo;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestUsersIntegration extends TestContainers {
+public class TestSeasonLIfecyleIntegration extends TestContainers {
 
     @BeforeAll
     public static void beforeAll() {
         MYSQL_CONTAINER.start();
-        PUBLIC_REST_CONTAINER.start();
+        MEDIA_MANAGEMENT_CONTAINER.start();
     }
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
-        RestAssured.baseURI = "http://localhost:"+PUBLIC_REST_CONTAINER.getMappedPort(8080);
+        RestAssured.baseURI = "http://localhost:"+MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
     }
 
     @Test
-    void testUserLifecycle() throws Exception {
-        String body = MAPPER.writeValueAsString(createUserPojo());
+    void testSeasonLifecycle() throws Exception {
+        String body = MAPPER.writeValueAsString(createSeriesPojo());
 
-        // create user
+        // create series
         JsonPath jsonPath = given()
                 .header("Content-type", "application/json")
                 .body(body)
-                .when().post("/user")
+                .when().post("/series")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .jsonPath();
+
+        String seriesId = jsonPath.get("id");
+
+        body = MAPPER.writeValueAsString(createSeasonPojo("Season Title",1));
+
+        // create series
+        jsonPath = given()
+                .header("Content-type", "application/json")
+                .body(body)
+                .when().post("/series/{seriesId}/season",seriesId)
                 .then()
                 .statusCode(201)
                 .and()
-                .body("firstName", equalTo("John")) // Verify specific fields in the response body
-                .body("lastName", equalTo("Smith"))
-                .body("email", equalTo("john.smith@test.com"))
+                .body("title", equalTo("Season Title"))
+                .body("order", equalTo(1))
                 .body("id", notNullValue())
                 .extract()
                 .body()
                 .jsonPath();
 
-        int id = jsonPath.get("id");
+        String seasonId = jsonPath.get("id");
 
-        // get user
+        // get series
         Response getBody = given()
-                .when().get("/user/{id}", id)
+                .when().get("/series/{seriesId}/season/{seasonId}", seriesId,seasonId)
                 .then()
                 .statusCode(200)
                 .and()
-                .body("firstName", equalTo("John")) // Verify specific fields in the response body
-                .body("lastName", equalTo("Smith"))
-                .body("email", equalTo("john.smith@test.com"))
-                .body("id", equalTo(id))
+                .body("title", equalTo("Season Title"))
+                .body("order", equalTo(1))
+                .body("id", equalTo(seasonId))
                 .extract()
                 .response();
 
@@ -74,25 +85,15 @@ public class TestUsersIntegration extends TestContainers {
         assertTrue(TimeTestUtil.inLast5SecondsParse( getBody.jsonPath().get("lastUpdate")),
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
-        // delete user
+        // delete series
         given()
-                .when().delete("/user/{id}", id)
+                .when().delete("/series/{id}/season/{seasonId}", seriesId, seasonId)
                 .then()
                 .statusCode(204);
 
         given()
-                .when().get("/user/{id}", id)
+                .when().get("/series/{id}/season/{seasonId}", seriesId, seasonId)
                 .then()
                 .statusCode(404);
-    }
-
-    private static Map<String,Object> createUserPojo(){
-        Map<String,Object> userPojo = new HashMap<>();
-
-        userPojo.put("firstName","John");
-        userPojo.put("lastName","Smith");
-        userPojo.put("email","john.smith@test.com");
-
-        return userPojo;
     }
 }

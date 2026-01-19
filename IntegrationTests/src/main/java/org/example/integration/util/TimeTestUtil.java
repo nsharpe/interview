@@ -1,4 +1,4 @@
-package org.example.integration;
+package org.example.integration.util;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;

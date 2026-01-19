@@ -4,16 +4,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.example.integration.TimeTestUtil;
+import org.example.integration.util.TimeTestUtil;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
+import static org.example.integration.generate.PostPayloadGenerator.createSeriesPojo;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -35,7 +33,7 @@ public class TestSeriesLIfecyleIntegration extends TestContainers {
 
     @Test
     void testseriesLifecycle() throws Exception {
-        String body = MAPPER.writeValueAsString(createSeriesPojo());
+        String body = MAPPER.writeValueAsString(createSeriesPojo("Series Title"));
 
         // create series
         JsonPath jsonPath = given()
@@ -83,15 +81,5 @@ public class TestSeriesLIfecyleIntegration extends TestContainers {
                 .when().get("/series/{id}", id)
                 .then()
                 .statusCode(404);
-    }
-
-    private static Map<String,Object> createSeriesPojo(){
-        Map<String,Object> seriesPojo = new HashMap<>();
-
-        seriesPojo.put("title","Series Title");
-        seriesPojo.put("description","A rousing story");
-        seriesPojo.put("locale","en");
-
-        return seriesPojo;
     }
 }

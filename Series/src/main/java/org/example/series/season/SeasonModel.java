@@ -21,6 +21,7 @@ public class SeasonModel extends SeasonBaseModel{
     private static final long serialVersionUID = -2195828415521338033L;
 
     private UUID id;
+    private UUID seriesId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
