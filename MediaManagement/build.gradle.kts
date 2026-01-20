@@ -1,3 +1,8 @@
+plugins {
+    id("org.openapi.generator") version "7.14.0"
+    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+}
+
 group = "org.example.media.management"
 
 tasks.bootBuildImage {
@@ -6,6 +11,41 @@ tasks.bootBuildImage {
 
 tasks.bootJar{
     archiveFileName = "media-management-app.jar"
+}
+
+openApi {
+    outputDir.set(file("build"))
+    outputFileName.set("api-spec.json")
+    apiDocsUrl.set("http://localhost:8080/api-docs")
+}
+
+tasks.jar{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.bootJar{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.spotbugsMain{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.compileTestJava{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.forkedSpringBootRun{
+    dependsOn(":SpringWeb:jar")
+    dependsOn(":SpringPod:jar")
+    dependsOn(":Core:jar")
+    dependsOn(":MySqlDriver:jar")
+    dependsOn(":Series:jar")
+    args.add("--spring.profiles.active=openapi")
+}
+
+tasks.named("generateOpenApiDocs") {
+    // This ensures the spec is updated whenever the code changes
 }
 
 dependencies {

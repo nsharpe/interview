@@ -1,0 +1,31 @@
+plugins {
+    `java-library`
+}
+
+tasks.bootJar{
+    enabled = false
+}
+
+tasks.bootRun{
+    enabled = false
+}
+
+group = "org.example.test.data"
+
+dependencies {
+
+    api("net.datafaker:datafaker:2.5.3")
+    api(project(":Users"))
+    api(project(":Series"))
+    api(project(":MediaManagementSdk"))
+
+    api("org.springframework.boot:spring-boot-starter-webflux")
+
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

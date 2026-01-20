@@ -1,4 +1,4 @@
-package org.example.test.season;
+package org.example.test.episode;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestSeasonLIfecyleIntegration extends TestContainers {
+public class TestEpisodeLIfecyleIntegration extends TestContainers {
 
     @BeforeAll
     public static void beforeAll() {

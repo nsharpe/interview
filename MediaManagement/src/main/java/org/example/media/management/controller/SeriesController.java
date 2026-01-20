@@ -39,7 +39,7 @@ public class SeriesController {
                                     schema = @Schema(implementation = SeriesModel.class))),
                     @ApiResponse(responseCode = "404", description = "Series not found")})
     @GetMapping("/series/{id}")
-    public @ResponseBody SeriesModel getSeries(@PathVariable("id")UUID id){
+    public @ResponseBody SeriesModel get(@PathVariable("id")UUID id){
         return seriesService.getSeries(id);
     }
 
@@ -51,7 +51,7 @@ public class SeriesController {
                                     schema = @Schema(implementation = SeriesCreateModel.class)))})
     @PostMapping("/series")
     @ResponseStatus(HttpStatus.CREATED)
-    public SeriesModel getSeries(@RequestBody @Valid SeriesCreateModel seriesModel){
+    public SeriesModel create(@RequestBody @Valid SeriesCreateModel seriesModel){
         return seriesService.createSeries(seriesModel);
     }
 
@@ -73,7 +73,7 @@ public class SeriesController {
                     @ApiResponse(responseCode = "204", description = "Series deleted")})
     @DeleteMapping("/series/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id")UUID id){
+    public void delete(@PathVariable("id")UUID id){
         seriesService.deleteSeries(id);
     }
 }

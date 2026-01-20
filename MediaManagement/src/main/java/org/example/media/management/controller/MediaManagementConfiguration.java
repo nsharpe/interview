@@ -1,6 +1,8 @@
 package org.example.media.management.controller;
 
 import org.example.series.SeriesService;
+import org.example.series.episode.EpisodeService;
+import org.example.series.episode.mysql.EpisodeMysqlRepository;
 import org.example.series.mysql.SeriesMysqlRepository;
 import org.example.series.season.SeasonService;
 import org.example.series.season.mysql.SeasonMysqlRepository;
@@ -24,5 +26,10 @@ public class MediaManagementConfiguration
     @Bean
     public SeasonService seasonService(SeasonMysqlRepository repository, SeriesMysqlRepository seriesRepository){
         return new SeasonService(repository,seriesRepository);
+    }
+
+    @Bean
+    public EpisodeService episodeService(EpisodeMysqlRepository repository, SeasonService seasonService){
+        return new EpisodeService(seasonService,repository);
     }
 }

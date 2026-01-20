@@ -1,4 +1,4 @@
-package org.example.integration.util;
+package org.example.test.data;
 
 import net.datafaker.Faker;
 

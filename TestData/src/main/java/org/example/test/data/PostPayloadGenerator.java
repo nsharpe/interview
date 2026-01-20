@@ -1,9 +1,9 @@
-package org.example.integration.generate;
+package org.example.test.data;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.example.integration.util.TestUtil.FAKER;
+import static org.example.test.data.TestUtil.FAKER;
 
 public class PostPayloadGenerator {
 

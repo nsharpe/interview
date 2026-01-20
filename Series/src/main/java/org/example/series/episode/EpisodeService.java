@@ -63,7 +63,8 @@ public class EpisodeService {
     }
 
     @Transactional
-    public void delete(UUID id) {
+    public void delete(UUID id, UUID seasonId, UUID seriesId) {
+        seasonService.getSeason(seasonId,seriesId);
         repository.deleteByPublicId(id);
     }
 }

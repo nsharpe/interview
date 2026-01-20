@@ -1,7 +1,11 @@
+plugins {
+    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+}
+
 group = "org.example.public.rest"
 
 tasks.bootBuildImage {
-    imageName.set("media-player/public-rest-endpoint:test")
+    imageName = "media-player/public-rest-endpoint:test"
 }
 
 tasks.bootJar {

@@ -43,7 +43,7 @@ public class SeasonController {
                                     schema = @Schema(implementation = SeasonModel.class))),
                     @ApiResponse(responseCode = "404", description = "season not found")})
     @GetMapping("/series/{seriesId}/season/{id}")
-    public @ResponseBody SeasonModel getseason(@PathVariable("id") UUID id,
+    public @ResponseBody SeasonModel get(@PathVariable("id") UUID id,
                                                @PathVariable("seriesId") UUID seriesId){
         SeasonModel seasonModel = seasonService.getSeason(id);
         if(seriesId.equals(  seasonModel.getSeriesId())) {
@@ -61,7 +61,7 @@ public class SeasonController {
                                     schema = @Schema(implementation = SeasonCreateModel.class)))})
     @PostMapping("/series/{seriesId}/season")
     @ResponseStatus(HttpStatus.CREATED)
-    public SeasonModel createSeason(@RequestBody @Valid SeasonCreateModel seasonCreateModel,
+    public SeasonModel create(@RequestBody @Valid SeasonCreateModel seasonCreateModel,
                                  @PathVariable("seriesId") UUID seriesId){
         return seasonService.create(seasonCreateModel,seriesId);
     }
@@ -86,7 +86,7 @@ public class SeasonController {
                     @ApiResponse(responseCode = "204", description = "Season deleted")})
     @DeleteMapping("/series/{seriesId}/season/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id")UUID id,
+    public void delete(@PathVariable("id")UUID id,
                            @PathVariable("seriesId") UUID seriesId){
         seasonService.deleteSeason(id);
     }

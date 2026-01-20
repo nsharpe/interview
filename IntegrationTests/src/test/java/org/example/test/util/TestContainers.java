@@ -32,10 +32,12 @@ public abstract class TestContainers {
             .waitingFor(Wait.forLogMessage(".*ready for connections.*port: 3306.*\\n", 1));
 
     @Container
-    protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE);
+    protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE)
+            .withNetworkAliases("public-rest-service");
 
     @Container
-    protected static final GenericContainer<?> MEDIA_MANAGEMENT_CONTAINER = springWebContainer(TestImages.MEDIA_MANAGEMENT_IMAGE);
+    protected static final GenericContainer<?> MEDIA_MANAGEMENT_CONTAINER = springWebContainer(TestImages.MEDIA_MANAGEMENT_IMAGE)
+            .withNetworkAliases("media-management");
 
     private static GenericContainer<?> springWebContainer(ImageFromDockerfile imageFromDockerfile){
         return new GenericContainer<>(
