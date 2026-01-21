@@ -24,6 +24,7 @@ public class SeasonService {
     }
 
     public SeasonModel getSeason(UUID publicId){
+
         return seasonMysqlRepository.findByPublicId(publicId)
                 .map(SeasonMysql::toModel)
                 .orElseThrow(()->new NotFoundException("series",publicId));

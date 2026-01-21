@@ -16,9 +16,9 @@ tasks.bootRun {
 group = "org.example.media.management.sdk"
 
 dependencies {
-    implementation(project(":Core"))
+    api(project(":Core"))
 
-    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+    api("org.openapitools:jackson-databind-nullable:0.2.6")
 
     // Dependencies required by the generated SDK code
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
@@ -49,14 +49,16 @@ openApiGenerate {
     inputSpec.set(specFile.asFile.absolutePath)
     outputDir.set(generatedSourcesDir.map { it.asFile.absolutePath })
 
-    apiPackage.set("com.example.media.management.sdk.api")
-    modelPackage.set("com.example.media.management.sdk.models")
+    apiPackage.set("org.example.media.management.sdk.api")
+    modelPackage.set("org.example.media.management.sdk.models")
+    invokerPackage.set("org.example.media.management.sdk.invoker")
 
     configOptions.set(mapOf(
         "dateLibrary" to "java8",
         "library" to "native",
         "serializationLibrary" to "jackson",
-        "useJakartaEe" to "true"
+        "useJakartaEe" to "true",
+        "lombok" to "true"
     ))
 }
 

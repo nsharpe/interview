@@ -57,6 +57,8 @@ public class EpisodeMysql {
                     @Override
                     protected void configure() {
                         map(source.getPublicId(),destination.getId());
+                        map(source.getSeason().getPublicId(),destination.getSeason());
+                        map(source.getSeason().getSeries().getPublicId(),destination.getSeries());
                     }
                 });
     }

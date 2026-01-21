@@ -6,6 +6,10 @@ tasks.bootJar {
     enabled = false
 }
 
+tasks.assemble{
+    dependsOn(":TestData:jar")
+}
+
 tasks.test{
     dependsOn(":PublicRestEndpoint:bootJar")
     dependsOn(":MediaManagement:bootJar")

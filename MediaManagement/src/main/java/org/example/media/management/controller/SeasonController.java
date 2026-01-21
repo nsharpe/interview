@@ -5,9 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.example.exceptions.NotFoundException;
 import org.example.series.season.SeasonCreateModel;
 import org.example.series.season.SeasonModel;
@@ -44,7 +41,7 @@ public class SeasonController {
                     @ApiResponse(responseCode = "404", description = "season not found")})
     @GetMapping("/series/{seriesId}/season/{id}")
     public @ResponseBody SeasonModel get(@PathVariable("id") UUID id,
-                                               @PathVariable("seriesId") UUID seriesId){
+                                         @PathVariable("seriesId") UUID seriesId){
         SeasonModel seasonModel = seasonService.getSeason(id);
         if(seriesId.equals(  seasonModel.getSeriesId())) {
             return seasonModel;

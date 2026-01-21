@@ -9,5 +9,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
+@AllArgsConstructor
 public class EpisodeCreateModel extends EpisodeBaseModel {
 }

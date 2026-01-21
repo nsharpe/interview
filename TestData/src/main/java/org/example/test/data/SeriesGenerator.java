@@ -1,14 +1,41 @@
 package org.example.test.data;
 
-import org.springframework.web.reactive.function.client.WebClient;
+import org.example.media.management.sdk.api.SeriesControllerApi;
+import org.example.media.management.sdk.invoker.ApiClient;
+import org.example.media.management.sdk.invoker.ApiException;
+import org.example.media.management.sdk.models.SeriesCreateModel;
+import org.example.media.management.sdk.models.SeriesModel;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-public class SeriesGenerator {
+import java.util.Objects;
 
-    private final WebClient webClient;
+import static org.example.test.data.TestUtil.FAKER;
 
-    public SeriesGenerator(WebClient.Builder webClientBuilder) {
+@Service
+public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel> {
 
-        this.webClient = webClientBuilder
-                .build();
+    private final SeriesControllerApi seriesControllerApi;
+
+    public SeriesGenerator(SeriesControllerApi seriesControllerApi) {
+        this.seriesControllerApi = Objects.requireNonNull(seriesControllerApi);
+    }
+
+    @Override
+    public SeriesModel save(SeriesCreateModel seriesCreateModel){
+        try {
+            return seriesControllerApi.create(seriesCreateModel);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public SeriesCreateModel generateInput(){
+        SeriesCreateModel seriesModel = new SeriesCreateModel();
+        seriesModel.setDescription(FAKER.lorem().paragraph(3));
+        seriesModel.setLocale(FAKER.locality().localeString());
+        seriesModel.setTitle(FAKER.lorem().sentence(2,4));
+        return seriesModel;
     }
 }
