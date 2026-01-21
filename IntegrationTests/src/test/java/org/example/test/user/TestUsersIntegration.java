@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,20 +25,16 @@ import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ComponentScan(basePackages = "org.example.test",excludeFilters = @ComponentScan.Filter(
         type = FilterType.REGEX,
         pattern = "org\\.example\\.media.*"
 ))
 public class TestUsersIntegration extends TestContainers {
 
-    @Autowired
     private UserGenerator userGenerator;
 
-    @Autowired
     private UserControllerApi userControllerApi;
 
     @BeforeAll
@@ -51,17 +45,9 @@ public class TestUsersIntegration extends TestContainers {
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
-        RestAssured.baseURI = "http://localhost:"+PUBLIC_REST_CONTAINER.getMappedPort(8080);
-    }
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        Integer port = PUBLIC_REST_CONTAINER.getMappedPort(8080);
-
-        registry.add("media.management.host", () -> "localhost");
-        registry.add("media.management.port", () -> MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080));
-        registry.add("publicrest.host", () -> "localhost");
-        registry.add("publicrest.port", () -> port);
+        RestAssured.baseURI = "http://localhost:" + PUBLIC_REST_CONTAINER.getMappedPort(8080);
+        userControllerApi = new UserControllerApi(publicRestApiClient());
+        userGenerator = new UserGenerator(userControllerApi);
     }
 
     @Test
@@ -121,7 +107,12 @@ public class TestUsersIntegration extends TestContainers {
         userGenerator.generate();
         UserModel userModel = userGenerator.generate();
 
-        UserModel getUser = userControllerApi.getUser(userModel.getId());
+        assertNotNull(userModel);
+
+        UserModel getUser = userControllerApi.getUser(userModel.getId())
+                .block();
+
+        assertNotNull(userModel);
 
         assertEquals(getUser.getId(),userModel.getId());
     }

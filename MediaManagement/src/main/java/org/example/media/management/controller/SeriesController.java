@@ -46,9 +46,9 @@ public class SeriesController {
     @Operation(summary = "Create a Series",
             responses = {
                     @ApiResponse(description = "The series",
-                            responseCode = "204",
+                            responseCode = "201",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = SeriesCreateModel.class)))})
+                                    schema = @Schema(implementation = SeriesModel.class)))})
     @PostMapping("/series")
     @ResponseStatus(HttpStatus.CREATED)
     public SeriesModel create(@RequestBody @Valid SeriesCreateModel seriesModel){
@@ -58,12 +58,10 @@ public class SeriesController {
     @Operation(summary = "Modify a Series",
             responses = {
                     @ApiResponse(description = "The Series after modification",
-                            responseCode = "204",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SeriesUpdateModel.class))),
                     @ApiResponse(responseCode = "404", description = "Series not found")})
     @PutMapping("/series/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public SeriesModel modify(@PathVariable("id") UUID id, @RequestBody SeriesUpdateModel seriesModel){
         return seriesService.updateSeries( seriesModel, id);
     }

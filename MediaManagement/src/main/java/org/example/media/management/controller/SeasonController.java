@@ -55,7 +55,7 @@ public class SeasonController {
                     @ApiResponse(description = "The season",
                             responseCode = "204",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = SeasonCreateModel.class)))})
+                                    schema = @Schema(implementation = SeasonModel.class)))})
     @PostMapping("/series/{seriesId}/season")
     @ResponseStatus(HttpStatus.CREATED)
     public SeasonModel create(@RequestBody @Valid SeasonCreateModel seasonCreateModel,
@@ -66,12 +66,10 @@ public class SeasonController {
     @Operation(summary = "Modify a season",
             responses = {
                     @ApiResponse(description = "The Season after modification",
-                            responseCode = "204",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = SeasonUpdateModel.class))),
+                                    schema = @Schema(implementation = SeasonModel.class))),
                     @ApiResponse(responseCode = "404", description = "season not found")})
     @PutMapping("/series/{seriesId}/season/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public SeasonModel modify(@PathVariable("id") UUID id,
                               @PathVariable("seriesId") UUID seriesId,
                               @RequestBody SeasonUpdateModel seasonModel){

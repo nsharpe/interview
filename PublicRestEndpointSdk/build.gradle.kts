@@ -18,6 +18,8 @@ group = "org.example.public.rest.sdk"
 dependencies {
     api(project(":Core"))
 
+    api("org.springframework.boot:spring-boot-starter-webflux")
+
     api("org.openapitools:jackson-databind-nullable:0.2.6")
 
     // Dependencies required by the generated SDK code
@@ -55,7 +57,7 @@ openApiGenerate {
 
     configOptions.set(mapOf(
         "dateLibrary" to "java8",
-        "library" to "native",
+        "library" to "webclient",
         "serializationLibrary" to "jackson",
         "useJakartaEe" to "true",
         "lombok" to "true"

@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
+import org.example.media.management.sdk.api.SeriesControllerApi;
 import org.example.test.data.SeriesGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,9 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.lifecycle.Startables;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
@@ -24,32 +22,20 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ComponentScan(basePackages = "org.example.test")
 public class TestSeasonLIfecyleIntegration extends TestContainers {
 
-    @Autowired
     private SeriesGenerator seriesGenerator;
 
     @BeforeAll
     public static void beforeAll() {
-        TestContainers.start();
-    }
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        Integer port = MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
-
-        registry.add("publicrest.port", () -> PUBLIC_REST_CONTAINER.getMappedPort(8080));
-        registry.add("publicrest.host", () -> "localhost");
-        registry.add("media.management.port", () -> port);
-        registry.add("media.management.host", () -> "localhost");
+        start();
     }
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         RestAssured.baseURI = "http://localhost:"+MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
+        seriesGenerator = new SeriesGenerator(new SeriesControllerApi( managementApiClient()));
     }
 
     @Test

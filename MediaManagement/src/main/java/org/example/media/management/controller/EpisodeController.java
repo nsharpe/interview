@@ -60,7 +60,7 @@ public class EpisodeController {
                     @ApiResponse(description = "The episode",
                             responseCode = "204",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = EpisodeCreateModel.class)))})
+                                    schema = @Schema(implementation = EpisodeModel.class)))})
     @PostMapping("/series/{seriesId}/season/{seasonId}/episode")
     @ResponseStatus(HttpStatus.CREATED)
     public EpisodeModel create(@RequestBody @Valid EpisodeCreateModel episodeCreateModel,
@@ -72,12 +72,10 @@ public class EpisodeController {
     @Operation(summary = "Modify a episode",
             responses = {
                     @ApiResponse(description = "The Episode after modification",
-                            responseCode = "204",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = EpisodeUpdateModel.class))),
+                                    schema = @Schema(implementation = EpisodeModel.class))),
                     @ApiResponse(responseCode = "404", description = "episode not found")})
     @PutMapping("/series/{seriesId}/season/{seasonId}/episode/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public EpisodeModel modify(@PathVariable("id") UUID id,
                                @PathVariable("seasonId") UUID seasonId,
                               @PathVariable("seriesId") UUID seriesId,

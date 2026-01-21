@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.media.management.sdk.api.EpisodeControllerApi;
-import org.example.media.management.sdk.invoker.ApiException;
 import org.example.media.management.sdk.models.EpisodeCreateModel;
 import org.example.media.management.sdk.models.EpisodeModel;
 import org.example.media.management.sdk.models.SeasonModel;
@@ -36,11 +35,9 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
 
     @Override
     public EpisodeModel save(EpisodeInput episodeInput){
-        try {
-            return episodeControllerApi.create2(episodeInput.seasonid, episodeInput.seriesId,episodeInput.episodeCreateModel);
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
+
+        return episodeControllerApi.create2(episodeInput.seasonid, episodeInput.seriesId,episodeInput.episodeCreateModel)
+                .block();
     }
 
     @Override

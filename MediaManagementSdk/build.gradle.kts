@@ -17,6 +17,7 @@ group = "org.example.media.management.sdk"
 
 dependencies {
     api(project(":Core"))
+    api("org.springframework.boot:spring-boot-starter-webflux")
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")
 
@@ -55,7 +56,7 @@ openApiGenerate {
 
     configOptions.set(mapOf(
         "dateLibrary" to "java8",
-        "library" to "native",
+        "library" to "webclient",
         "serializationLibrary" to "jackson",
         "useJakartaEe" to "true",
         "lombok" to "true"

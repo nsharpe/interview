@@ -1,6 +1,12 @@
 package org.example.test.util;
 
+import org.example.media.management.sdk.api.SeriesControllerApi;
+import org.example.media.management.sdk.invoker.ApiClient;
+import org.example.test.data.SeriesGenerator;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.Network;
@@ -13,8 +19,9 @@ import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
+import java.util.concurrent.ExecutionException;
 
-@Testcontainers(parallel = true)
+@Testcontainers
 public abstract class TestContainers {
 
     private static final int MYSQL_PORT = 3306;
@@ -29,43 +36,71 @@ public abstract class TestContainers {
             .withExposedPorts(MYSQL_PORT)
             .withNetwork(NETWORK)
             .withNetworkAliases("mysql-db")
-            .withReuse(true)
             .withStartupTimeout(Duration.ofMinutes(1))
-            .waitingFor(Wait.forLogMessage(".*ready for connections.*port: 3306.*\\n", 1));
+            .waitingFor(Wait.forListeningPort())
+            .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Log-mysql")));
 
     @Container
-    protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE)
-            .dependsOn(MYSQL_CONTAINER)
-            .withNetworkAliases("public-rest-service");
+    protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE, "public-rest-service")
+            .dependsOn(MYSQL_CONTAINER);
 
     @Container
-    protected static final GenericContainer<?> MEDIA_MANAGEMENT_CONTAINER = springWebContainer(TestImages.MEDIA_MANAGEMENT_IMAGE)
-            .dependsOn(MYSQL_CONTAINER)
-            .withNetworkAliases("media-management");
+    protected static final GenericContainer<?> MEDIA_MANAGEMENT_CONTAINER = springWebContainer(TestImages.MEDIA_MANAGEMENT_IMAGE, "media-management")
+            .dependsOn(MYSQL_CONTAINER);
 
-    public static void start(){
-        Startables.deepStart(
-                MYSQL_CONTAINER,
-                MEDIA_MANAGEMENT_CONTAINER,
-                PUBLIC_REST_CONTAINER
-        );
+
+    @DynamicPropertySource
+    public static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("publicrest.port", () -> PUBLIC_REST_CONTAINER.getMappedPort(8080));
+        registry.add("publicrest.host", () -> "localhost");
+        registry.add("media.management.port", () -> MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080));
+        registry.add("media.management.host", () -> "localhost");
     }
 
-    private static GenericContainer<?> springWebContainer(ImageFromDockerfile imageFromDockerfile){
+    public static void start() {
+        try {
+            Startables.deepStart(
+                    MYSQL_CONTAINER,
+                    MEDIA_MANAGEMENT_CONTAINER,
+                    PUBLIC_REST_CONTAINER
+            ).get();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static GenericContainer<?> springWebContainer(ImageFromDockerfile imageFromDockerfile, String alias) {
         return new GenericContainer<>(
                 imageFromDockerfile
-        ).withExposedPorts(8080,8081)
-                .withReuse(true)
+        ).withExposedPorts(8080, 8081)
                 .withEnv("SERVER_ADDRESS", "0.0.0.0")
                 .withEnv("SPRING_PROFILE", "integration")
-                .withEnv("MYSQL_HOST","mysql-db")
-                .withEnv("SPRING_JPA_SHOW_SQL","true")
+                .withEnv("MYSQL_HOST", "mysql-db")
+                .withEnv("SPRING_JPA_SHOW_SQL", "true")
                 .withNetwork(NETWORK)
                 .withEnv("MANAGEMENT_SERVER_ADDRESS", "0.0.0.0")
-                .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Docker-Build")))
-                .waitingFor(Wait.forLogMessage(".*Tomcat started on port 808.*\\n", 2))
+                .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Log-" + alias)))
+                .waitingFor(Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
+                .withNetworkAliases(alias)
                 .withStartupTimeout(Duration.ofSeconds(60));
     }
 
+    public ApiClient managementApiClient() {
+
+        return new ApiClient(
+                WebClient.builder()
+                        .build()
+        ).setBasePath("http://localhost:" + MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080));
+    }
+
+    public org.example.publicrest.sdk.invoker.ApiClient publicRestApiClient() {
+
+        return new org.example.publicrest.sdk.invoker.ApiClient(
+                WebClient.builder()
+                        .build()
+        ).setBasePath("http://localhost:" + PUBLIC_REST_CONTAINER.getMappedPort(8080));
+    }
 
 }

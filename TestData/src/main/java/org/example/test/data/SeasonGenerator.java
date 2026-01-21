@@ -1,7 +1,6 @@
 package org.example.test.data;
 
 import org.example.media.management.sdk.api.SeasonControllerApi;
-import org.example.media.management.sdk.invoker.ApiException;
 import org.example.media.management.sdk.models.SeasonCreateModel;
 import org.example.media.management.sdk.models.SeasonModel;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,8 @@ public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,Se
 
     @Override
     public SeasonModel save(SeasonGenerator.SeasonInput seasonCreateModel){
-        try {
-            return seasonControllerApi.create1(seasonCreateModel.seriesId,seasonCreateModel.seasonCreateModel);
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
+        return seasonControllerApi.create1(seasonCreateModel.seriesId,seasonCreateModel.seasonCreateModel)
+                .block();
     }
 
     @Override

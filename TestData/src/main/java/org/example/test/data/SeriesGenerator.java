@@ -1,7 +1,6 @@
 package org.example.test.data;
 
 import org.example.media.management.sdk.api.SeriesControllerApi;
-import org.example.media.management.sdk.invoker.ApiException;
 import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
 import org.springframework.stereotype.Service;
@@ -21,11 +20,8 @@ public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel>
 
     @Override
     public SeriesModel save(SeriesCreateModel seriesCreateModel){
-        try {
-            return seriesControllerApi.create(seriesCreateModel);
-        } catch (ApiException e) {
-            throw new RuntimeException(e.getMessage() + " body="+e.getResponseBody(), e);
-        }
+        return seriesControllerApi.create(seriesCreateModel)
+                .block();
     }
 
     @Override

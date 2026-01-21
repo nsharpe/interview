@@ -61,12 +61,10 @@ public class UserController {
     @Operation(summary = "Modify a User",
             responses = {
                     @ApiResponse(description = "The user after modification",
-                            responseCode = "204",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = UpdateUserModel.class))),
                     @ApiResponse(responseCode = "404", description = "User not found")})
     @PutMapping("/user/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
     public UserModel modify(@PathVariable("id")UUID id, @RequestBody UpdateUserModel userModel){
         return userService.updateUser(id, userModel);
     }

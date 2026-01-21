@@ -18,11 +18,7 @@ tasks.test{
 val testcontainersVersion = "1.21.4"
 
 dependencies {
-    // Project dependencies use the project() function
-    implementation(project(":PublicRestEndpoint"))
-    implementation(project(":MySqlDriver"))
     implementation(project(":Core"))
-    implementation(project(":Users"))
 
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("com.mysql:mysql-connector-j")

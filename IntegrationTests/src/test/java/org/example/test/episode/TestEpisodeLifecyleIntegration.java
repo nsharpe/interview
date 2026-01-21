@@ -14,16 +14,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
-import static org.example.test.data.PostPayloadGenerator.createSeriesPojo;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -45,16 +40,6 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         RestAssured.baseURI = "http://localhost:"+MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
-    }
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        Integer port = MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
-
-        registry.add("publicrest.port", () -> PUBLIC_REST_CONTAINER.getMappedPort(8080));
-        registry.add("publicrest.host", () -> "localhost");
-        registry.add("media.management.port", () -> port);
-        registry.add("media.management.host", () -> "localhost");
     }
 
     @Test

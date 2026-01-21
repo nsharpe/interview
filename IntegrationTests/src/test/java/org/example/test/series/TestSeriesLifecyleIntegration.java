@@ -17,12 +17,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestSeriesLIfecyleIntegration extends TestContainers {
+public class TestSeriesLifecyleIntegration extends TestContainers {
 
     @BeforeAll
     public static void beforeAll() {
-        MYSQL_CONTAINER.start();
-        MEDIA_MANAGEMENT_CONTAINER.start();
+        start();
     }
 
     @BeforeEach

@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.publicrest.sdk.api.UserControllerApi;
-import org.example.publicrest.sdk.invoker.ApiException;
 import org.example.publicrest.sdk.models.CreateUserModel;
 import org.example.publicrest.sdk.models.UserModel;
 import org.springframework.stereotype.Service;
@@ -24,11 +23,8 @@ public class UserGenerator implements Generator<UserGenerator.UserInput, UserMod
 
     @Override
     public UserModel save(UserInput input) {
-        try {
-            return userControllerApi.create(input.createUserModel);
-        } catch (ApiException e) {
-            throw new RuntimeException(e);
-        }
+        return userControllerApi.create(input.createUserModel)
+                .block();
     }
 
     @Override
