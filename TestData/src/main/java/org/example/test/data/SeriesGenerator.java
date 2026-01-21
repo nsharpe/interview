@@ -1,11 +1,9 @@
 package org.example.test.data;
 
 import org.example.media.management.sdk.api.SeriesControllerApi;
-import org.example.media.management.sdk.invoker.ApiClient;
 import org.example.media.management.sdk.invoker.ApiException;
 import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -26,7 +24,7 @@ public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel>
         try {
             return seriesControllerApi.create(seriesCreateModel);
         } catch (ApiException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

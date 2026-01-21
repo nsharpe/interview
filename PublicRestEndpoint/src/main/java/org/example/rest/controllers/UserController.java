@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -39,7 +40,7 @@ public class UserController {
                                     schema = @Schema(implementation = UserModel.class))),
                     @ApiResponse(responseCode = "404", description = "User not found")})
     @GetMapping("/user/{id}")
-    public @ResponseBody UserModel getUser(@PathVariable("id")long id){
+    public @ResponseBody UserModel getUser(@PathVariable("id") UUID id){
         return userService.getUser(id);
     }
 
@@ -53,7 +54,7 @@ public class UserController {
                     @ApiResponse(responseCode = "500", description = "Email already exists")})
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserModel getUser(@RequestBody @Valid CreateUserModel userModel){
+    public UserModel create(@RequestBody @Valid CreateUserModel userModel){
         return userService.createUser(userModel.toUserModel());
     }
 
@@ -66,7 +67,7 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = "User not found")})
     @PutMapping("/user/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserModel modify(@PathVariable("id")long id, @RequestBody UpdateUserModel userModel){
+    public UserModel modify(@PathVariable("id")UUID id, @RequestBody UpdateUserModel userModel){
         return userService.updateUser(id, userModel);
     }
 
@@ -75,7 +76,7 @@ public class UserController {
                     @ApiResponse(responseCode = "204", description = "User deleted")})
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id")int id){
+    public void deleteUser(@PathVariable("id")UUID id){
         userService.deleteUser(id);
     }
 }

@@ -28,6 +28,7 @@ public abstract class TestContainers {
             .withExposedPorts(MYSQL_PORT)
             .withNetwork(NETWORK)
             .withNetworkAliases("mysql-db")
+            .withReuse(true)
             .withStartupTimeout(Duration.ofMinutes(1))
             .waitingFor(Wait.forLogMessage(".*ready for connections.*port: 3306.*\\n", 1));
 
@@ -43,6 +44,7 @@ public abstract class TestContainers {
         return new GenericContainer<>(
                 imageFromDockerfile
         ).withExposedPorts(8080,8081)
+                .withReuse(true)
                 .withEnv("SERVER_ADDRESS", "0.0.0.0")
                 .withEnv("SPRING_PROFILE", "integration")
                 .withEnv("MYSQL_HOST","mysql-db")

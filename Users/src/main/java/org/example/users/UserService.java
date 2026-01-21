@@ -2,18 +2,16 @@ package org.example.users;
 
 import lombok.RequiredArgsConstructor;
 import org.example.exceptions.BadInput;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserModel getUser(long id){
-        if(id <= 0){
-            throw new BadInput("id",
-                    Long.toString(id),
-                    "Id cannot be less then or equal to 0");
-        }
+    public UserModel getUser(UUID id){
         return userRepository.getUser(id);
     }
 
@@ -21,11 +19,12 @@ public class UserService {
         return userRepository.createUser(userModel);
     }
 
-    public UserModel updateUser(long id, UpdateUserModel userModel){
+    public UserModel updateUser(UUID id, UpdateUserModel userModel){
         return userRepository.updateUser(id,userModel);
     }
 
-    public void deleteUser(int id){
+    @Transactional
+    public void deleteUser(UUID id){
         userRepository.deleteUser(id);
     }
 }

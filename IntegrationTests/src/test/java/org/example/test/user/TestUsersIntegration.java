@@ -5,11 +5,20 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
+import org.example.publicrest.sdk.api.UserControllerApi;
+import org.example.publicrest.sdk.models.UserModel;
+import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,20 +27,43 @@ import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ComponentScan(basePackages = "org.example.test",excludeFilters = @ComponentScan.Filter(
+        type = FilterType.REGEX,
+        pattern = "org\\.example\\.media.*"
+))
 public class TestUsersIntegration extends TestContainers {
+
+    @Autowired
+    private UserGenerator userGenerator;
+
+    @Autowired
+    private UserControllerApi userControllerApi;
 
     @BeforeAll
     public static void beforeAll() {
         MYSQL_CONTAINER.start();
         PUBLIC_REST_CONTAINER.start();
+        MEDIA_MANAGEMENT_CONTAINER.start();
     }
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         RestAssured.baseURI = "http://localhost:"+PUBLIC_REST_CONTAINER.getMappedPort(8080);
+    }
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        Integer port = PUBLIC_REST_CONTAINER.getMappedPort(8080);
+
+        registry.add("media.management.host", () -> "localhost");
+        registry.add("media.management.port", () -> MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080));
+        registry.add("publicrest.host", () -> "localhost");
+        registry.add("publicrest.port", () -> port);
     }
 
     @Test
@@ -54,7 +86,7 @@ public class TestUsersIntegration extends TestContainers {
                 .body()
                 .jsonPath();
 
-        int id = jsonPath.get("id");
+        String id = jsonPath.get("id");
 
         // get user
         Response getBody = given()
@@ -84,6 +116,16 @@ public class TestUsersIntegration extends TestContainers {
                 .when().get("/user/{id}", id)
                 .then()
                 .statusCode(404);
+    }
+
+    @Test
+    void testGetWithMoreThanOneEntry()throws  Exception{
+        userGenerator.generate();
+        UserModel userModel = userGenerator.generate();
+
+        UserModel getUser = userControllerApi.getUser(userModel.getId());
+
+        assertEquals(getUser.getId(),userModel.getId());
     }
 
     private static Map<String,Object> createUserPojo(){

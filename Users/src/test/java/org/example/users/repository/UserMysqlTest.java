@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +16,6 @@ class UserMysqlTest {
     void testMapUserModelToDatabaseModel(){
         OffsetDateTime now = OffsetDateTime.now();
         UserModel userModel = UserModel.builder()
-                .id(1L)
                 .email("test@test.com")
                 .firstName("joe")
                 .lastName("smith")
@@ -24,7 +24,6 @@ class UserMysqlTest {
 
         UserMysql userMysql = UserMysql.of(userModel);
 
-        assertEquals(userModel.getId(), userMysql.getId());
         assertEquals(userModel.getEmail(), userMysql.getEmail());
         assertEquals(userModel.getCreationTimestamp(),userMysql.getTimeStamp().getCreationTimestamp());
         assertEquals(userModel.getFirstName(),userMysql.getFirstName());

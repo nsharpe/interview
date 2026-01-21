@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface UserMysqlRepository extends CrudRepository<UserMysql, Long> {
 
     Optional<UserMysql> findByPublicId(UUID publicId);
+
+    void deleteByPublicId(UUID uuid);
 }

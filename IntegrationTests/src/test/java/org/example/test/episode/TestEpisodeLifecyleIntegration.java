@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
@@ -38,6 +39,7 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
     @BeforeAll
     public static void beforeAll() {
         MYSQL_CONTAINER.start();
+        PUBLIC_REST_CONTAINER.start();
         MEDIA_MANAGEMENT_CONTAINER.start();
     }
 
@@ -51,6 +53,8 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
     static void configureProperties(DynamicPropertyRegistry registry) {
         Integer port = MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
 
+        registry.add("publicrest.port", () -> PUBLIC_REST_CONTAINER.getMappedPort(8080));
+        registry.add("publicrest.host", () -> "localhost");
         registry.add("media.management.port", () -> port);
         registry.add("media.management.host", () -> "localhost");
     }

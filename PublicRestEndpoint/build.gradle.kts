@@ -1,4 +1,5 @@
 plugins {
+    id("org.openapi.generator") version "7.14.0"
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
@@ -10,6 +11,43 @@ tasks.bootBuildImage {
 
 tasks.bootJar {
     archiveFileName = "public-rest-endpoint-app.jar"
+}
+
+openApi {
+    outputDir.set(file("build"))
+    outputFileName.set("api-spec.json")
+    apiDocsUrl.set("http://localhost:8080/api-docs")
+}
+
+tasks.jar{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.bootJar{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.spotbugsMain{
+    dependsOn("generateOpenApiDocs")
+}
+
+tasks.compileTestJava{
+    dependsOn("generateOpenApiDocs")
+}
+
+val projectJarPaths = configurations.implementation.map { config ->
+    config.allDependencies
+        .withType<ProjectDependency>()
+        .map { "${it.path}:jar" }
+}
+
+tasks.forkedSpringBootRun{
+    dependsOn(projectJarPaths)
+    args.add("--spring.profiles.active=openapi")
+}
+
+tasks.named("generateOpenApiDocs") {
+    // This ensures the spec is updated whenever the code changes
 }
 
 dependencies {

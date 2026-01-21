@@ -25,17 +25,17 @@ public class MediaManagementConfiguration {
     }
 
     @Bean
-    public SeasonControllerApi seasonControllerApi(ApiClient apiClient){
+    public SeasonControllerApi seasonControllerApi(@Qualifier("mediaMangementApiClient") ApiClient apiClient){
         return new SeasonControllerApi(apiClient);
     }
 
     @Bean
-    public SeriesControllerApi seriesControllerApi(ApiClient apiClient){
+    public SeriesControllerApi seriesControllerApi(@Qualifier("mediaMangementApiClient") ApiClient apiClient){
         return new SeriesControllerApi(apiClient);
     }
 
     @Bean
-    public EpisodeControllerApi episodeControllerApi(ApiClient apiClient){
+    public EpisodeControllerApi episodeControllerApi(@Qualifier("mediaMangementApiClient") ApiClient apiClient){
         return new EpisodeControllerApi(apiClient);
     }
 }

@@ -34,12 +34,15 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
     public static void beforeAll() {
         MYSQL_CONTAINER.start();
         MEDIA_MANAGEMENT_CONTAINER.start();
+        PUBLIC_REST_CONTAINER.start();
     }
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         Integer port = MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
 
+        registry.add("publicrest.port", () -> PUBLIC_REST_CONTAINER.getMappedPort(8080));
+        registry.add("publicrest.host", () -> "localhost");
         registry.add("media.management.port", () -> port);
         registry.add("media.management.host", () -> "localhost");
     }

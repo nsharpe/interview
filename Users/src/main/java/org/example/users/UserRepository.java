@@ -10,7 +10,7 @@ public interface UserRepository {
 
     UserModel createUser(UserModel model);
 
-    UserModel updateUser(long id, UpdateUserModel updateUserModel);
+    UserModel updateUser(UUID id, UpdateUserModel updateUserModel);
 
-    void deleteUser(long id);
+    void deleteUser(UUID id);
 }

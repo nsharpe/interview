@@ -45,8 +45,8 @@ public class UserDatabase implements UserRepository {
 
     @Override
     @CachePut(value = "users",key = "#id")
-    public UserModel updateUser(long id, UpdateUserModel updateUserModel) {
-        UserMysql mysqlView = mysqlRepository.findById(id)
+    public UserModel updateUser(UUID id, UpdateUserModel updateUserModel) {
+        UserMysql mysqlView = mysqlRepository.findByPublicId(id)
                 .orElseThrow(() -> new NotFoundException("User " + id +" not found"));
 
         mysqlView.update(updateUserModel);
@@ -56,7 +56,7 @@ public class UserDatabase implements UserRepository {
 
     @Override
     @CacheEvict(value = "users",key = "#id")
-    public void deleteUser(long id) {
-        mysqlRepository.deleteById(id);
+    public void deleteUser(UUID id) {
+        mysqlRepository.deleteByPublicId(id);
     }
 }

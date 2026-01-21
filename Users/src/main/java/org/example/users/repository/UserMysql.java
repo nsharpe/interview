@@ -22,6 +22,7 @@ import org.example.users.UserModel;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 
 import java.util.UUID;
 
@@ -41,6 +42,12 @@ public class UserMysql {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
     static{
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
+        MODEL_MAPPER.addMappings(new PropertyMap<UserMysql, UserModel>() {
+            @Override
+            protected void configure() {
+                map(source.getPublicId(),destination.getId());
+            }
+        });
     }
 
     @Id

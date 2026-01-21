@@ -16,7 +16,11 @@ tasks.bootJar{
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8080/api-docs")
+    apiDocsUrl.set("http://localhost:8082/api-docs")
+
+    customBootRun {
+        args.set(listOf("--spring.profiles.active=openapi"))
+    }
 }
 
 tasks.jar{
@@ -44,6 +48,7 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.forkedSpringBootRun{
     dependsOn(projectJarPaths)
     args.add("--spring.profiles.active=openapi")
+    args.add("--Dserver.port=8082")
 }
 
 tasks.named("generateOpenApiDocs") {

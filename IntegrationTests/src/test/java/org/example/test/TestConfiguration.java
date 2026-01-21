@@ -1,10 +1,11 @@
 package org.example.test;
 
 import org.example.media.management.sdk.configuration.MediaManagementConfiguration;
+import org.example.publicrest.sdk.PublicRestSdkConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {MediaManagementConfiguration.class})
+@ComponentScan(basePackageClasses = {MediaManagementConfiguration.class, PublicRestSdkConfig.class})
 public class TestConfiguration {
 }
