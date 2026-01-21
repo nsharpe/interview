@@ -38,9 +38,7 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
 
     @BeforeAll
     public static void beforeAll() {
-        MYSQL_CONTAINER.start();
-        PUBLIC_REST_CONTAINER.start();
-        MEDIA_MANAGEMENT_CONTAINER.start();
+        TestContainers.start();
     }
 
     @BeforeEach

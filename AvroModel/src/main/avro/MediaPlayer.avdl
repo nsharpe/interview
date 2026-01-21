@@ -1,0 +1,16 @@
+@namespace("com.example.avro")
+protocol MediaPlayer {
+
+  record MediaEvent {
+    uuid actionId;
+    uuid userId;
+    uuid mediaId;
+    timestamp_ms timestamp;
+    int from_ms;
+    int to_ms;
+  }
+
+  record MediaPlayerEventKey{
+     uuid eventId;
+  }
+}

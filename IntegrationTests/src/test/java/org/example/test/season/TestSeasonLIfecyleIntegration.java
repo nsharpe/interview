@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.lifecycle.Startables;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
@@ -32,9 +33,7 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
 
     @BeforeAll
     public static void beforeAll() {
-        MYSQL_CONTAINER.start();
-        MEDIA_MANAGEMENT_CONTAINER.start();
-        PUBLIC_REST_CONTAINER.start();
+        TestContainers.start();
     }
 
     @DynamicPropertySource

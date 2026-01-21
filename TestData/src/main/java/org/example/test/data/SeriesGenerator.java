@@ -24,7 +24,7 @@ public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel>
         try {
             return seriesControllerApi.create(seriesCreateModel);
         } catch (ApiException e) {
-            throw new RuntimeException(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage() + " body="+e.getResponseBody(), e);
         }
     }
 

@@ -9,11 +9,12 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.lifecycle.Startables;
 import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 
-@Testcontainers
+@Testcontainers(parallel = true)
 public abstract class TestContainers {
 
     private static final int MYSQL_PORT = 3306;
@@ -34,11 +35,21 @@ public abstract class TestContainers {
 
     @Container
     protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE)
+            .dependsOn(MYSQL_CONTAINER)
             .withNetworkAliases("public-rest-service");
 
     @Container
     protected static final GenericContainer<?> MEDIA_MANAGEMENT_CONTAINER = springWebContainer(TestImages.MEDIA_MANAGEMENT_IMAGE)
+            .dependsOn(MYSQL_CONTAINER)
             .withNetworkAliases("media-management");
+
+    public static void start(){
+        Startables.deepStart(
+                MYSQL_CONTAINER,
+                MEDIA_MANAGEMENT_CONTAINER,
+                PUBLIC_REST_CONTAINER
+        );
+    }
 
     private static GenericContainer<?> springWebContainer(ImageFromDockerfile imageFromDockerfile){
         return new GenericContainer<>(
