@@ -13,9 +13,18 @@ tasks.bootRun{
     enabled = false
 }
 
+val projectJarPaths = configurations.implementation.map { config ->
+    config.allDependencies
+        .withType<ProjectDependency>()
+        .map { "${it.path}:jar" }
+}
+
+tasks.jar{
+    dependsOn(projectJarPaths)
+}
+
 dependencies {
     api(project(":SpringPod"))
-    api(project(":Core"))
 
     // Web and documentation
     api("org.springframework.boot:spring-boot-starter-web")

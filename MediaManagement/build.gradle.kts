@@ -35,12 +35,14 @@ tasks.compileTestJava{
     dependsOn("generateOpenApiDocs")
 }
 
+val projectJarPaths = configurations.implementation.map { config ->
+    config.allDependencies
+        .withType<ProjectDependency>()
+        .map { "${it.path}:jar" }
+}
+
 tasks.forkedSpringBootRun{
-    dependsOn(":SpringWeb:jar")
-    dependsOn(":SpringPod:jar")
-    dependsOn(":Core:jar")
-    dependsOn(":MySqlDriver:jar")
-    dependsOn(":Series:jar")
+    dependsOn(projectJarPaths)
     args.add("--spring.profiles.active=openapi")
 }
 
