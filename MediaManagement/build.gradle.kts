@@ -20,6 +20,8 @@ openApi {
 
     customBootRun {
         args.set(listOf("--spring.profiles.active=openapi"))
+        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
+        args.add("--spring.jpa.hibernate.ddl-auto=none")
     }
 }
 
@@ -48,7 +50,6 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.forkedSpringBootRun{
     dependsOn(projectJarPaths)
     args.add("--spring.profiles.active=openapi")
-    args.add("--Dserver.port=8082")
 }
 
 tasks.named("generateOpenApiDocs") {

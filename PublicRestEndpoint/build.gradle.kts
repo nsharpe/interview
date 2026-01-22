@@ -17,6 +17,12 @@ openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
     apiDocsUrl.set("http://localhost:8080/api-docs")
+
+    customBootRun{
+        args.set(listOf("--spring.profiles.active=openapi"))
+        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
+        args.add("--spring.jpa.hibernate.ddl-auto=none")
+    }
 }
 
 tasks.jar{

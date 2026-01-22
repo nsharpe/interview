@@ -76,8 +76,10 @@ public abstract class TestContainers {
                 imageFromDockerfile
         ).withExposedPorts(8080, 8081)
                 .withEnv("SERVER_ADDRESS", "0.0.0.0")
-                .withEnv("SPRING_PROFILE", "integration")
                 .withEnv("MYSQL_HOST", "mysql-db")
+                .withEnv("MYSQL_USER","testuser")
+                .withEnv("MYSQL_DATABASE","testdb")
+                .withEnv("MYSQL_PASSWORD","testpass")
                 .withEnv("SPRING_JPA_SHOW_SQL", "true")
                 .withNetwork(NETWORK)
                 .withEnv("MANAGEMENT_SERVER_ADDRESS", "0.0.0.0")
