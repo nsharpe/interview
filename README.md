@@ -50,59 +50,47 @@ You can run the application two ways.  One with h2 as the database, and secondar
 
 ### Run the full stack
 
-Build images run
+Build jars
 ```shell
-./gradlew bootBuildImage
+./gradlew clean bootJar
+```
+
+Build Images
+```shell
+docker compose -f docker-compose.yml -f docker-compose.stack.yml build --no-cache 
 ```
 
 Stack Docker
 ```shell
 docker compose -f docker-compose.yml -f docker-compose.stack.yml up -d
 ```
+NOTE:
+Currently the docker files compose files are kept in two file to allow running `docker-compose up` and running locally for debugging purposes.   
 
-### Run with H2
-H2 environments are an in memory database.  They are generally helpful with testing where data persistance is not an issue.
-```
-./gradlew clean publicRestEndpoint:bootRun --args='--spring.profiles.active=memory_db'
-```
-
-```
-./gradlew clean mediaManagement:bootRun --args='--spring.profiles.active=memory_db'
-```
-
-
-### Run with MySql
-
-First ensure that all optional installations are installed
-
-To run the application using your local machine first run
-
-```
-docker-compose up
-```
-
-This will run local instance of databases and other technologies on your machine which the application run against.
-
-Once Docker Compose is up and running run
-
-```
-./gradlew clean publicRestEndpoint:bootRun --args='--spring.profiles.active=local'
-```
-
-in your terminal
-
-
+Documentation on running the apps in this manner has been removed until correct profiles are created to handle local development again
 
 ## Interacting with the application
 
+
+### Public Rest Endpoint
 To see a list of all the endpoints, while the application is running go to
-http://localhost:8080/swagger-ui/index.html
+[swagger](http://localhost:9080/swagger-ui/index.html)
 
 The health of the syste can be viewed through  
-http://localhost:8080/actuator/health
+[healthcheck](http://localhost:9080/actuator/health)
 
 In order to see how many entries have been cached
-http://localhost:8080/actuator/metrics/cache.size
+[metric cache size](http://localhost:9080/actuator/metrics/cache.size)
+
+### Media Management Endpoint
+To see a list of all the endpoints, while the application is running go to
+[swagger](http://localhost:9090/swagger-ui/index.html)
+
+The health of the system can be viewed through  
+[healthcheck](http://localhost:9091/actuator/health)
+
+In order to see how many entries have been cached
+[metric cache size](http://localhost:9091/actuator/metrics/cache.size)
 
 
 ## MYSQL

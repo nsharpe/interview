@@ -9,12 +9,13 @@ public class TestImages {
     private TestImages(){}
 
     public static final ImageFromDockerfile PUBLIC_REST_ENDPOINT_IMAGE = create("public-rest-endpoint-test-image",
-            "../PublicRestEndpoint/build/libs/public-rest-endpoint-app.jar");
+            "PublicRestEndpoint");
 
     public static final ImageFromDockerfile MEDIA_MANAGEMENT_IMAGE = create("media-management-image",
-            "../MediaManagement/build/libs/media-management-app.jar");
+            "MediaManagement");
 
-    private static ImageFromDockerfile create(String dockerImageName,String path){
+    private static ImageFromDockerfile create(String dockerImageName,String module){
+        String path = "../"+module+"/build/libs/app.jar";
        Path absolutePath = Paths.get(path).toAbsolutePath();
        System.out.println("Building Docker image using JAR: " + absolutePath);
 

@@ -10,7 +10,7 @@ tasks.bootBuildImage {
 }
 
 tasks.bootJar {
-    archiveFileName = "public-rest-endpoint-app.jar"
+    archiveFileName = "app.jar"
 }
 
 openApi {

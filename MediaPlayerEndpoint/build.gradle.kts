@@ -10,7 +10,7 @@ tasks.bootBuildImage {
 }
 
 tasks.bootJar{
-    archiveFileName = "media-player-endpoints-app.jar"
+    archiveFileName = "app.jar"
 }
 
 openApi {

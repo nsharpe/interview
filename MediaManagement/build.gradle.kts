@@ -13,7 +13,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 }
 
 tasks.bootJar{
-    archiveFileName = "media-management-app.jar"
+    archiveFileName = "app.jar"
 }
 
 openApi {
