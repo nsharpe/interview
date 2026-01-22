@@ -1,13 +1,11 @@
-@namespace("com.example.avro")
+@namespace("com.example.avro.media")
 protocol MediaPlayer {
 
-  record MediaEvent {
-    uuid actionId;
+  record MediaEngagement {
+    uuid lastActionId;
     uuid userId;
-    uuid mediaId;
-    timestamp_ms timestamp;
-    int from_ms;
-    int to_ms;
+    timestamp_ms eventSent;
+    long mediaPositionMs;
   }
 
   record MediaPlayerEventKey{
