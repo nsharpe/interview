@@ -75,5 +75,5 @@ services:
       - shared-mysql-net
 
 networks:
-  app-network:
+  shared-mysql-net:
     name: shared-mysql-net
