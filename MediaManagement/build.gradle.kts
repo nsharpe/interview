@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
     id("org.openapi.generator") version "7.14.0"
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
@@ -5,8 +7,9 @@ plugins {
 
 group = "org.example.media.management"
 
-tasks.bootBuildImage {
-    imageName = "media-player/media-management:test"
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+    this.imageName= "media-player/media-management:test"
 }
 
 tasks.bootJar{

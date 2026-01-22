@@ -48,6 +48,18 @@ It is recomended that you set your ide to run `./gradlew clean` task before it r
 
 You can run the application two ways.  One with h2 as the database, and secondarily with mysql as the database.
 
+### Run the full stack
+
+Build images run
+```shell
+./gradlew bootBuildImage
+```
+
+Stack Docker
+```shell
+docker compose -f docker-compose.yml -f docker-compose.stack.yml up -d
+```
+
 ### Run with H2
 H2 environments are an in memory database.  They are generally helpful with testing where data persistance is not an issue.
 ```
