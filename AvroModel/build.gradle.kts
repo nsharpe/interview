@@ -6,7 +6,12 @@ plugins {
 group = "org.example.avro"
 
 dependencies {
-    implementation("org.apache.avro:avro:1.11.3")
+    api("org.apache.avro:avro:1.12.1")
+
+    // Source: https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer
+    api("io.confluent:kafka-avro-serializer:8.0.3")
+
+    api("com.fasterxml.jackson.dataformat:jackson-dataformat-avro")
 }
 
 tasks.bootJar{

@@ -48,7 +48,7 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.forkedSpringBootRun{
     dependsOn(projectJarPaths)
     args.add("--spring.profiles.active=openapi")
-    args.add("--Dserver.port=8082")
+    args.add("--Dserver.port=8083")
 }
 
 tasks.named("generateOpenApiDocs") {
@@ -58,12 +58,5 @@ tasks.named("generateOpenApiDocs") {
 dependencies {
     implementation(project(":SpringWeb"))
     implementation(project(":AvroModel"))
-
-    // SQL
-    implementation(project(":MySqlDriver"))
-    runtimeOnly("com.mysql:mysql-connector-j")
-    runtimeOnly("com.h2database:h2")
-
-    // Cache
-    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+    implementation(project(":Kafka"))
 }

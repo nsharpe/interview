@@ -14,7 +14,7 @@ import java.util.UUID;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MediaEvent {
+public class MediaEngagement {
 
     private OffsetDateTime eventSent;
     private long mediaPosition;

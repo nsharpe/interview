@@ -18,6 +18,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://packages.confluent.io/maven/")
+        }
     }
 }
 
@@ -38,3 +41,4 @@ include("PublicRestEndpointSdk")
 include("AvroModel")
 include("MediaPlayerEndpoint")
 include("Kafka")
+include("Security")
