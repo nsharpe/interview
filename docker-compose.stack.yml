@@ -2,15 +2,23 @@ services:
   mysql-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
-      sh -c "while ! nc -z $$MYSQL_HOST 3306; do 
+      sh -c "while ! nc -z mysql 3306; do 
                echo 'Waiting for MySQL...'; 
                sleep 1; 
              done; 
-             echo 'MySQL is up - starting app';"
-    environment:
-      MYSQL_HOST: mysql
+             echo 'MySQL is up';"
     networks:
       - shared-mysql-net
+  kafka-loaded:
+    image: eclipse-temurin:21-jre-alpine
+    command: >
+      sh -c "while ! nc -z broker 9092; do 
+               echo 'Waiting for kafka...'; 
+               sleep 1; 
+             done; 
+             echo 'kafka is up';"
+    networks:
+      - shared-kafka-net
   public-rest:
     build:
       context: .
@@ -59,6 +67,30 @@ services:
       start_period: 5s
     networks:
       - shared-mysql-net
+  media-player-endpoint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP=MediaPlayerEndpoint
+    ports:
+      - "9100:8080"
+      - "9101:8081"
+    environment:
+      KAFKA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      KAFKA_BOOTSTRAP_SERVERS: broker:9092
+    depends_on:
+      kafka-loaded:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - shared-kafka-net
 
 networks:
   shared-mysql-net:
+  shared-kafka-net:

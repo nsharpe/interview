@@ -24,6 +24,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 60000
+    networks:
+      - shared-kafka-net
 
   ksqldb-server:
     image: confluentinc/ksqldb-server:0.29.0
@@ -36,6 +38,8 @@ services:
       KSQL_BOOTSTRAP_SERVERS: broker:29092
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+    networks:
+      - shared-kafka-net
 
   ksqldb-cli:
     image: confluentinc/ksqldb-cli:0.29.0
@@ -44,6 +48,8 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+    networks:
+      - shared-kafka-net
 
   schema-registry:
     image: confluentinc/cp-schema-registry:8.0.3
@@ -54,6 +60,8 @@ services:
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: broker:29092
+    networks:
+      - shared-kafka-net
 
   mysql:
     image: mysql:8.4.7
@@ -77,3 +85,6 @@ services:
 networks:
   shared-mysql-net:
     name: shared-mysql-net
+  shared-kafka-net:
+    name: shared-kafka-net
+
