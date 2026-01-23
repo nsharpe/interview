@@ -28,6 +28,8 @@ public abstract class TestContainers {
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     )
+                    .withExposedService("media-player-endpoint",9100,
+                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withEnv("COMPOSE_PROJECT_NAME", "test-project")
                     .withLocalCompose(true)
                     .withBuild(true)
@@ -70,6 +72,15 @@ public abstract class TestContainers {
 
     public int getPublicRestPort(){
         return ENVIRONMENT.getServicePort("public-rest", 9080);
+    }
+
+    public org.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {
+        return new org.example.media.player.sdk.invoker.ApiClient(WebClient.builder().build())
+                .setBasePath("http://localhost:" + getMediaPlayPort());
+    }
+
+    public int getMediaPlayPort(){
+        return ENVIRONMENT.getServicePort("media-player-endpoint", 9080);
     }
 
 }

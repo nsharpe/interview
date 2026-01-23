@@ -19,6 +19,7 @@ dependencies {
     api("net.datafaker:datafaker:2.5.3")
     api(project(":MediaManagementSdk"))
     api(project(":PublicRestEndpointSdk"))
+    api(project(":MediaPlayerEndpointSdk"))
 
     api("org.springframework.boot:spring-boot-starter-webflux")
 

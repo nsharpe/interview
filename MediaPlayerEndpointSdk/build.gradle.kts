@@ -13,11 +13,10 @@ tasks.bootRun {
     enabled = false
 }
 
-group = "org.example.public.rest.sdk"
+group = "org.example.media.player.sdk"
 
 dependencies {
     api(project(":Core"))
-
     api("org.springframework.boot:spring-boot-starter-webflux")
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")
@@ -29,11 +28,11 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
 }
 
-val specFile = rootProject.layout.projectDirectory.file("PublicRestEndpoint/build/api-spec.json")
+val specFile = rootProject.layout.projectDirectory.file("MediaPlayerEndpoint/build/api-spec.json")
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
 
 tasks.openApiGenerate {
-    dependsOn(":PublicRestEndpoint:generateOpenApiDocs")
+    dependsOn(":MediaPlayerEndpoint:generateOpenApiDocs")
 }
 
 tasks.spotbugsMain{
@@ -50,9 +49,9 @@ openApiGenerate {
     inputSpec.set(specFile.asFile.absolutePath)
     outputDir.set(generatedSourcesDir.map { it.asFile.absolutePath })
 
-    apiPackage.set("org.example.publicrest.sdk.api")
-    modelPackage.set("org.example.publicrest.sdk.models")
-    invokerPackage.set("org.example.publicrest.sdk.invoker")
+    apiPackage.set("org.example.media.player.sdk.api")
+    modelPackage.set("org.example.media.player.sdk.models")
+    invokerPackage.set("org.example.media.player.sdk.invoker")
 
     configOptions.set(mapOf(
         "dateLibrary" to "java8",

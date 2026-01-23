@@ -21,7 +21,6 @@ dependencies {
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")
 
-    // Dependencies required by the generated SDK code
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
@@ -46,7 +45,6 @@ tasks.spotbugsTest{
 openApiGenerate {
     generatorName.set("java")
 
-    // Use .set() with the Provider/Property API
     inputSpec.set(specFile.asFile.absolutePath)
     outputDir.set(generatedSourcesDir.map { it.asFile.absolutePath })
 
