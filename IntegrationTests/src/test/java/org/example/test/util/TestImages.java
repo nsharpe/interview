@@ -14,6 +14,9 @@ public class TestImages {
     public static final ImageFromDockerfile MEDIA_MANAGEMENT_IMAGE = create("media-management-image",
             "MediaManagement");
 
+    public static final ImageFromDockerfile MEDIA_PLAYER_ENDPOINT_IMAGE = create("media-player-endpoint-test-image",
+            "MediaPlayerEndpoint");
+
     private static ImageFromDockerfile create(String dockerImageName,String module){
         String path = "../"+module+"/build/libs/app.jar";
        Path absolutePath = Paths.get(path).toAbsolutePath();

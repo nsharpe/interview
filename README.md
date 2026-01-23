@@ -57,12 +57,12 @@ Build jars
 
 Build Images
 ```shell
-docker compose -f docker-compose.yml -f docker-compose.stack.yml build --no-cache 
+docker compose -f docker-compose.yml -f docker-compose.stack.yml --build --no-cache 
 ```
 
-Stack Docker
+Stack Docker While Building Images
 ```shell
-docker compose -f docker-compose.yml -f docker-compose.stack.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.stack.yml up -d --build
 ```
 NOTE:
 Currently the docker files compose files are kept in two file to allow running `docker-compose up` and running locally for debugging purposes.   
@@ -109,7 +109,7 @@ show databases;
 
 To view all users run
 ```agsl
-select * from interview_db.external_user;
+select * from testdb.external_user;
 ```
 
 

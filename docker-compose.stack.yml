@@ -7,8 +7,7 @@ services:
                sleep 1; 
              done; 
              echo 'MySQL is up';"
-    networks:
-      - shared-mysql-net
+
   kafka-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
@@ -17,23 +16,23 @@ services:
                sleep 1; 
              done; 
              echo 'kafka is up';"
-    networks:
-      - shared-kafka-net
+
   public-rest:
     build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - APP=PublicRestEndpoint
+      context: PublicRestEndpoint
+      dockerfile: ../Dockerfile
     ports:
-      - "9080:8080"
-      - "9081:8081"
+      - "9080"
+      - "9081"
     environment:
+      SERVER_PORT: 9080
+      MANAGEMENT_SERVER_PORT: 9081
       MYSQL_USER: user
+      REDIS_HOST: redis
       MYSQL_PASSWORD: aPassword
       MYSQL_HOST: mysql
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "8080"]
+      test: ["CMD", "nc", "-z", "localhost", "9081"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -41,18 +40,17 @@ services:
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully
-    networks:
-      - shared-mysql-net
+
   media-management:
     build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - APP=MediaManagement
+      context: MediaManagement
+      dockerfile: ../Dockerfile
     ports:
-      - "9090:8080"
-      - "9091:8081"
+      - "9090"
+      - "9091"
     environment:
+      SERVER_PORT: 9090
+      MANAGEMENT_SERVER_PORT: 9091
       MYSQL_USER: user
       MYSQL_PASSWORD: aPassword
       MYSQL_HOST: mysql
@@ -60,37 +58,30 @@ services:
       mysql-loaded:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "8080"]
+      test: ["CMD", "nc", "-z", "localhost", "9091"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 5s
-    networks:
-      - shared-mysql-net
+
   media-player-endpoint:
     build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - APP=MediaPlayerEndpoint
+      context: MediaPlayerEndpoint
+      dockerfile: ../Dockerfile
     ports:
-      - "9100:8080"
-      - "9101:8081"
+      - "9100"
+      - "9101"
     environment:
+      SERVER_PORT: 9100
+      MANAGEMENT_SERVER_PORT: 9101
       KAFKA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       KAFKA_BOOTSTRAP_SERVERS: broker:9092
     depends_on:
       kafka-loaded:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "8080"]
+      test: ["CMD", "nc", "-z", "localhost", "9101"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 5s
-    networks:
-      - shared-kafka-net
-
-networks:
-  shared-mysql-net:
-  shared-kafka-net:

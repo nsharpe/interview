@@ -1,5 +1,6 @@
 package org.example.test.data;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.media.management.sdk.api.SeasonControllerApi;
 import org.example.media.management.sdk.models.SeasonCreateModel;
 import org.example.media.management.sdk.models.SeasonModel;
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.example.test.data.TestUtil.FAKER;
 
 @Service
+@Slf4j
 public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,SeasonModel> {
 
     private final SeasonControllerApi seasonControllerApi;
@@ -28,6 +30,11 @@ public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,Se
     @Override
     public SeasonModel save(SeasonGenerator.SeasonInput seasonCreateModel){
         return seasonControllerApi.create1(seasonCreateModel.seriesId,seasonCreateModel.seasonCreateModel)
+                .doOnError(x->
+                        log.atError()
+                                .setCause(x)
+                                .log("Error generating season")
+                        )
                 .block();
     }
 

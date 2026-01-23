@@ -19,15 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestSeriesLifecyleIntegration extends TestContainers {
 
-    @BeforeAll
-    public static void beforeAll() {
-        start();
-    }
-
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
-        RestAssured.baseURI = "http://localhost:"+MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
+        RestAssured.baseURI = "http://localhost:"+getMediaManagmentPort();
     }
 
     @Test

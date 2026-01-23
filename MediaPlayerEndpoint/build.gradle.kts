@@ -59,4 +59,7 @@ dependencies {
     implementation(project(":SpringWeb"))
     implementation(project(":AvroModel"))
     implementation(project(":Kafka"))
+    implementation(project(":Security"))
+
+    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

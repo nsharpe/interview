@@ -1,5 +1,6 @@
 package org.example.test.data;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.media.management.sdk.api.SeriesControllerApi;
 import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 import static org.example.test.data.TestUtil.FAKER;
 
+@Slf4j
 @Service
 public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel> {
 
@@ -21,6 +23,11 @@ public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel>
     @Override
     public SeriesModel save(SeriesCreateModel seriesCreateModel){
         return seriesControllerApi.create(seriesCreateModel)
+                .doOnError(x->
+                        log.atError()
+                                .setCause(x)
+                                .log("Error generating series")
+                )
                 .block();
     }
 

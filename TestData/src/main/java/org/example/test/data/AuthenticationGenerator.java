@@ -26,7 +26,7 @@ public class AuthenticationGenerator {
         redisTemplate.opsForValue().set(
                 ADMIN_AUTH_TOKEN,
                 AuthenticationInfo.builder()
-                        .id(UUID.randomUUID())
+                        .userId(UUID.randomUUID())
                         .roles(List.of("ADMIN"))
                         .build(),
                 Duration.ofDays(365)
@@ -39,5 +39,32 @@ public class AuthenticationGenerator {
 
     public String getAdminBearerHeader(){
         return "Bearer "+ ADMIN_AUTH_TOKEN;
+    }
+
+    public String generateTokenForSubscriber(UUID userId){
+        String token = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(
+                token,
+                AuthenticationInfo.builder()
+                        .userId(userId)
+                        .roles(List.of("SUBSCRIBER"))
+                        .build(),
+                Duration.ofDays(365)
+        );
+
+        return token;
+    }
+
+    public String generateToken(UUID userId, AuthenticationInfo.AuthenticationInfoBuilder authenticationInfoBuilder){
+        String token = UUID.randomUUID().toString();
+        redisTemplate.opsForValue().set(
+                token,
+                authenticationInfoBuilder
+                        .userId(userId)
+                        .build(),
+                Duration.ofDays(365)
+        );
+
+        return token;
     }
 }

@@ -10,7 +10,6 @@ import org.example.publicrest.sdk.models.UserModel;
 import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
         type = FilterType.REGEX,
         pattern = "org\\.example\\.media.*"
 ))
+@DirtiesContext
 public class TestUsersIntegration extends TestContainers {
 
     @Autowired
@@ -44,16 +45,11 @@ public class TestUsersIntegration extends TestContainers {
     @Autowired
     private AuthenticationGenerator authenticationGenerator;
 
-    @BeforeAll
-    public static void beforeAll() {
-        TestContainers.start();
-    }
-
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         authenticationGenerator.resetBearerToken();
-        RestAssured.baseURI = "http://localhost:" + PUBLIC_REST_CONTAINER.getMappedPort(8080);
+        RestAssured.baseURI = "http://localhost:" + getPublicRestPort();
     }
 
     @Test

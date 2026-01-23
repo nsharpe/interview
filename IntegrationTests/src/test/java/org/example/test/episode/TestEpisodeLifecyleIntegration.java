@@ -8,7 +8,6 @@ import org.example.integration.util.TimeTestUtil;
 import org.example.media.management.sdk.models.SeasonModel;
 import org.example.test.data.SeasonGenerator;
 import org.example.test.util.TestContainers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +30,10 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
     @Autowired
     private SeasonGenerator seasonGenerator;
 
-    @BeforeAll
-    public static void beforeAll() {
-        TestContainers.start();
-    }
-
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
-        RestAssured.baseURI = "http://localhost:"+MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080);
+        RestAssured.baseURI = "http://localhost:"+getMediaManagmentPort();
     }
 
     @Test

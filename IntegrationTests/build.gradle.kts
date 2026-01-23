@@ -13,9 +13,10 @@ tasks.assemble{
 tasks.test{
     dependsOn(":PublicRestEndpoint:bootJar")
     dependsOn(":MediaManagement:bootJar")
+    dependsOn(":MediaPlayerEndpoint:bootJar")
 }
 
-val testcontainersVersion = "1.21.4"
+val testcontainersVersion = "2.0.3"
 
 dependencies {
     implementation(project(":Core"))
@@ -26,10 +27,12 @@ dependencies {
     testRuntimeOnly("com.mysql:mysql-connector-j")
 
     // Using the variable defined above
-    implementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
+    testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
 
     testImplementation(project(":TestData"))
     testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:testcontainers-kafka")
+    testImplementation("org.springframework.boot:spring-boot-docker-compose")
     testImplementation("org.testcontainers:mysql")
     testImplementation("com.redis:testcontainers-redis:2.2.4")
     testImplementation("org.testcontainers:junit-jupiter")
