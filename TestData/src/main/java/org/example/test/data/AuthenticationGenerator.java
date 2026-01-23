@@ -1,5 +1,6 @@
 package org.example.test.data;
 
+import org.example.publicrest.sdk.models.UserModel;
 import org.example.security.AuthenticationInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -39,6 +40,10 @@ public class AuthenticationGenerator {
 
     public String getAdminBearerHeader(){
         return "Bearer "+ ADMIN_AUTH_TOKEN;
+    }
+
+    public String generateTokenForSubscriber(UserModel userModel){
+        return generateTokenForSubscriber(userModel.getId());
     }
 
     public String generateTokenForSubscriber(UUID userId){

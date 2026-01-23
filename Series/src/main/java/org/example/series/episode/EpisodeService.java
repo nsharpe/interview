@@ -1,7 +1,7 @@
 package org.example.series.episode;
 
 import lombok.RequiredArgsConstructor;
-import org.example.exceptions.NotFoundException;
+import org.example.core.exceptions.NotFoundException;
 import org.example.series.episode.mysql.EpisodeMysql;
 import org.example.series.episode.mysql.EpisodeMysqlRepository;
 

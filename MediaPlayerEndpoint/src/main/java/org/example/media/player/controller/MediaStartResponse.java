@@ -1,5 +1,6 @@
 package org.example.media.player.controller;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,5 +15,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediaStartResponse {
+    @NotNull
     private UUID actionId;
 }

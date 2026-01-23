@@ -18,9 +18,9 @@ protocol MediaPlayer {
     // Media is used instead of episode to add support for media not associated with entertainment.
     // This allows flexibility for things like comercials to use the same frameworks
     uuid mediaId;
-    timestamp_ms eventSent;
+    timestamp_ms timestamp;
 
-    uuid? lastActionId;
+    uuid? lastActionId = null;
   }
 
   record MediaPlayerEventKey{

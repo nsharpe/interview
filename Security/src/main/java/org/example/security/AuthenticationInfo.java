@@ -1,5 +1,6 @@
 package org.example.security;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(hidden = true)
 public class AuthenticationInfo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

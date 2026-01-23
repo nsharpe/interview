@@ -48,7 +48,6 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.forkedSpringBootRun{
     dependsOn(projectJarPaths)
     args.add("--spring.profiles.active=openapi")
-    args.add("--Dserver.port=8083")
 }
 
 tasks.named("generateOpenApiDocs") {

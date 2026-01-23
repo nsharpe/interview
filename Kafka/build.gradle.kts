@@ -14,6 +14,7 @@ tasks.bootJar{
 
 dependencies {
     api(project(":Core"))
+    api(project(":AvroModel"))
 
     api("org.springframework.kafka:spring-kafka")
 

@@ -1,7 +1,7 @@
 package org.example.series.season;
 
 import lombok.RequiredArgsConstructor;
-import org.example.exceptions.NotFoundException;
+import org.example.core.exceptions.NotFoundException;
 import org.example.series.mysql.SeriesMysql;
 import org.example.series.mysql.SeriesMysqlRepository;
 import org.example.series.season.mysql.SeasonMysql;

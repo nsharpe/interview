@@ -1,7 +1,7 @@
 package org.example.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.exceptions.ExampleException;
+import org.example.core.exceptions.ExampleException;
 import org.slf4j.spi.LoggingEventBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

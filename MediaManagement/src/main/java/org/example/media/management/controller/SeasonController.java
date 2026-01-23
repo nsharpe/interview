@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import org.example.exceptions.NotFoundException;
+import org.example.core.exceptions.NotFoundException;
 import org.example.series.season.SeasonCreateModel;
 import org.example.series.season.SeasonModel;
 import org.example.series.season.SeasonService;

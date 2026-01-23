@@ -27,8 +27,8 @@ public class MediaEventController {
                     @ApiResponse(description = "The episode",
                             responseCode = "202",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MediaStartRequest.class)))})
-    @PostMapping("/media/{mediaId}")
+                                    schema = @Schema(implementation = MediaStartResponse.class)))})
+    @PostMapping("/media/{mediaId}/start")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public MediaStartResponse start(@RequestBody @Valid MediaStartRequest mediaStartRequest,
                                @PathVariable("mediaId") UUID mediaId){

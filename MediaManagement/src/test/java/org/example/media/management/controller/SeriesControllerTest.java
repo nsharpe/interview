@@ -37,7 +37,6 @@ class SeriesControllerTest {
 
         when(seriesService.createSeries(any())).thenReturn(baseSeriesModel().build());
 
-        // 2. Perform the HTTP request using MockMvc and verify results
         mockMvc.perform(post("/series")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(OBJECT_MAPPER.writeValueAsString(getBasePost()))

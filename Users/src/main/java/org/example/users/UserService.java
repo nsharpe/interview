@@ -1,7 +1,6 @@
 package org.example.users;
 
 import lombok.RequiredArgsConstructor;
-import org.example.exceptions.BadInput;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;

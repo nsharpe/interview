@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.example.kafka.KafkaTopics.MEDIA_ENGAGEMENT;
 
+
 @Service
 @Slf4j
 public class MediaEventService {
@@ -24,8 +25,6 @@ public class MediaEventService {
     }
 
     public void startMedia(MediaStartRequest mediaStartRequest, UUID mediaId) {
-
-
 
         CompletableFuture<SendResult<MediaPlayerEventKey, MediaStart>> future =
                 kafkaTemplate.send(MEDIA_ENGAGEMENT, MediaPlayerEventKey.newBuilder()

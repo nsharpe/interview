@@ -42,10 +42,10 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
 
     @Override
     public EpisodeInput generateInput(){
-        EpisodeCreateModel seasonCreateModel = new EpisodeCreateModel();
-        seasonCreateModel.setOrder(episodeOrder.getAndIncrement());
-        seasonCreateModel.setTitle(FAKER.lorem().sentence(2,4));
-        return new EpisodeInput(seasonCreateModel,baseSeries, baseSeason);
+        EpisodeCreateModel episodeCreateModel = new EpisodeCreateModel();
+        episodeCreateModel.setOrder(episodeOrder.getAndIncrement());
+        episodeCreateModel.setTitle(FAKER.lorem().sentence(2,4));
+        return new EpisodeInput(episodeCreateModel,baseSeries, baseSeason);
     }
 
     @Getter

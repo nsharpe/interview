@@ -35,7 +35,9 @@ public abstract class TestContainers {
                     .withBuild(true)
                     .withStartupTimeout(Duration.ofMinutes(3))
                     .withOptions("--compatibility")
-                    .withLogConsumer("docker-compose", new Slf4jLogConsumer(LoggerFactory.getLogger("DockerCompose")));
+                    .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
+                    .withLogConsumer("public-rest", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
+                    .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")));
 
     static {
         ENVIRONMENT.start();
@@ -80,7 +82,7 @@ public abstract class TestContainers {
     }
 
     public int getMediaPlayPort(){
-        return ENVIRONMENT.getServicePort("media-player-endpoint", 9080);
+        return ENVIRONMENT.getServicePort("media-player-endpoint", 9100);
     }
 
 }

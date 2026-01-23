@@ -2,7 +2,7 @@ package org.example.series;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.example.exceptions.NotFoundException;
+import org.example.core.exceptions.NotFoundException;
 import org.example.series.mysql.SeriesMysql;
 import org.example.series.mysql.SeriesMysqlRepository;
 import org.springframework.transaction.annotation.Transactional;
