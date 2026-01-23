@@ -20,13 +20,12 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ComponentScan(basePackages = "org.example.test")
-public class PlayerTest extends TestContainers {
+public class MediaPlayerControllerIntegrationTest extends TestContainers {
 
     @Autowired
     private EpisodeGenerator episodeGenerator;

@@ -1,26 +1,36 @@
-@namespace("com.example.avro.media")
+@namespace("com.example.avro.media.player")
 protocol MediaPlayer {
 
-  record MediaEngagement {
-    uuid lastActionId;
-    // This is the public id
+  record MediaEvent{
+    // This is the public id for a user
     uuid userId;
     // Media is used instead of episode to add support for media not associated with entertainment.
     // This allows flexibility for things like comercials to use the same frameworks
     uuid mediaId;
-    timestamp_ms eventSent;
-    long mediaPositionMs;
+
+    // The timestamp of a media when play was initiated.
+    long mediaTimestampMs;
+
+    // The timestamp when the message was sent to the player
+    timestamp_ms timestamp;
+  }
+
+  record MediaEngagement {
+    MediaEvent mediaEvent;
+
+    uuid lastActionId;
   }
 
   record MediaStart{
-    // This is the public id
-    uuid userId;
-    // Media is used instead of episode to add support for media not associated with entertainment.
-    // This allows flexibility for things like comercials to use the same frameworks
-    uuid mediaId;
-    timestamp_ms timestamp;
+    MediaEvent mediaEvent;
 
     uuid? lastActionId = null;
+  }
+
+  record MediaStop{
+    MediaEvent mediaEvent;
+
+    uuid lastActionId;
   }
 
   record MediaPlayerEventKey{

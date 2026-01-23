@@ -1,7 +1,7 @@
 package org.example.media.player.service;
 
-import com.example.avro.media.MediaPlayerEventKey;
-import com.example.avro.media.MediaStart;
+import com.example.avro.media.player.MediaPlayerEventKey;
+import com.example.avro.media.player.MediaStart;
 import lombok.extern.slf4j.Slf4j;
 import org.example.media.player.controller.MediaStartRequest;
 import org.springframework.kafka.core.KafkaTemplate;
