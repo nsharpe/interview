@@ -56,7 +56,7 @@ services:
     depends_on:
       - broker
     ports:
-      - '8081:8081'
+      - '8091:8081'
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: broker:29092
@@ -83,6 +83,7 @@ services:
       - shared-mysql-net
   redis:
     image: redis:8.4.0
+    command: ["redis-server", "--requirepass", "password"]
     ports:
       - 6379:6379
 

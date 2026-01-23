@@ -5,17 +5,22 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 public class TokenProcessor extends OncePerRequestFilter {
+
+    private final RedisTemplate<String, AuthenticationInfo> redisTemplate;
+
+    public TokenProcessor(RedisTemplate<String, AuthenticationInfo> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -24,18 +29,31 @@ public class TokenProcessor extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // Logic: If ANY token is present, we trust it immediately
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            String userId = authHeader.replace("Bearer ","");
+        String jwt = authHeader.substring(7);
 
+        AuthenticationInfo authenticationInfo = redisTemplate.opsForValue().get(jwt);
+
+        if(authenticationInfo == null){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        System.out.println("userInfo.roles "+ authenticationInfo.getRoles());
+
+        if ( authenticationInfo.getRoles() != null) {
             try{
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        UserInfo.builder()
-                                .id(UUID.fromString(userId))
-                                .build(),
+                        authenticationInfo,
                         null,
-                        List.of(new SimpleGrantedAuthority("ROLE_USER")) // Authorities
+                        authenticationInfo.getRoles()
+                                .stream()
+                                .map(x -> new SimpleGrantedAuthority("ROLE_" + x))
+                                .toList()
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
 import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.publicrest.sdk.models.UserModel;
+import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,15 +28,21 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ComponentScan(basePackages = "org.example.test",excludeFilters = @ComponentScan.Filter(
         type = FilterType.REGEX,
         pattern = "org\\.example\\.media.*"
 ))
 public class TestUsersIntegration extends TestContainers {
 
+    @Autowired
     private UserGenerator userGenerator;
 
+    @Autowired
     private UserControllerApi userControllerApi;
+
+    @Autowired
+    private AuthenticationGenerator authenticationGenerator;
 
     @BeforeAll
     public static void beforeAll() {
@@ -45,9 +52,8 @@ public class TestUsersIntegration extends TestContainers {
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
+        authenticationGenerator.resetBearerToken();
         RestAssured.baseURI = "http://localhost:" + PUBLIC_REST_CONTAINER.getMappedPort(8080);
-        userControllerApi = new UserControllerApi(publicRestApiClient());
-        userGenerator = new UserGenerator(userControllerApi);
     }
 
     @Test
@@ -57,6 +63,7 @@ public class TestUsersIntegration extends TestContainers {
         // create user
         JsonPath jsonPath = given()
                 .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .body(body)
                 .when().post("/user")
                 .then()
@@ -74,6 +81,7 @@ public class TestUsersIntegration extends TestContainers {
 
         // get user
         Response getBody = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/user/{id}", id)
                 .then()
                 .statusCode(200)
@@ -92,11 +100,13 @@ public class TestUsersIntegration extends TestContainers {
 
         // delete user
         given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().delete("/user/{id}", id)
                 .then()
                 .statusCode(204);
 
         given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/user/{id}", id)
                 .then()
                 .statusCode(404);

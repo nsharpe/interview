@@ -52,13 +52,10 @@ tasks.forkedSpringBootRun{
     args.add("--spring.profiles.active=openapi")
 }
 
-tasks.named("generateOpenApiDocs") {
-    // This ensures the spec is updated whenever the code changes
-}
-
 dependencies {
     implementation(project(":SpringWeb"))
     implementation(project(":Users"))
+    implementation(project(":Security"))
 
     // SQL
     implementation(project(":MySqlDriver"))

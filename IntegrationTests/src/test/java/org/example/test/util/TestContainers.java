@@ -1,9 +1,9 @@
 package org.example.test.util;
 
-import org.example.media.management.sdk.api.SeriesControllerApi;
+import com.redis.testcontainers.RedisContainer;
 import org.example.media.management.sdk.invoker.ApiClient;
-import org.example.test.data.SeriesGenerator;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,11 +16,11 @@ import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.lifecycle.Startables;
-import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 
+@DirtiesContext
 @Testcontainers
 public abstract class TestContainers {
 
@@ -41,6 +41,13 @@ public abstract class TestContainers {
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Log-mysql")));
 
     @Container
+    protected static final RedisContainer REDIS_CONTAINER = new RedisContainer("redis:8.4.0")
+            .withNetwork(NETWORK)
+            .withNetworkAliases("redis")
+            .withCommand("redis-server --requirepass password")
+            .waitingFor(Wait.forListeningPort());
+
+    @Container
     protected static final GenericContainer<?> PUBLIC_REST_CONTAINER = springWebContainer(TestImages.PUBLIC_REST_ENDPOINT_IMAGE, "public-rest-service")
             .dependsOn(MYSQL_CONTAINER);
 
@@ -55,6 +62,10 @@ public abstract class TestContainers {
         registry.add("publicrest.host", () -> "localhost");
         registry.add("media.management.port", () -> MEDIA_MANAGEMENT_CONTAINER.getMappedPort(8080));
         registry.add("media.management.host", () -> "localhost");
+        registry.add("spring.data.redis.port", () -> REDIS_CONTAINER.getMappedPort(6379));
+        registry.add("spring.data.redis.host", REDIS_CONTAINER::getHost);
+        registry.add("spring.data.redis.username", () -> "default");
+        registry.add("spring.data.redis.password", () -> "password");
     }
 
     public static void start() {
@@ -62,7 +73,8 @@ public abstract class TestContainers {
             Startables.deepStart(
                     MYSQL_CONTAINER,
                     MEDIA_MANAGEMENT_CONTAINER,
-                    PUBLIC_REST_CONTAINER
+                    PUBLIC_REST_CONTAINER,
+                    REDIS_CONTAINER
             ).get();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -81,11 +93,13 @@ public abstract class TestContainers {
                 .withEnv("MYSQL_DATABASE","testdb")
                 .withEnv("MYSQL_PASSWORD","testpass")
                 .withEnv("SPRING_JPA_SHOW_SQL", "true")
+                .withEnv("REDIS_HOST", "redis")
                 .withNetwork(NETWORK)
                 .withEnv("MANAGEMENT_SERVER_ADDRESS", "0.0.0.0")
                 .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("Log-" + alias)))
                 .waitingFor(Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                 .withNetworkAliases(alias)
+                .dependsOn(REDIS_CONTAINER)
                 .withStartupTimeout(Duration.ofSeconds(60));
     }
 
