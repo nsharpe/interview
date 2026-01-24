@@ -1,6 +1,7 @@
 package org.example.media.player.controller;
 
 import org.example.media.player.controller.model.MediaPlayerEventBase;
+import org.example.media.player.controller.model.MediaStartRequest;
 import org.example.media.player.service.MediaEventService;
 import org.example.security.AuthenticationInfo;
 import org.example.security.SecurityConfiguration;
@@ -54,7 +55,7 @@ class MediaPlayerEventControllerTest {
 
         MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
                 .eventId(UUID.randomUUID())
-                .startPosition(0)
+                .mediaPosition(0)
                 .timestamp(now)
                 .build();
 
@@ -64,7 +65,7 @@ class MediaPlayerEventControllerTest {
 
         when(tokenRepo.infoForToken(token)).thenReturn(authenticationInfo);
 
-        mockMvc.perform(post("/media/" + mediaId + "/start")
+        mockMvc.perform(post("/player/media/" + mediaId + "/start")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + token)
                         .content(OBJECT_MAPPER.writeValueAsString(startRequest))
@@ -72,5 +73,41 @@ class MediaPlayerEventControllerTest {
                 .andExpect(status().isAccepted())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))// Verify HTTP status
                 .andExpect(jsonPath("$.actionId").value(startRequest.getEventState().getEventId().toString()));
+    }
+
+    @Test
+    void testAcceptStop() throws Exception{
+        UUID lastActionId = UUID.randomUUID();
+        UUID userID = UUID.randomUUID();
+        String token = "123";
+        OffsetDateTime now = OffsetDateTime.now();
+
+        AuthenticationInfo authenticationInfo = AuthenticationInfo.builder()
+                .userId(userID)
+                .roles(List.of("SUBSCRIBER"))
+                .build();
+
+        MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
+                .eventId(UUID.randomUUID())
+                .mediaPosition(123)
+                .timestamp(now)
+                .build();
+
+        MediaStartRequest request = MediaStartRequest.builder()
+                .eventState(mediaPlayerEventBase)
+                .lastActionId(lastActionId)
+                .build();
+
+        when(tokenRepo.infoForToken(token)).thenReturn(authenticationInfo);
+
+        mockMvc.perform(post("/player/media/stop")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .content(OBJECT_MAPPER.writeValueAsString(request))
+                )
+                .andExpect(status().isAccepted())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))// Verify HTTP status
+                .andExpect(jsonPath("$.actionId")
+                        .value(request.getEventState().getEventId().toString()));
     }
 }

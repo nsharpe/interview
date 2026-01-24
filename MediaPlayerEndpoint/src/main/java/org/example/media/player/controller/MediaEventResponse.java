@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MediaStartResponse {
+public class MediaEventResponse {
     @NotNull
     private UUID actionId;
 }

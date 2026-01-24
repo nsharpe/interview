@@ -10,14 +10,17 @@ import org.example.media.management.sdk.models.EpisodeModel;
 import org.example.media.management.sdk.models.SeasonModel;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.example.test.data.TestUtil.FAKER;
 
 @Service
 public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput, EpisodeModel> {
+    private static final Duration MAX_EPISODE_LENGTH = Duration.ofHours(2).plusMinutes(46);
 
     private final EpisodeControllerApi episodeControllerApi;
     private final UUID baseSeries;
@@ -44,6 +47,9 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
     public EpisodeInput generateInput(){
         EpisodeCreateModel episodeCreateModel = new EpisodeCreateModel();
         episodeCreateModel.setOrder(episodeOrder.getAndIncrement());
+        episodeCreateModel.setLength(Duration.ofSeconds(ThreadLocalRandom.current().nextLong(0,MAX_EPISODE_LENGTH.toSeconds()))
+                .toString()
+        );
         episodeCreateModel.setTitle(FAKER.lorem().sentence(2,4));
         return new EpisodeInput(episodeCreateModel,baseSeries, baseSeason);
     }

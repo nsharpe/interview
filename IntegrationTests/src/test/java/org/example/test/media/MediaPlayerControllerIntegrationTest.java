@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,12 +50,13 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
         UserModel user = userGenerator.generate();
         String authToken = authenticationGenerator.generateTokenForSubscriber(user);
         EpisodeModel episodeModel = episodeGenerator.generate();
+        Duration episodeDuration = Duration.parse(episodeModel.getLength());
         UUID actionID = UUID.randomUUID();
 
         String body = MAPPER.writeValueAsString(
                 Map.of("eventState",
                         Map.of("eventId", actionID,
-                                "startPosition", 0,
+                                "mediaPosition", 0,
                                 "timestamp", "2026-01-23T01:01:01.000000001Z")
                 ));
 
@@ -62,7 +64,7 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
                 .header("Content-type", "application/json")
                 .header("Authorization", "Bearer " + authToken)
                 .body(body)
-                .when().post("/media/{mediaId}/start",episodeModel.getId())
+                .when().post("/player/media/{mediaId}/start",episodeModel.getId())
                 .then()
                 .statusCode(202)
                 .and()
@@ -71,8 +73,35 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
                 .body()
                 .jsonPath();
 
-        String episode = jsonPath.get("actionId");
-        assertNotNull(UUID.fromString(episode));
+        String actionId = jsonPath.get("actionId");
+        assertNotNull(UUID.fromString(actionId));
+
+
+        body = MAPPER.writeValueAsString(
+                Map.of("eventState",
+                        Map.of("eventId", UUID.randomUUID(),
+                                "mediaPosition", episodeDuration.toMillis(),
+                                "timestamp", "2026-01-23T05:01:01.000000001Z",
+                                "lastActionId",actionID),
+                        "lastActionId",actionId
+                ));
+
+        jsonPath = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", "Bearer " + authToken)
+                .body(body)
+                .when().post("/player/media/stop")
+                .then()
+                .statusCode(202)
+                .and()
+                .body("actionId", notNullValue())
+                .extract()
+                .body()
+                .jsonPath();
+
+        actionId = jsonPath.get("actionId");
+        assertNotNull(UUID.fromString(actionId));
+
 
     }
 }

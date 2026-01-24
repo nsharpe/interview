@@ -21,20 +21,17 @@ import java.util.UUID;
 public class MediaPlayerEventBase {
 
     @NotNull
-    private long startPosition;
+    private long mediaPosition;
     @NotNull
     private UUID eventId;
     @NotNull
     private OffsetDateTime timestamp;
 
-    @JsonProperty(defaultValue="0")
-    private long mediaTimeStampMs = 0;
-
     public MediaEvent toMediaEvent(){
         return MediaEvent.newBuilder()
                 .setUserId(AuthenticationInfo.get().getUserId())
                 .setTimestamp(timestamp.toInstant())
-                .setMediaTimestampMs(mediaTimeStampMs)
+                .setMediaTimestampMs(mediaPosition)
                 .build();
     }
 }
