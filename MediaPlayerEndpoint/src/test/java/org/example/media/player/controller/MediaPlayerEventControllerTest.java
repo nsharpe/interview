@@ -1,5 +1,6 @@
 package org.example.media.player.controller;
 
+import org.example.media.player.controller.model.MediaPlayerEventBase;
 import org.example.media.player.service.MediaEventService;
 import org.example.security.AuthenticationInfo;
 import org.example.security.SecurityConfiguration;
@@ -51,10 +52,14 @@ class MediaPlayerEventControllerTest {
                 .roles(List.of("SUBSCRIBER"))
                 .build();
 
-        MediaStartRequest startRequest = MediaStartRequest.builder()
+        MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
                 .eventId(UUID.randomUUID())
                 .startPosition(0)
                 .timestamp(now)
+                .build();
+
+        MediaStartRequest startRequest = MediaStartRequest.builder()
+                .eventState(mediaPlayerEventBase)
                 .build();
 
         when(tokenRepo.infoForToken(token)).thenReturn(authenticationInfo);
@@ -66,6 +71,6 @@ class MediaPlayerEventControllerTest {
                 )
                 .andExpect(status().isAccepted())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))// Verify HTTP status
-                .andExpect(jsonPath("$.actionId").value(startRequest.getEventId().toString()));
+                .andExpect(jsonPath("$.actionId").value(startRequest.getEventState().getEventId().toString()));
     }
 }

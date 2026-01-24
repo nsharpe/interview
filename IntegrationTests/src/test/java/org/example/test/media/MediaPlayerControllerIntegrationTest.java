@@ -44,16 +44,19 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
     }
 
     @Test
-    void testPlayerStartAccept() throws Exception{
+    void testPlayerStartAccept() throws Exception {
 
         UserModel user = userGenerator.generate();
         String authToken = authenticationGenerator.generateTokenForSubscriber(user);
         EpisodeModel episodeModel = episodeGenerator.generate();
         UUID actionID = UUID.randomUUID();
 
-        String body = MAPPER.writeValueAsString(Map.of("eventId",actionID,
-                "startPosition",0,
-                "timestamp","2026-01-23T01:01:01.000000001Z"));
+        String body = MAPPER.writeValueAsString(
+                Map.of("eventState",
+                        Map.of("eventId", actionID,
+                                "startPosition", 0,
+                                "timestamp", "2026-01-23T01:01:01.000000001Z")
+                ));
 
         JsonPath jsonPath = given()
                 .header("Content-type", "application/json")

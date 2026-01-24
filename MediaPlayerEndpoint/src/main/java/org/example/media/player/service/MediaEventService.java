@@ -28,7 +28,7 @@ public class MediaEventService {
 
         CompletableFuture<SendResult<MediaPlayerEventKey, MediaStart>> future =
                 kafkaTemplate.send(MEDIA_ENGAGEMENT, MediaPlayerEventKey.newBuilder()
-                                .setEventId(mediaStartRequest.getEventId())
+                                .setEventId(mediaStartRequest.getEventState().getEventId())
                                 .build(),
                         mediaStartRequest.toMediaStart(mediaId)
                 );

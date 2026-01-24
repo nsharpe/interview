@@ -35,7 +35,7 @@ public class MediaEventController {
         mediaEventService.startMedia(mediaStartRequest,mediaId);
 
         return MediaStartResponse.builder()
-                .actionId(mediaStartRequest.getEventId())
+                .actionId(mediaStartRequest.getEventState().getEventId())
                 .build();
     }
 }

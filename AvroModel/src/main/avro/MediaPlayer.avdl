@@ -1,12 +1,22 @@
 @namespace("com.example.avro.media.player")
 protocol MediaPlayer {
 
+  /**
+    *  A Key component of these events are the `lastActionId` fields.
+    * The `lastActionId` is the last action triggered that modified how a piece of media is played.
+    *
+    * User Action Examples
+    * An example would be a user pressing the play, or pause button.  Those events are considered action events.
+    * The only time an event can be null
+    *
+    * Automatic Action Examples
+    * An automatic action may be either the media stopping because the user has not interacted with their machine and thus their session is timedout.
+    * Another example is a commercial pausing a stream and then restarting.
+ */
+
   record MediaEvent{
     // This is the public id for a user
     uuid userId;
-    // Media is used instead of episode to add support for media not associated with entertainment.
-    // This allows flexibility for things like comercials to use the same frameworks
-    uuid mediaId;
 
     // The timestamp of a media when play was initiated.
     long mediaTimestampMs;
@@ -22,6 +32,12 @@ protocol MediaPlayer {
   }
 
   record MediaStart{
+
+    // Media is used instead of episode to add support for media not associated with entertainment.
+    // This allows flexibility for things like comercials to use the same frameworks
+    // This should not be required for all requests because it can be derived by chaining `lastActionId`
+    uuid mediaId;
+
     MediaEvent mediaEvent;
 
     uuid? lastActionId = null;
