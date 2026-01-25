@@ -27,10 +27,11 @@ services:
     environment:
       SERVER_PORT: 9080
       MANAGEMENT_SERVER_PORT: 9081
-      MYSQL_USER: user
       REDIS_HOST: redis
-      MYSQL_PASSWORD: aPassword
-      MYSQL_HOST: mysql
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST: postgres
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9081"]
       interval: 10s

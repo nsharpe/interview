@@ -7,10 +7,6 @@ tasks.bootJar {
 }
 
 tasks.assemble{
-    dependsOn(":TestData:jar")
-}
-
-tasks.test{
     dependsOn(":PublicRestEndpoint:bootJar")
     dependsOn(":MediaManagement:bootJar")
     dependsOn(":MediaPlayerEndpoint:bootJar")
@@ -24,7 +20,9 @@ dependencies {
     implementation("org.apache.commons:commons-pool2")
 
     runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("org.postgresql:postgresql")
     testRuntimeOnly("com.mysql:mysql-connector-j")
+    testRuntimeOnly("org.postgresql:postgresql")
 
     // Using the variable defined above
     testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))

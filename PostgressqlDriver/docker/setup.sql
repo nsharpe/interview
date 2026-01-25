@@ -1,0 +1,3 @@
+CREATE DATABASE testdb;
+
+GRANT CONNECT ON DATABASE testdb TO `user`;

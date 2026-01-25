@@ -14,5 +14,6 @@ tasks.bootRun{
 
 dependencies {
     api(project(":Core"))
-    api(project(":MySqlDriver"))
+    api(project(":PostgressqlDriver"))
+    runtimeOnly("org.postgresql:postgresql")
 }

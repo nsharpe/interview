@@ -71,12 +71,21 @@ Documentation on running the apps in this manner has been removed until correct 
 
 ## Interacting with the application
 
+You can use an auth token of `123` for local development.
+
+### Running an appliction via `bootrun`
+
+To see a list of all the endpoints, while the application is running go to
+[swagger](http://localhost:8081/swagger-ui/index.html)
+
+The health of the system can be viewed through  
+[healthcheck](http://localhost:8081/actuator/health)
 
 ### Public Rest Endpoint
 To see a list of all the endpoints, while the application is running go to
 [swagger](http://localhost:9080/swagger-ui/index.html)
 
-The health of the syste can be viewed through  
+The health of the system can be viewed through  
 [healthcheck](http://localhost:9080/actuator/health)
 
 In order to see how many entries have been cached

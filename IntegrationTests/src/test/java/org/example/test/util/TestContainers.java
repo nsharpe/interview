@@ -28,6 +28,7 @@ public abstract class TestContainers {
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     )
+                    .withExposedService("postgres", 5432, Wait.forListeningPort())
                     .withExposedService("media-player-endpoint",9100,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withEnv("COMPOSE_PROJECT_NAME", "test-project")
@@ -45,10 +46,10 @@ public abstract class TestContainers {
 
     @DynamicPropertySource
     public static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("publicrest.port", () -> ENVIRONMENT.getServicePort("public-rest", 9080));
-        registry.add("publicrest.host", () -> "localhost");
+        registry.add("publicrest.port", TestContainers::getPublicRestPort);
+        registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("public-rest", 9080));
 
-        registry.add("media.management.port", () -> ENVIRONMENT.getServicePort("media-management", 9090));
+        registry.add("media.management.port", TestContainers::getMediaManagmentPort);
         registry.add("media.management.host", () -> "localhost");
 
         registry.add("spring.data.redis.port", () -> ENVIRONMENT.getServicePort("redis", REDIS_PORT));
@@ -58,30 +59,34 @@ public abstract class TestContainers {
     }
 
     // Helper methods for the ApiClients
-    public ApiClient managementApiClient() {
+    public static ApiClient managementApiClient() {
         return new ApiClient(WebClient.builder().build())
                 .setBasePath("http://localhost:" + getMediaManagmentPort());
     }
 
-    public int getMediaManagmentPort(){
+    public static int getMediaManagmentPort(){
         return ENVIRONMENT.getServicePort("media-management", 9090);
     }
 
-    public org.example.publicrest.sdk.invoker.ApiClient publicRestApiClient() {
+    public static org.example.publicrest.sdk.invoker.ApiClient publicRestApiClient() {
         return new org.example.publicrest.sdk.invoker.ApiClient(WebClient.builder().build())
                 .setBasePath("http://localhost:" + getPublicRestPort());
     }
 
-    public int getPublicRestPort(){
+    public static int getPublicRestPort(){
         return ENVIRONMENT.getServicePort("public-rest", 9080);
     }
 
-    public org.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {
-        return new org.example.media.player.sdk.invoker.ApiClient(WebClient.builder().build())
-                .setBasePath("http://localhost:" + getMediaPlayPort());
+    public static String getPublicRestHost(){
+        return ENVIRONMENT.getServiceHost("public-rest", 9080);
     }
 
-    public int getMediaPlayPort(){
+    public static org.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {
+        return new org.example.media.player.sdk.invoker.ApiClient(WebClient.builder().build())
+                .setBasePath("http://"+getPublicRestHost()+":" + getMediaPlayPort());
+    }
+
+    public static int getMediaPlayPort(){
         return ENVIRONMENT.getServicePort("media-player-endpoint", 9100);
     }
 

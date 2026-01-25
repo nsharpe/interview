@@ -20,8 +20,6 @@ openApi {
 
     customBootRun{
         args.set(listOf("--spring.profiles.active=openapi"))
-        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
-        args.add("--spring.jpa.hibernate.ddl-auto=none")
     }
 }
 
@@ -49,7 +47,6 @@ val projectJarPaths = configurations.implementation.map { config ->
 
 tasks.forkedSpringBootRun{
     dependsOn(projectJarPaths)
-    args.add("--spring.profiles.active=openapi")
 }
 
 dependencies {
@@ -58,10 +55,12 @@ dependencies {
     implementation(project(":Security"))
 
     // SQL
-    implementation(project(":MySqlDriver"))
-    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation(project(":PostgressqlDriver"))
+    runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 
     // Cache
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }

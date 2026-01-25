@@ -25,7 +25,7 @@ public class AuthenticationGenerator {
 
     public void resetBearerToken(){
         redisTemplate.opsForValue().set(
-                ADMIN_AUTH_TOKEN,
+                "Bearer " + ADMIN_AUTH_TOKEN,
                 AuthenticationInfo.builder()
                         .userId(UUID.randomUUID())
                         .roles(List.of("ADMIN"))
@@ -49,7 +49,7 @@ public class AuthenticationGenerator {
     public String generateTokenForSubscriber(UUID userId){
         String token = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(
-                token,
+                "Bearer " + token,
                 AuthenticationInfo.builder()
                         .userId(userId)
                         .roles(List.of("SUBSCRIBER"))
@@ -63,7 +63,7 @@ public class AuthenticationGenerator {
     public String generateToken(UUID userId, AuthenticationInfo.AuthenticationInfoBuilder authenticationInfoBuilder){
         String token = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(
-                token,
+                "Bearer " + token,
                 authenticationInfoBuilder
                         .userId(userId)
                         .build(),

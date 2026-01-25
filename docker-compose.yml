@@ -65,17 +65,38 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: true
       MYSQL_DATABASE: testdb
     volumes:
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./MySqlDriver/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '3306'
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$$MYSQL_USER", "-p$$MYSQL_PASSWORD"]
       timeout: 20s
       retries: 2
+    labels:
+      org.springframework.boot.datasource.name: mysql
+
+  postgres:
+    image: postgres:18.1
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: media
+    volumes:
+      - ./PostgressqlDriver/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports:
+      - "5432"
+    labels:
+      org.springframework.boot.datasource.name: postgresql
 
   redis:
     image: redis:8.4.0
+    entrypoint: [ "sh", "/usr/local/bin/init-redis.sh" ]
     command: ["redis-server", "--requirepass", "password"]
+    volumes:
+      - ./Redis/docker/init-redis.sh:/usr/local/bin/init-redis.sh
     ports:
-      - 6379
+      - "6379"
+    labels:
+      org.springframework.boot.datasource.name: redis
 

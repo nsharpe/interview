@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.5.9" apply false
+    id("org.springframework.boot") version "3.5.10" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
     id("com.github.spotbugs") version "6.0.1"
     id("io.freefair.lombok") version "9.1.0"
@@ -12,6 +12,7 @@ allprojects {
 }
 
 tasks.test {
+    useJUnitPlatform()
     enabled = false
 }
 
@@ -42,5 +43,11 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
         maxHeapSize = "512m"
+    }
+
+    tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
+        systemProperty("spring.docker.compose.file",
+            rootProject.file("docker-compose.yml").absolutePath +","+
+                    rootProject.file("docker-compose.fixedport.yml").absolutePath)
     }
 }

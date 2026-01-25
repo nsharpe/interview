@@ -1,0 +1,25 @@
+services:
+  broker:
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+
+  ksqldb-server:
+    ports:
+      - "8088:8088"
+
+  schema-registry:
+    ports:
+      - '8091:8091'
+
+  mysql:
+    ports:
+      - '3306:3306'
+
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"

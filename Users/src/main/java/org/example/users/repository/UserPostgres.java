@@ -15,8 +15,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.mysql.MysqlSoftDelete;
-import org.example.mysql.MysqlTimeStamp;
+import org.example.postgrsql.PostgresSoftDelete;
+import org.example.postgrsql.PostgresTimeStamp;
 import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
 import org.hibernate.annotations.SQLDelete;
@@ -38,11 +38,11 @@ import static org.modelmapper.convention.MatchingStrategies.STRICT;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserMysql {
+public class UserPostgres {
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
     static{
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(STRICT);
-        MODEL_MAPPER.addMappings(new PropertyMap<UserMysql, UserModel>() {
+        MODEL_MAPPER.addMappings(new PropertyMap<UserPostgres, UserModel>() {
             @Override
             protected void configure() {
                 map(source.getPublicId(),destination.getId());
@@ -62,14 +62,14 @@ public class UserMysql {
     private String lastName;
 
     @Embedded
-    private MysqlTimeStamp timeStamp;
+    private PostgresTimeStamp timeStamp;
 
     @Embedded
-    private MysqlSoftDelete softDelete;
+    private PostgresSoftDelete softDelete;
 
-    public static UserMysql of(UserModel userModel){
-        UserMysql toReturn = MODEL_MAPPER.map(userModel, UserMysql.class);
-        toReturn.setTimeStamp(MysqlTimeStamp.builder()
+    public static UserPostgres of(UserModel userModel){
+        UserPostgres toReturn = MODEL_MAPPER.map(userModel, UserPostgres.class);
+        toReturn.setTimeStamp(PostgresTimeStamp.builder()
                 .creationTimestamp(userModel.getCreationTimestamp())
                 .build());
         return toReturn;

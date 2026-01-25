@@ -5,8 +5,8 @@ import org.example.core.exceptions.NotFoundException;
 import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
 import org.example.users.UserRepository;
-import org.example.users.repository.UserMysql;
-import org.example.users.repository.UserMysqlRepository;
+import org.example.users.repository.UserPostgres;
+import org.example.users.repository.UserCrudRespoitory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,16 +15,16 @@ import java.util.UUID;
 
 public class UserDatabase implements UserRepository {
 
-    private final UserMysqlRepository mysqlRepository;
+    private final UserCrudRespoitory userCrudRespoitory;
 
-    public UserDatabase(UserMysqlRepository mysqlRepository) {
-        this.mysqlRepository = mysqlRepository;
+    public UserDatabase(UserCrudRespoitory userCrudRespoitory) {
+        this.userCrudRespoitory = userCrudRespoitory;
     }
 
     @Override
     @Cacheable(value = "users",key = "#id")
     public UserModel getUser(long id) {
-        return  mysqlRepository.findById(id)
+        return  userCrudRespoitory.findById(id)
                 .orElseThrow( () -> new NotFoundException("user",id) )
                 .toModel();
     }
@@ -32,7 +32,7 @@ public class UserDatabase implements UserRepository {
     @Override
     @Cacheable(value = "users",key = "#publicId")
     public UserModel getUser(UUID publicId) {
-        return  mysqlRepository.findByPublicId(publicId)
+        return  userCrudRespoitory.findByPublicId(publicId)
                 .orElseThrow( () -> new NotFoundException("user", publicId))
                 .toModel();
     }
@@ -40,23 +40,23 @@ public class UserDatabase implements UserRepository {
     @Override
     @CacheEvict(value = "users",key = "#result.getId()")
     public UserModel createUser(UserModel model) {
-        return mysqlRepository.save(UserMysql.of(model)).toModel();
+        return userCrudRespoitory.save(UserPostgres.of(model)).toModel();
     }
 
     @Override
     @CachePut(value = "users",key = "#id")
     public UserModel updateUser(UUID id, UpdateUserModel updateUserModel) {
-        UserMysql mysqlView = mysqlRepository.findByPublicId(id)
+        UserPostgres user = userCrudRespoitory.findByPublicId(id)
                 .orElseThrow(() -> new NotFoundException("User " + id +" not found"));
 
-        mysqlView.update(updateUserModel);
+        user.update(updateUserModel);
 
-        return mysqlRepository.save(mysqlView).toModel();
+        return userCrudRespoitory.save(user).toModel();
     }
 
     @Override
     @CacheEvict(value = "users",key = "#id")
     public void deleteUser(UUID id) {
-        mysqlRepository.deleteByPublicId(id);
+        userCrudRespoitory.deleteByPublicId(id);
     }
 }

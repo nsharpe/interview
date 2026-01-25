@@ -5,9 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UserMysqlRepository extends CrudRepository<UserMysql, Long> {
+public interface UserCrudRespoitory extends CrudRepository<UserPostgres, Long> {
 
-    Optional<UserMysql> findByPublicId(UUID publicId);
+    Optional<UserPostgres> findByPublicId(UUID publicId);
 
     void deleteByPublicId(UUID uuid);
 }

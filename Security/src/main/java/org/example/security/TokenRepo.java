@@ -11,6 +11,6 @@ public class TokenRepo {
     private final RedisTemplate<String, AuthenticationInfo> redisTemplate;
 
     public AuthenticationInfo infoForToken(String jwt){
-        return redisTemplate.opsForValue().get(jwt);
+        return redisTemplate.opsForValue().get("Bearer "+jwt);
     }
 }

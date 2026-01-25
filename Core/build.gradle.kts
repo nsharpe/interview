@@ -2,17 +2,18 @@ plugins {
     `java-library`
 }
 
-tasks.test {
-    useJUnitPlatform()
-    failOnNoDiscoveredTests = false
-}
-
 tasks.bootJar{
     enabled = false
 }
 
 tasks.bootRun{
     enabled = false
+}
+
+tasks.processResources{
+    from(file("../docker-compose.yml"))
+    from(file("../docker-compose.fixedport.yml"))
+    into("build/resources/main/docker")
 }
 
 dependencies {
@@ -25,4 +26,6 @@ dependencies {
 
     api("com.fasterxml.jackson.core:jackson-databind:2.20.1")
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.1")
+
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }

@@ -4,13 +4,11 @@ import org.example.users.UpdateUserModel;
 import org.example.users.UserModel;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserMysqlTest {
+class UserPostgresTest {
 
     @Test
     void testMapUserModelToDatabaseModel(){
@@ -22,19 +20,19 @@ class UserMysqlTest {
                 .creationTimestamp(now)
                 .build();
 
-        UserMysql userMysql = UserMysql.of(userModel);
+        UserPostgres userPostgres = UserPostgres.of(userModel);
 
-        assertEquals(userModel.getEmail(), userMysql.getEmail());
-        assertEquals(userModel.getCreationTimestamp(),userMysql.getTimeStamp().getCreationTimestamp());
-        assertEquals(userModel.getFirstName(),userMysql.getFirstName());
-        assertEquals(userModel.getLastName(),userMysql.getLastName());
-        assertNull(userMysql.getSoftDelete());
+        assertEquals(userModel.getEmail(), userPostgres.getEmail());
+        assertEquals(userModel.getCreationTimestamp(), userPostgres.getTimeStamp().getCreationTimestamp());
+        assertEquals(userModel.getFirstName(), userPostgres.getFirstName());
+        assertEquals(userModel.getLastName(), userPostgres.getLastName());
+        assertNull(userPostgres.getSoftDelete());
     }
 
     @Test
     void testUpdateDatabaseModel(){
 
-        UserMysql userMysql = UserMysql.builder()
+        UserPostgres userPostgres = UserPostgres.builder()
                 .id(1L)
                 .email("test@test.com")
                 .firstName("joe")
@@ -47,9 +45,9 @@ class UserMysqlTest {
                 .email("ftest@test.com")
                 .build();
 
-        userMysql.update(updateUserModel);
-        assertEquals(updateUserModel.getFirstName(),userMysql.getFirstName());
-        assertEquals(updateUserModel.getLastName(),userMysql.getLastName());
-        assertEquals(updateUserModel.getEmail(),userMysql.getEmail());
+        userPostgres.update(updateUserModel);
+        assertEquals(updateUserModel.getFirstName(), userPostgres.getFirstName());
+        assertEquals(updateUserModel.getLastName(), userPostgres.getLastName());
+        assertEquals(updateUserModel.getEmail(), userPostgres.getEmail());
     }
 }

@@ -27,7 +27,3 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-security")
     api(project(":Redis"))
 }
-
-tasks.test {
-    useJUnitPlatform()
-}
