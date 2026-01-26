@@ -50,7 +50,7 @@ tasks.forkedSpringBootRun{
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation(project(":Users"))
+    implementation("org.example.business-domain:users")
 
     // SQL
     implementation("org.example.driver:postgres-driver")

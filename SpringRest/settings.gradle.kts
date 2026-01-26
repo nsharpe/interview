@@ -10,13 +10,6 @@ include("SpringWeb")
 includeBuild("../SpringPod")
 includeBuild("../Core")
 includeBuild("../Plugins")
-includeBuild("../BusinessDomain")
-{
-    dependencySubstitution {
-        substitute(module("org.example.business-domain:series"))
-            .using(project(":Series"))
-    }
-}
 includeBuild("../Driver"){
     dependencySubstitution {
         substitute(module("org.example.driver:mysql-driver"))

@@ -31,12 +31,20 @@ includeBuild("SpringRest"){
             .using(project(":SpringWeb"))
     }
 }
+includeBuild("BusinessDomain")
+{
+    dependencySubstitution {
+        substitute(module("org.example.business-domain:series"))
+            .using(project(":Series"))
+        substitute(module("org.example.business-domain:users"))
+            .using(project(":Users"))
+    }
+}
 
 include("PublicRestEndpoint")
 include("TestData")
 include("IntegrationTests")
 include("MediaManagement")
-include("Users")
 include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")

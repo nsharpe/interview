@@ -5,10 +5,13 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
+import org.example.test.data.AuthenticationGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.data.PostPayloadGenerator.createSeriesPojo;
@@ -17,7 +20,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class TestSeriesLifecyleIntegration extends TestContainers {
+    @Autowired
+    AuthenticationGenerator authenticationGenerator;
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
@@ -30,7 +36,7 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
         String body = MAPPER.writeValueAsString(createSeriesPojo("Series Title"));
 
         // create series
-        JsonPath jsonPath = given()
+        JsonPath jsonPath = given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .header("Content-type", "application/json")
                 .body(body)
                 .when().post("/series")
@@ -49,6 +55,7 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
 
         // get series
         Response getBody = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{id}", id)
                 .then()
                 .statusCode(200)
@@ -66,12 +73,12 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete series
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().delete("/series/{id}", id)
                 .then()
                 .statusCode(204);
 
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{id}", id)
                 .then()
                 .statusCode(404);

@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
 import org.example.media.management.sdk.models.SeasonModel;
+import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.SeasonGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,9 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
     @Autowired
     private SeasonGenerator seasonGenerator;
 
+    @Autowired
+    private AuthenticationGenerator authenticationGenerator;
+
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
@@ -48,6 +52,7 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
         // create series
         JsonPath jsonPath = given()
                 .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .body(body)
                 .when().post("/series/{seriesId}/season/{seasonId}/episode",seriesId, seasonId)
                 .then()
@@ -64,6 +69,7 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
 
         // get series
         Response getBody = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{seriesId}/season/{seasonId}/episode/{episode}", seriesId,seasonId,episode)
                 .then()
                 .statusCode(200)
@@ -82,12 +88,12 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete series
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().delete("/series/{id}/season/{seasonId}/episode/{episode}", seriesId, seasonId, episode)
                 .then()
                 .statusCode(204);
 
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{id}/season/{seasonId}/episode/{episode}", seriesId, seasonId, episode)
                 .then()
                 .statusCode(404);
