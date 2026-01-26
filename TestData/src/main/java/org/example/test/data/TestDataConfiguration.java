@@ -1,6 +1,6 @@
 package org.example.test.data;
 
-import org.example.security.AuthenticationInfo;
+import org.example.core.model.AuthenticationInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

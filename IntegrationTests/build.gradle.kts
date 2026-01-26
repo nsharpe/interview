@@ -6,7 +6,7 @@ tasks.bootJar {
     enabled = false
 }
 
-tasks.assemble{
+tasks.test{
     dependsOn(":PublicRestEndpoint:bootJar")
     dependsOn(":MediaManagement:bootJar")
     dependsOn(":MediaPlayerEndpoint:bootJar")

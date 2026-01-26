@@ -1,9 +1,9 @@
 package org.example.media.player.controller;
 
+import org.example.core.model.AuthenticationInfo;
 import org.example.media.player.controller.model.MediaPlayerEventBase;
 import org.example.media.player.controller.model.MediaStartRequest;
 import org.example.media.player.service.MediaEventService;
-import org.example.security.AuthenticationInfo;
 import org.example.security.SecurityConfiguration;
 import org.example.security.TokenRepo;
 import org.junit.jupiter.api.Test;

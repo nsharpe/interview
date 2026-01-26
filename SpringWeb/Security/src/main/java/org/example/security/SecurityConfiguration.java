@@ -1,10 +1,10 @@
 package org.example.security;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.example.core.model.AuthenticationInfo;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -12,13 +12,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfiguration {
     @Bean
-    @Profile("!openapi")
+    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
     public SecurityFilterChain filterChain(HttpSecurity http, TokenRepo tokenRepo) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
@@ -35,7 +36,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    @Profile("openapi")
+    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "false")
     public SecurityFilterChain securityDisabledFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
@@ -56,5 +57,11 @@ public class SecurityConfiguration {
                 new Jackson2JsonRedisSerializer<>(AuthenticationInfo.class));
 
         return redisTemplate;
+    }
+
+    public static AuthenticationInfo getAuthenticationInfo() {
+        return (AuthenticationInfo) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
     }
 }

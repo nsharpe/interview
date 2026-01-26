@@ -24,18 +24,17 @@ includeBuild("Driver"){
             .using(project(":Redis"))
     }
 }
+includeBuild("SpringPod")
+includeBuild("SpringWeb")
 
 include("PublicRestEndpoint")
 include("TestData")
 include("IntegrationTests")
 include("MediaManagement")
 include("Users")
-include("SpringPod")
-include("SpringWeb")
 include("Series")
 include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")
-include("Security")
 include("MediaPlayerEndpointSdk")
 include("KafkaPod")

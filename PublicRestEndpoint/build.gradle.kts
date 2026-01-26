@@ -1,6 +1,5 @@
 plugins {
-    id("org.openapi.generator") version "7.14.0"
-    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("web-documentation")
 }
 
 group = "org.example.public.rest"
@@ -50,9 +49,8 @@ tasks.forkedSpringBootRun{
 }
 
 dependencies {
-    implementation(project(":SpringWeb"))
+    implementation("org.example.web:spring-web")
     implementation(project(":Users"))
-    implementation(project(":Security"))
 
     // SQL
     implementation("org.example.driver:postgres-driver")

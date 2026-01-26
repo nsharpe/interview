@@ -6,14 +6,13 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
 import org.example.media.management.sdk.api.SeriesControllerApi;
+import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.SeriesGenerator;
 import org.example.test.util.TestContainers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
@@ -22,15 +21,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class TestSeasonLIfecyleIntegration extends TestContainers {
 
+    @Autowired
     private SeriesGenerator seriesGenerator;
+    @Autowired
+    private AuthenticationGenerator authenticationGenerator;
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         RestAssured.baseURI = "http://localhost:"+getMediaManagmentPort();
-        seriesGenerator = new SeriesGenerator(new SeriesControllerApi( managementApiClient()));
     }
 
     @Test
@@ -41,6 +43,7 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
 
         // create series
         JsonPath jsonPath = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .header("Content-type", "application/json")
                 .body(body)
                 .when().post("/series/{seriesId}/season",seriesId)
@@ -58,6 +61,7 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
 
         // get series
         Response getBody = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{seriesId}/season/{seasonId}", seriesId,seasonId)
                 .then()
                 .statusCode(200)
@@ -74,12 +78,12 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
                 "lastUpdate="+getBody.jsonPath().get("lastUpdate"));
 
         // delete series
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().delete("/series/{id}/season/{seasonId}", seriesId, seasonId)
                 .then()
                 .statusCode(204);
 
-        given()
+        given().header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/series/{id}/season/{seasonId}", seriesId, seasonId)
                 .then()
                 .statusCode(404);

@@ -1,6 +1,7 @@
 package org.example.security;
 
 import lombok.RequiredArgsConstructor;
+import org.example.core.model.AuthenticationInfo;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

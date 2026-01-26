@@ -1,7 +1,7 @@
 package org.example.test.data;
 
+import org.example.core.model.AuthenticationInfo;
 import org.example.publicrest.sdk.models.UserModel;
-import org.example.security.AuthenticationInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

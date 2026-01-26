@@ -10,7 +10,6 @@ allprojects {
 }
 
 tasks.test {
-    useJUnitPlatform()
     enabled = false
 }
 

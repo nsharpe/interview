@@ -1,8 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.openapi.generator") version "7.14.0"
-    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("web-documentation")
 }
 
 group = "org.example.media.management"
@@ -60,7 +59,7 @@ tasks.named("generateOpenApiDocs") {
 }
 
 dependencies {
-    implementation(project(":SpringWeb"))
+    implementation("org.example.web:spring-web")
     implementation(project(":Series"))
 
     // SQL

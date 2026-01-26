@@ -1,5 +1,6 @@
 package org.example.test.data;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.media.management.sdk.api.SeriesControllerApi;
 import org.example.media.management.sdk.models.SeriesCreateModel;
@@ -12,16 +13,16 @@ import static org.example.test.data.TestUtil.FAKER;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel> {
 
     private final SeriesControllerApi seriesControllerApi;
-
-    public SeriesGenerator(SeriesControllerApi seriesControllerApi) {
-        this.seriesControllerApi = Objects.requireNonNull(seriesControllerApi);
-    }
+    private final AuthenticationGenerator authenticationGenerator;
 
     @Override
     public SeriesModel save(SeriesCreateModel seriesCreateModel){
+        seriesControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
         return seriesControllerApi.create(seriesCreateModel)
                 .doOnError(x->
                         log.atError()

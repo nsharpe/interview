@@ -1,6 +1,6 @@
 plugins {
     id("boot-library")
-    id("org.openapi.generator") version "7.14.0"
+    id("web-documentation")
 }
 
 evaluationDependsOnChildren()

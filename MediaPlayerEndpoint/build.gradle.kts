@@ -1,6 +1,5 @@
 plugins {
-    id("org.openapi.generator") version "7.14.0"
-    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("web-documentation")
 }
 
 group = "org.example.media.player"
@@ -55,10 +54,9 @@ tasks.named("generateOpenApiDocs") {
 }
 
 dependencies {
-    implementation(project(":SpringWeb"))
+    implementation("org.example.web:spring-web")
     implementation("org.example.avro:avro-model")
     implementation("org.example.driver:kafka-driver")
-    implementation(project(":Security"))
 
     implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

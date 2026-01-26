@@ -1,6 +1,5 @@
 plugins{
     id("boot-library")
-    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
 group = "org.example.web"
@@ -16,7 +15,8 @@ tasks.jar{
 }
 
 dependencies {
-    api(project(":SpringPod"))
+    api("org.example.pod:spring-pod")
+    api(project(":Security"))
 
     // Web and documentation
     api("org.springframework.boot:spring-boot-starter-web")

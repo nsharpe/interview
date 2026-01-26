@@ -1,12 +1,10 @@
-package org.example.security;
+package org.example.core.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,16 +16,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(hidden = true)
 public class AuthenticationInfo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private UUID userId;
     private List<String> roles;
-
-    public static AuthenticationInfo get(){
-        return (AuthenticationInfo) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-    }
 }

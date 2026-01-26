@@ -6,5 +6,5 @@ group = "org.example.pod.kafka"
 
 dependencies {
     api("org.example.driver:kafka-driver")
-    api(project(":SpringPod"))
+    api("org.example.pod:spring-pod")
 }

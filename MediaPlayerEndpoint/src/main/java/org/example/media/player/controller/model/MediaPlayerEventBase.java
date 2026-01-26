@@ -1,14 +1,13 @@
 package org.example.media.player.controller.model;
 
 import com.example.avro.media.player.MediaEvent;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.security.AuthenticationInfo;
+import org.example.security.SecurityConfiguration;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -29,7 +28,7 @@ public class MediaPlayerEventBase {
 
     public MediaEvent toMediaEvent(){
         return MediaEvent.newBuilder()
-                .setUserId(AuthenticationInfo.get().getUserId())
+                .setUserId(SecurityConfiguration.getAuthenticationInfo().getUserId())
                 .setTimestamp(timestamp.toInstant())
                 .setMediaTimestampMs(mediaPosition)
                 .build();

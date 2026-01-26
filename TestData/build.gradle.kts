@@ -15,7 +15,6 @@ group = "org.example.test.data"
 dependencies {
 
     api("org.example.driver:redis-driver")
-    api(project(":Security"))
     api("net.datafaker:datafaker:2.5.3")
     api(project(":MediaManagementSdk"))
     api(project(":PublicRestEndpointSdk"))
