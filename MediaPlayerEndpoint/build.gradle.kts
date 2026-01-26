@@ -57,7 +57,7 @@ tasks.named("generateOpenApiDocs") {
 dependencies {
     implementation(project(":SpringWeb"))
     implementation("org.example.avro:avro-model")
-    implementation(project(":Kafka"))
+    implementation("org.example.driver:kafka-driver")
     implementation(project(":Security"))
 
     implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")

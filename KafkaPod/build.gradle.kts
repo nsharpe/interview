@@ -5,6 +5,6 @@ plugins {
 group = "org.example.pod.kafka"
 
 dependencies {
-    api(project(":Kafka"))
+    api("org.example.driver:kafka-driver")
     api(project(":SpringPod"))
 }

@@ -18,6 +18,8 @@ includeBuild("Driver"){
             .using(project(":MySql"))
         substitute(module("org.example.driver:postgres-driver"))
             .using(project(":Postgres"))
+        substitute(module("org.example.driver:kafka-driver"))
+            .using(project(":Kafka"))
     }
 }
 
@@ -32,7 +34,6 @@ include("Series")
 include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")
-include("Kafka")
 include("Security")
 include("Redis")
 include("MediaPlayerEndpointSdk")

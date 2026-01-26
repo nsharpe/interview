@@ -6,7 +6,7 @@ group = "org.example.kafka"
 
 dependencies {
     api("org.example.core:spring-core")
-    api(project(":AvroModel"))
+    api("org.example.avro:avro-model")
 
     api("org.springframework.kafka:spring-kafka")
 
