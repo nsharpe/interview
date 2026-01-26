@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class AuthenticationGenerator {
 
-    private final static String ADMIN_AUTH_TOKEN = "123456890";
+    private final static String ADMIN_AUTH_TOKEN = "123";
 
     private final RedisTemplate<String, AuthenticationInfo> redisTemplate;
 

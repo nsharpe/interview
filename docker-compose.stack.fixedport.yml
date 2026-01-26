@@ -1,0 +1,16 @@
+services:
+
+  public-rest:
+    ports:
+      - "9080:9080"
+      - "9081:9081"
+
+  media-management:
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+
+  media-player-endpoint:
+    ports:
+      - "9100:9100"
+      - "9101:9101"

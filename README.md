@@ -55,15 +55,17 @@ Build jars
 ./gradlew clean bootJar
 ```
 
-Build Images
+Build Images and run all applications
 ```shell
-docker compose -f docker-compose.yml -f docker-compose.stack.yml --build --no-cache 
+docker compose -f docker-compose.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
 ```
 
-Stack Docker While Building Images
+Build Images and run all dependencies on fixed ports
 ```shell
-docker compose -f docker-compose.yml -f docker-compose.stack.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.fixedport.yml up -d --build 
 ```
+
+
 NOTE:
 Currently the docker files compose files are kept in two file to allow running `docker-compose up` and running locally for debugging purposes.   
 

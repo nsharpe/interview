@@ -7,8 +7,6 @@ import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 import static org.example.test.data.TestUtil.FAKER;
 
 @Slf4j

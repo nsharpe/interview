@@ -32,6 +32,8 @@ public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,Se
 
     @Override
     public SeasonModel save(SeasonGenerator.SeasonInput seasonCreateModel){
+        seasonControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
         return seasonControllerApi.create1(seasonCreateModel.seriesId,seasonCreateModel.seasonCreateModel)
                 .doOnError(x->
                         log.atError()

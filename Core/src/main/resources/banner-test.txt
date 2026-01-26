@@ -5,5 +5,8 @@ Author: Neil Sharpe
 Github Repo: https://github.com/nsharpe/interview
 Application: ${spring.application.name}
 Active Profile: ${spring.profiles.active}
+Included Profile: ${spring.profiles.include}
+Compose File: ${spring.docker.compose.file}
+Compose Lifecyle: ${spring.docker.compose.lifecycle-management}
 
 *********************************************************************

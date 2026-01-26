@@ -50,6 +50,7 @@ services:
       - "9090"
       - "9091"
     environment:
+      REDIS_HOST: redis
       SERVER_PORT: 9090
       MANAGEMENT_SERVER_PORT: 9091
       MYSQL_USER: user
