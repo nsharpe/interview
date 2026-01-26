@@ -7,15 +7,6 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven {
-            url = uri("https://packages.confluent.io/maven/")
-        }
-    }
-}
-
 rootProject.name = "MediaPlayer"
 
 includeBuild("Plugins")
