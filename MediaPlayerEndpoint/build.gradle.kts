@@ -56,7 +56,7 @@ tasks.named("generateOpenApiDocs") {
 
 dependencies {
     implementation(project(":SpringWeb"))
-    implementation(project(":AvroModel"))
+    implementation("org.example.avro:avro-model")
     implementation(project(":Kafka"))
     implementation(project(":Security"))
 

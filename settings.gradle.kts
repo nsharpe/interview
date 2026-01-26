@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 rootProject.name = "MediaPlayer"
 
 includeBuild("Plugins")
+includeBuild("AvroModel")
 
 include("Core")
 include("PublicRestEndpoint")
@@ -32,7 +33,6 @@ include("SpringWeb")
 include("Series")
 include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
-include("AvroModel")
 include("MediaPlayerEndpoint")
 include("Kafka")
 include("Security")

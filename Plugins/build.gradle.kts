@@ -1,5 +1,5 @@
 plugins {
-    `kotlin-dsl` // Essential for .gradle.kts plugins
+    `kotlin-dsl`
 }
 
 repositories {
@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.5.10")
+    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.1")
 }
 
 tasks.test{

@@ -1,8 +1,7 @@
 plugins {
-    java
+    id("java-convention")
     id("org.springframework.boot") version "3.5.10" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
-    id("com.github.spotbugs") version "6.0.1"
     id("io.freefair.lombok") version "9.1.0"
 }
 
@@ -18,8 +17,7 @@ tasks.test {
 
 subprojects {
     apply{
-        plugin("java")
-        plugin( "com.github.spotbugs")
+        plugin("java-convention")
         plugin("io.freefair.lombok")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
