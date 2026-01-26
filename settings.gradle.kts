@@ -12,7 +12,7 @@ rootProject.name = "MediaPlayer"
 includeBuild("Plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
-includeBuild("Driver"){
+includeBuild("Driver") {
     dependencySubstitution {
         substitute(module("org.example.driver:mysql-driver"))
             .using(project(":MySql"))
@@ -25,7 +25,7 @@ includeBuild("Driver"){
     }
 }
 includeBuild("SpringPod")
-includeBuild("SpringRest"){
+includeBuild("SpringRest") {
     dependencySubstitution {
         substitute(module("org.example.web:spring-web"))
             .using(project(":SpringWeb"))
@@ -40,6 +40,7 @@ includeBuild("BusinessDomain")
             .using(project(":Users"))
     }
 }
+includeBuild("AdminEndpoint")
 
 include("PublicRestEndpoint")
 include("TestData")

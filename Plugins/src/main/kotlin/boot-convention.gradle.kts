@@ -5,6 +5,10 @@ plugins {
     id("io.spring.dependency-management")
 }
 
+tasks.bootJar{
+    archiveFileName = "app.jar"
+}
+
 tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
     systemProperty("spring.docker.compose.file",
         rootProject.file("docker-compose.yml").absolutePath +","+
