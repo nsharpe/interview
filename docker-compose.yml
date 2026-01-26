@@ -94,7 +94,7 @@ services:
     entrypoint: [ "sh", "/usr/local/bin/init-redis.sh" ]
     command: ["redis-server", "--requirepass", "password"]
     volumes:
-      - ./Redis/docker/init-redis.sh:/usr/local/bin/init-redis.sh
+      - ./Driver/Redis/docker/init-redis.sh:/usr/local/bin/init-redis.sh
     ports:
       - "6379"
     labels:

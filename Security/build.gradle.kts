@@ -17,5 +17,5 @@ tasks.jar{
 dependencies {
     api(project(":SpringWeb"))
     api("org.springframework.boot:spring-boot-starter-security")
-    api(project(":Redis"))
+    api("org.example.driver:redis-driver")
 }

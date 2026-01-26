@@ -20,6 +20,8 @@ includeBuild("Driver"){
             .using(project(":Postgres"))
         substitute(module("org.example.driver:kafka-driver"))
             .using(project(":Kafka"))
+        substitute(module("org.example.driver:redis-driver"))
+            .using(project(":Redis"))
     }
 }
 
@@ -35,6 +37,5 @@ include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")
 include("Security")
-include("Redis")
 include("MediaPlayerEndpointSdk")
 include("KafkaPod")
