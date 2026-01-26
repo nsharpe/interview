@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.security"
+group = "org.example.web.security"
 
 dependencies {
     api("org.springframework.boot:spring-boot-starter-security")

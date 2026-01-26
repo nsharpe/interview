@@ -2,13 +2,21 @@ pluginManagement {
     includeBuild("../Plugins")
 }
 
-rootProject.name = "spring-web"
+rootProject.name = "spring-rest"
 
 include("Security")
+include("SpringWeb")
 
 includeBuild("../SpringPod")
 includeBuild("../Core")
 includeBuild("../Plugins")
+includeBuild("../BusinessDomain")
+{
+    dependencySubstitution {
+        substitute(module("org.example.business-domain:series"))
+            .using(project(":Series"))
+    }
+}
 includeBuild("../Driver"){
     dependencySubstitution {
         substitute(module("org.example.driver:mysql-driver"))

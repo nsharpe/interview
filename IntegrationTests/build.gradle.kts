@@ -7,6 +7,7 @@ tasks.bootJar {
 }
 
 tasks.test{
+    dependsOn(gradle.includedBuild("SpringRest").task(":bootJar"))
     dependsOn(":PublicRestEndpoint:bootJar")
     dependsOn(":MediaManagement:bootJar")
     dependsOn(":MediaPlayerEndpoint:bootJar")

@@ -24,6 +24,9 @@ dependencies {
     add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
 }
 
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))
+}
 
 //configure<com.github.spotbugs.snom.SpotBugsExtension> {
 //    excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))

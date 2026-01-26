@@ -2,8 +2,9 @@
 
 MediaPlayer Ecosystem
 Author: Neil Sharpe
-Github Repo: https://github.com/nsharpe
+Github Repo: https://github.com/nsharpe/interview
 Application: ${spring.application.name}
-Profile: ${spring.profiles.active}
+Active Profile: ${spring.profiles.active}
+Included Profile: ${spring.profiles.include}
 
 *********************************************************************

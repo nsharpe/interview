@@ -18,13 +18,16 @@ public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,Se
 
     private final SeasonControllerApi seasonControllerApi;
     private final UUID baseSeries;
+    private final AuthenticationGenerator authenticationGenerator;
 
     private final AtomicInteger seasonOrder = new AtomicInteger(0);
 
     public SeasonGenerator(SeasonControllerApi seasonControllerApi,
-                           SeriesGenerator seriesGenerator) {
+                           SeriesGenerator seriesGenerator,
+                           AuthenticationGenerator authenticationGenerator) {
         this.seasonControllerApi = Objects.requireNonNull(seasonControllerApi);
         this.baseSeries = seriesGenerator.generate().getId();
+        this.authenticationGenerator=Objects.requireNonNull(authenticationGenerator);
     }
 
     @Override

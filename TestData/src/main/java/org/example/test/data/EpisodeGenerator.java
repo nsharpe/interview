@@ -27,18 +27,22 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
     private final UUID baseSeason;
 
     private final AtomicInteger episodeOrder = new AtomicInteger(0);
+    private final AuthenticationGenerator authenticationGenerator;
 
     public EpisodeGenerator(EpisodeControllerApi episodeControllerApi,
-                            SeasonGenerator seasonGenerator) {
+                            SeasonGenerator seasonGenerator,
+                            AuthenticationGenerator authenticationGenerator) {
         this.episodeControllerApi = Objects.requireNonNull(episodeControllerApi);
         SeasonModel seasonModel = seasonGenerator.generate();
         this.baseSeries = seasonModel.getSeriesId();
         this.baseSeason = seasonModel.getId();
+        this.authenticationGenerator = Objects.requireNonNull(authenticationGenerator);
     }
 
     @Override
     public EpisodeModel save(EpisodeInput episodeInput){
-
+        episodeControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
         return episodeControllerApi.create2(episodeInput.seasonid, episodeInput.seriesId,episodeInput.episodeCreateModel)
                 .block();
     }
