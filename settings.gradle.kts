@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("Plugins")
 
     repositories {
         mavenCentral()
@@ -7,7 +8,6 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         mavenCentral()
         maven {
@@ -17,6 +17,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MediaPlayer"
+
+includeBuild("Plugins")
 
 include("Core")
 include("PublicRestEndpoint")

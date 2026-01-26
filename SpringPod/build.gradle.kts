@@ -1,16 +1,8 @@
 plugins {
-    `java-library`
+    id("boot-library")
 }
 
 group = "org.example.pod"
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun{
-    enabled = false
-}
 
 val projectJarPaths = configurations.implementation.map { config ->
     config.allDependencies

@@ -1,17 +1,9 @@
 plugins {
-    `java-library`
+    id("boot-library")
     id("org.openapi.generator") version "7.14.0"
 }
 
 evaluationDependsOnChildren()
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun {
-    enabled = false
-}
 
 group = "org.example.media.player.sdk"
 

@@ -1,17 +1,9 @@
 plugins{
-    `java-library`
+    id("boot-library")
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
 group = "org.example.web"
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun{
-    enabled = false
-}
 
 val projectJarPaths = configurations.implementation.map { config ->
     config.allDependencies

@@ -1,16 +1,8 @@
 plugins {
-    `java-library`
+    id("boot-library")
 }
 
 group = "org.example.kafka"
-
-tasks.bootRun{
-    enabled = false
-}
-
-tasks.bootJar{
-    enabled = false
-}
 
 dependencies {
     api(project(":Core"))

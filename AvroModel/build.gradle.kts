@@ -1,5 +1,5 @@
 plugins {
-    `java-library`
+    id("boot-library")
     id("com.github.davidmc24.gradle.plugin.avro") version "1.9.1"
 }
 
@@ -12,14 +12,6 @@ dependencies {
     api("io.confluent:kafka-avro-serializer:8.0.3")
 
     api("com.fasterxml.jackson.dataformat:jackson-dataformat-avro")
-}
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun{
-    enabled = false
 }
 
 tasks.spotbugsTest{

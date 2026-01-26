@@ -1,16 +1,8 @@
 plugins {
-    `java-library`
+    id("boot-library")
 }
 
-group = "org.example.tvseries"
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun{
-    enabled = false
-}
+group = "org.example.series"
 
 dependencies {
     api(project(":Core"))

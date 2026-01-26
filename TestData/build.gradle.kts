@@ -1,5 +1,5 @@
 plugins {
-    `java-library`
+    id("boot-library")
 }
 
 tasks.bootJar{

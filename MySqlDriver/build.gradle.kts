@@ -1,13 +1,5 @@
 plugins {
-    `java-library`
-}
-
-tasks.bootJar{
-    enabled = false
-}
-
-tasks.bootRun{
-    enabled = false
+    id("boot-library")
 }
 
 dependencies {
