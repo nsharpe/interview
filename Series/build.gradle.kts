@@ -5,6 +5,6 @@ plugins {
 group = "org.example.series"
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
     api(project(":MySqlDriver"))
 }

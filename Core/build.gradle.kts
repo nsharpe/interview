@@ -2,6 +2,8 @@ plugins {
     id("boot-library")
 }
 
+group="org.example.core"
+
 tasks.processResources{
     from(file("../docker-compose.yml"))
     from(file("../docker-compose.fixedport.yml"))

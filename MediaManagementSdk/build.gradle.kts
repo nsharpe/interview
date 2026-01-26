@@ -8,7 +8,7 @@ evaluationDependsOnChildren()
 group = "org.example.media.management.sdk"
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
     api("org.springframework.boot:spring-boot-starter-webflux")
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")

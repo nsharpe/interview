@@ -8,7 +8,7 @@ evaluationDependsOnChildren()
 group = "org.example.public.rest.sdk"
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
 
     api("org.springframework.boot:spring-boot-starter-webflux")
 

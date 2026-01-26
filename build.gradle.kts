@@ -2,7 +2,6 @@ plugins {
     id("java-convention")
     id("org.springframework.boot") version "3.5.10" apply false
     id("io.spring.dependency-management") version "1.1.7" apply false
-    id("io.freefair.lombok") version "9.1.0"
 }
 
 allprojects {

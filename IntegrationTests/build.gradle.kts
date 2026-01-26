@@ -15,7 +15,7 @@ tasks.assemble{
 val testcontainersVersion = "2.0.3"
 
 dependencies {
-    implementation(project(":Core"))
+    implementation("org.example.core:spring-core")
 
     implementation("org.apache.commons:commons-pool2")
 

@@ -11,8 +11,8 @@ rootProject.name = "MediaPlayer"
 
 includeBuild("Plugins")
 includeBuild("AvroModel")
+includeBuild("Core")
 
-include("Core")
 include("PublicRestEndpoint")
 include("MySqlDriver")
 include("TestData")

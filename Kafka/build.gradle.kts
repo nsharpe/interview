@@ -5,7 +5,7 @@ plugins {
 group = "org.example.kafka"
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
     api(project(":AvroModel"))
 
     api("org.springframework.kafka:spring-kafka")

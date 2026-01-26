@@ -5,7 +5,7 @@ plugins {
 group = "org.example.user"
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
     api(project(":PostgressqlDriver"))
     runtimeOnly("org.postgresql:postgresql")
 }

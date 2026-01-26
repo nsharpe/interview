@@ -5,7 +5,7 @@ plugins {
 dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    api(project(":Core"))
+    api("org.example.core:spring-core")
 
     runtimeOnly("com.mysql:mysql-connector-j")
 }

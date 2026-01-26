@@ -13,6 +13,6 @@ tasks.bootRun {
 }
 
 dependencies {
-    api(project(":Core"))
+    api("org.example.core:spring-core")
     api("org.springframework.boot:spring-boot-starter-data-redis")
 }

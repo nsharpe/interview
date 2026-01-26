@@ -1,6 +1,7 @@
 plugins {
     java
     id("com.github.spotbugs")
+    id("io.freefair.lombok")
 }
 
 repositories {
