@@ -12,6 +12,13 @@ rootProject.name = "MediaPlayer"
 includeBuild("Plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
+includeBuild("BusinessDomain")
+{
+    dependencySubstitution {
+        substitute(module("org.example.business-domain:series"))
+            .using(project(":Series"))
+    }
+}
 includeBuild("Driver"){
     dependencySubstitution {
         substitute(module("org.example.driver:mysql-driver"))
@@ -32,7 +39,6 @@ include("TestData")
 include("IntegrationTests")
 include("MediaManagement")
 include("Users")
-include("Series")
 include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")

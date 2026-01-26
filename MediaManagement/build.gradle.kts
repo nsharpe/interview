@@ -60,7 +60,7 @@ tasks.named("generateOpenApiDocs") {
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation(project(":Series"))
+    implementation("org.example.business-domain:series")
 
     // SQL
     implementation("org.example.driver:mysql-driver")
