@@ -12,9 +12,16 @@ rootProject.name = "MediaPlayer"
 includeBuild("Plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
+includeBuild("Driver"){
+    dependencySubstitution {
+        substitute(module("org.example.driver:mysql-driver"))
+            .using(project(":MySql"))
+        substitute(module("org.example.driver:postgres-driver"))
+            .using(project(":Postgres"))
+    }
+}
 
 include("PublicRestEndpoint")
-include("MySqlDriver")
 include("TestData")
 include("IntegrationTests")
 include("MediaManagement")
@@ -30,4 +37,3 @@ include("Security")
 include("Redis")
 include("MediaPlayerEndpointSdk")
 include("KafkaPod")
-include("PostgressqlDriver")

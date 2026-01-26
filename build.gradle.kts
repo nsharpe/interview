@@ -17,15 +17,8 @@ tasks.test {
 subprojects {
     apply{
         plugin("java-convention")
-        plugin("io.freefair.lombok")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
-    }
-
-    configure<JavaPluginExtension> {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
-        }
     }
 
     configure<com.github.spotbugs.snom.SpotBugsExtension> {
@@ -34,7 +27,6 @@ subprojects {
 
     dependencies {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     }
 
     tasks.withType<Test> {

@@ -6,6 +6,6 @@ group = "org.example.user"
 
 dependencies {
     api("org.example.core:spring-core")
-    api(project(":PostgressqlDriver"))
+    api("org.example.driver:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
 }

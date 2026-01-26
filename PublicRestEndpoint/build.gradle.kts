@@ -55,7 +55,7 @@ dependencies {
     implementation(project(":Security"))
 
     // SQL
-    implementation(project(":PostgressqlDriver"))
+    implementation("org.example.driver:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

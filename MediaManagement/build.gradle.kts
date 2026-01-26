@@ -64,7 +64,7 @@ dependencies {
     implementation(project(":Series"))
 
     // SQL
-    implementation(project(":MySqlDriver"))
+    implementation("org.example.driver:mysql-driver")
     runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("com.h2database:h2")
 

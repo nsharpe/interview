@@ -65,7 +65,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: true
       MYSQL_DATABASE: testdb
     volumes:
-      - ./MySqlDriver/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Driver/MySql/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '3306'
     healthcheck:
@@ -83,7 +83,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: media
     volumes:
-      - ./PostgressqlDriver/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./Driver/Postgres/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
     ports:
       - "5432"
     labels:
