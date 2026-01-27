@@ -12,6 +12,14 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 
 openApi {
     apiDocsUrl.set("http://localhost:8083/api-docs")
+    outputDir.set(file("build"))
+    outputFileName.set("api-spec.json")
+
+    customBootRun {
+        args.set(listOf("--spring.profiles.active=openapi"))
+        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
+        args.add("--spring.jpa.hibernate.ddl-auto=none")
+    }
 }
 
 dependencies {

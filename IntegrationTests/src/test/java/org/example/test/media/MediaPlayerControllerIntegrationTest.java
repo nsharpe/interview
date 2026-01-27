@@ -101,7 +101,5 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
 
         actionId = jsonPath.get("actionId");
         assertNotNull(UUID.fromString(actionId));
-
-
     }
 }

@@ -14,3 +14,11 @@ tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
         rootProject.file("docker-compose.yml").absolutePath +","+
                 rootProject.file("docker-compose.fixedport.yml").absolutePath)
 }
+
+dependencies{
+    runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("com.h2database:h2")
+
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+}

@@ -31,6 +31,8 @@ public abstract class TestContainers {
                     .withExposedService("postgres", 5432, Wait.forListeningPort())
                     .withExposedService("media-player-endpoint",9100,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
+                    .withExposedService("admin-app", 9110,
+                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withEnv("COMPOSE_PROJECT_NAME", "test-project")
                     .withLocalCompose(true)
                     .withBuild(true)
@@ -38,6 +40,7 @@ public abstract class TestContainers {
                     .withOptions("--compatibility")
                     .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
                     .withLogConsumer("public-rest", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
+                    .withLogConsumer("admin-app", new Slf4jLogConsumer(LoggerFactory.getLogger("AdminApp")))
                     .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")));
 
     static {

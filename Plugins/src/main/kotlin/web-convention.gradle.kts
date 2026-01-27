@@ -33,14 +33,3 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.named("forkedSpringBootRun"){
     dependsOn(projectJarPaths)
 }
-
-openApi {
-    outputDir.set(file("build"))
-    outputFileName.set("api-spec.json")
-
-    customBootRun {
-        args.set(listOf("--spring.profiles.active=openapi"))
-        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
-        args.add("--spring.jpa.hibernate.ddl-auto=none")
-    }
-}

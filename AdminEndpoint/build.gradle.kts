@@ -1,5 +1,5 @@
 plugins {
-    id("boot-convention")
+    id("boot-library")
 }
 
 group = "org.example.admin"

@@ -13,4 +13,6 @@ public interface UserRepository {
     UserModel updateUser(UUID id, UpdateUserModel updateUserModel);
 
     void deleteUser(UUID id);
+
+    String loginAs(UUID id);
 }
