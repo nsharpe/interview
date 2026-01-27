@@ -11,11 +11,11 @@ services:
   kafka-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
-      sh -c "while ! nc -z broker 9092; do 
-               echo 'Waiting for kafka...'; 
+      sh -c "while ! nc -z broker 9092 || ! nc -z schema-registry 8091; do 
+               echo 'Waiting for kafka And Schema Registry...'; 
                sleep 1; 
              done; 
-             echo 'kafka is up';"
+             echo 'kafka And Schema Registry is up';"
 
   public-rest:
     build:
@@ -106,7 +106,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_HOST: postgres
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9081"]
+      test: ["CMD", "nc", "-z", "localhost", "9111"]
       interval: 10s
       timeout: 5s
       retries: 3

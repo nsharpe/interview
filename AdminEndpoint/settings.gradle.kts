@@ -2,9 +2,10 @@ pluginManagement {
     includeBuild("../Plugins")
 }
 
-rootProject.name = "AdminEndpoint"
+rootProject.name = "admin-endpoint"
 
 include("WebApp")
+include("Sdk")
 
 includeBuild("../Plugins")
 includeBuild("../Core")

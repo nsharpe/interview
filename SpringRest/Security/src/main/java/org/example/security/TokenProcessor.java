@@ -51,7 +51,7 @@ public class TokenProcessor extends OncePerRequestFilter {
                         null,
                         authenticationInfo.getRoles()
                                 .stream()
-                                .map(x -> new SimpleGrantedAuthority("ROLE_" + x))
+                                .map(SimpleGrantedAuthority::new)
                                 .toList()
                 );
 

@@ -30,7 +30,7 @@ public class MediaManagementConfiguration {
                                         throwable.getMessage().contains("Connection reset by peer"))) // Retries on closed connections
                 )
                 .build())
-                .setBasePath("http://"+host+":"+port);;
+                .setBasePath("http://"+host+":"+port);
 
         return apiClient;
     }

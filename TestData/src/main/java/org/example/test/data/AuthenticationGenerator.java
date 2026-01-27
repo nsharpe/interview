@@ -1,5 +1,7 @@
 package org.example.test.data;
 
+import org.example.admin.sdk.api.UserAdminControllerApi;
+import org.example.admin.sdk.models.AdminAuthorization;
 import org.example.core.model.AuthenticationInfo;
 import org.example.publicrest.sdk.models.UserModel;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,9 +18,12 @@ public class AuthenticationGenerator {
     private final static String ADMIN_AUTH_TOKEN = "123";
 
     private final RedisTemplate<String, AuthenticationInfo> redisTemplate;
+    private final UserAdminControllerApi userAdminControllerApi;
 
     public AuthenticationGenerator(
-            @Qualifier("testValueTemplate") RedisTemplate<String, AuthenticationInfo> redisTemplate) {
+            @Qualifier("testValueTemplate") RedisTemplate<String, AuthenticationInfo> redisTemplate,
+            UserAdminControllerApi userAdminControllerApi) {
+        this.userAdminControllerApi = userAdminControllerApi;
         this.redisTemplate = redisTemplate;
         resetBearerToken();
     }
@@ -47,29 +52,10 @@ public class AuthenticationGenerator {
     }
 
     public String generateTokenForSubscriber(UUID userId){
-        String token = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set(
-                "Bearer " + token,
-                AuthenticationInfo.builder()
-                        .userId(userId)
-                        .roles(List.of("SUBSCRIBER"))
-                        .build(),
-                Duration.ofDays(365)
-        );
-
-        return token;
-    }
-
-    public String generateToken(UUID userId, AuthenticationInfo.AuthenticationInfoBuilder authenticationInfoBuilder){
-        String token = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set(
-                "Bearer " + token,
-                authenticationInfoBuilder
-                        .userId(userId)
-                        .build(),
-                Duration.ofDays(365)
-        );
-
-        return token;
+        userAdminControllerApi.getApiClient()
+                .setBearerToken(getAdminBearerToken());
+        return userAdminControllerApi.loginAsUser(userId)
+                .mapNotNull(AdminAuthorization::getToken)
+                .block();
     }
 }

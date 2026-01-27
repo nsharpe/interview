@@ -40,7 +40,14 @@ includeBuild("BusinessDomain")
             .using(project(":Users"))
     }
 }
-includeBuild("AdminEndpoint")
+includeBuild("AdminEndpoint") {
+    dependencySubstitution {
+        substitute(module("org.example.admin:admin-web"))
+            .using(project(":WebApp"))
+        substitute(module("org.example.admin:admin-sdk"))
+            .using(project(":Sdk"))
+    }
+}
 
 include("PublicRestEndpoint")
 include("TestData")

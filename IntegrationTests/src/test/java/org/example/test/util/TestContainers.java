@@ -52,6 +52,9 @@ public abstract class TestContainers {
         registry.add("publicrest.port", TestContainers::getPublicRestPort);
         registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("public-rest", 9080));
 
+        registry.add("admin.endpoint.port", TestContainers::getAdminPort);
+        registry.add("admin.endpoint.host", TestContainers::getAdminHost);
+
         registry.add("media.management.port", TestContainers::getMediaManagmentPort);
         registry.add("media.management.host", () -> "localhost");
 
@@ -91,6 +94,14 @@ public abstract class TestContainers {
 
     public static int getMediaPlayPort(){
         return ENVIRONMENT.getServicePort("media-player-endpoint", 9100);
+    }
+
+    public static String getAdminHost(){
+        return ENVIRONMENT.getServiceHost("admin-app", 9110);
+    }
+
+    public static int getAdminPort(){
+        return ENVIRONMENT.getServicePort("admin-app", 9110);
     }
 
 }

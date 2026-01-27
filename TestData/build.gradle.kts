@@ -19,6 +19,7 @@ dependencies {
     api(project(":MediaManagementSdk"))
     api(project(":PublicRestEndpointSdk"))
     api(project(":MediaPlayerEndpointSdk"))
+    api("org.example.admin:admin-sdk")
 
     api("org.springframework.boot:spring-boot-starter-webflux")
 

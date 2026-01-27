@@ -23,7 +23,17 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+      KAFKA_HEAP_OPTS: "-Xmx512M -Xms512M"
+      KAFKA_CONTROLLER_QUORUM_FETCH_TIMEOUT_MS: 2000
+      KAFKA_CONTROLLER_QUORUM_ELECTION_TIMEOUT_MS: 5000
       KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 60000
+      KAFKA_LOG_SEGMENT_BYTES: 104857600
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-cluster.sh cluster-id --bootstrap-server localhost:9092 || exit 1" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   ksqldb-server:
     image: confluentinc/ksqldb-server:0.29.0
@@ -47,14 +57,31 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:8.0.3
+    restart: always
     depends_on:
       - broker
     ports:
       - '8091'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8091/subjects" ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
     environment:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8091
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: broker:29092
+    command:
+      - /bin/bash
+      - -c
+      - |
+        # Wait for the broker port to be open
+        while ! nc -z broker 9092; do 
+          echo 'Waiting for Kafka...'; 
+          sleep 1; 
+        done; 
+        echo 'Kafka is up, starting Schema Registry...';
+        /etc/confluent/docker/run
 
   mysql:
     image: mysql:8.4.7
