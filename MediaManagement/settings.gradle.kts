@@ -2,10 +2,10 @@ pluginManagement {
     includeBuild("../Plugins")
 }
 
-rootProject.name = "admin-endpoint-root"
+rootProject.name = "media-management-root"
 
-include(":AdminWebApp")
-include(":AdminSdk")
+include(":MediaManagementWebApp")
+include(":MediaManagementSdk")
 
 includeBuild("../Plugins")
 includeBuild("../Core")
@@ -13,12 +13,6 @@ includeBuild("../SpringRest") {
     dependencySubstitution {
         substitute(module("org.example.web:spring-web"))
             .using(project(":SpringWeb"))
-    }
-}
-includeBuild("../MediaManagement") {
-    dependencySubstitution {
-        substitute(module("org.example.media.management:media-management-sdk"))
-            .using(project(":MediaManagementSdk"))
     }
 }
 includeBuild("../Driver") {

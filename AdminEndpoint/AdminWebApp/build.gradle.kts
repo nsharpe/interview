@@ -26,9 +26,11 @@ openApi {
     }
 }
 
-dependencies{
+dependencies {
     implementation("org.example.web:spring-web")
     implementation("org.example.business-domain:users")
+
+    implementation("org.example.media.management:media-management-sdk")
 
     // SQL
     implementation("org.example.driver:postgres-driver")

@@ -44,8 +44,8 @@ services:
 
   media-management:
     build:
-      context: MediaManagement
-      dockerfile: ../Dockerfile
+      context: MediaManagement/MediaManagementWebApp
+      dockerfile: ../../Dockerfile
     ports:
       - "9090"
       - "9091"
@@ -92,7 +92,7 @@ services:
 
   admin-app:
     build:
-      context: AdminEndpoint/WebApp
+      context: AdminEndpoint/AdminWebApp
       dockerfile: ../../Dockerfile
     ports:
       - "9110"

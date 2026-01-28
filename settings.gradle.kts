@@ -42,18 +42,24 @@ includeBuild("BusinessDomain")
 }
 includeBuild("AdminEndpoint") {
     dependencySubstitution {
-        substitute(module("org.example.admin:admin-web"))
-            .using(project(":WebApp"))
+        substitute(module("org.example.admin:admin-endpoint-web-app"))
+            .using(project(":AdminWebApp"))
         substitute(module("org.example.admin:admin-sdk"))
-            .using(project(":Sdk"))
+            .using(project(":AdminSdk"))
+    }
+}
+includeBuild("MediaManagement") {
+    dependencySubstitution {
+        substitute(module("org.example.media.management:media-management-web"))
+            .using(project(":MediaManagementWebApp"))
+        substitute(module("org.example.media.management:media-management-sdk"))
+            .using(project(":MediaManagementSdk"))
     }
 }
 
 include("PublicRestEndpoint")
 include("TestData")
 include("IntegrationTests")
-include("MediaManagement")
-include("MediaManagementSdk")
 include("PublicRestEndpointSdk")
 include("MediaPlayerEndpoint")
 include("MediaPlayerEndpointSdk")

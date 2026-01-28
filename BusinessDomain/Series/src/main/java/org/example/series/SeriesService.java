@@ -7,6 +7,7 @@ import org.example.series.mysql.SeriesMysql;
 import org.example.series.mysql.SeriesMysqlRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -33,6 +34,10 @@ public class SeriesService {
 
     public SeriesModel updateSeries(SeriesUpdateModel seriesModel, UUID uuid){
         return repository.save(SeriesMysql.of(seriesModel,uuid)).toModel();
+    }
+
+    public List<UUID> getAllSeriesId(){
+        return repository.findAllPublicId();
     }
 
     @Transactional

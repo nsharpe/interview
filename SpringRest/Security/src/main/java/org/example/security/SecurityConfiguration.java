@@ -49,6 +49,7 @@ public class SecurityConfiguration {
 
     @Bean
     @Primary
+    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true", matchIfMissing = true)
     public RedisTemplate<String, AuthenticationInfo> authenticationTemplate(RedisConnectionFactory connectionFactory){
         RedisTemplate<String, AuthenticationInfo> redisTemplate = new RedisTemplate<>();
 

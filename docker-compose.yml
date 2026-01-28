@@ -15,8 +15,6 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT'
 
-      KAFKA_SCHEMA_REGISTRY_URL: "schema-registry:8091"
-
       CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
 
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -29,11 +27,13 @@ services:
       KAFKA_CONTROLLER_QUORUM_ELECTION_TIMEOUT_MS: 5000
       KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 60000
       KAFKA_LOG_SEGMENT_BYTES: 104857600
+      KAFKA_LOG_DIRS: '/var/lib/kafka/data'
     healthcheck:
-      test: [ "CMD-SHELL", "kafka-cluster.sh cluster-id --bootstrap-server localhost:9092 || exit 1" ]
+      test: [ "CMD-SHELL", "kafka-metadata-shell.sh --snapshot /var/lib/kafka/data/__cluster_metadata-0/00000000000000000000.checkpoint ls / || kafka-topics.sh --bootstrap-server localhost:9092 --list" ]
       interval: 5s
       timeout: 10s
       retries: 5
+      start_period: 20s
 
   ksqldb-server:
     image: confluentinc/ksqldb-server:0.29.0

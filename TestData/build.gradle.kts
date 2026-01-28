@@ -16,7 +16,7 @@ dependencies {
 
     api("org.example.driver:redis-driver")
     api("net.datafaker:datafaker:2.5.3")
-    api(project(":MediaManagementSdk"))
+    api("org.example.media.management:media-management-sdk")
     api(project(":PublicRestEndpointSdk"))
     api(project(":MediaPlayerEndpointSdk"))
     api("org.example.admin:admin-sdk")

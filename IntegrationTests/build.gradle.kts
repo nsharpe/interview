@@ -8,9 +8,9 @@ tasks.bootJar {
 
 tasks.test{
     dependsOn(gradle.includedBuild("SpringRest").task(":bootJar"))
-    dependsOn(gradle.includedBuild("AdminEndpoint").task(":WebApp:bootJar"))
+    dependsOn(gradle.includedBuild("AdminEndpoint").task(":AdminWebApp:bootJar"))
+    dependsOn(gradle.includedBuild("MediaManagement").task(":MediaManagementWebApp:bootJar"))
     dependsOn(":PublicRestEndpoint:bootJar")
-    dependsOn(":MediaManagement:bootJar")
     dependsOn(":MediaPlayerEndpoint:bootJar")
 }
 

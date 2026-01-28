@@ -8,6 +8,7 @@ import org.example.users.UserModel;
 import org.example.users.UserRepository;
 import org.example.users.repository.UserCrudRespoitory;
 import org.example.users.repository.UserPostgres;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
 public class AdminUserDatabase implements UserRepository {
 
     private final UserCrudRespoitory userCrudRespoitory;
