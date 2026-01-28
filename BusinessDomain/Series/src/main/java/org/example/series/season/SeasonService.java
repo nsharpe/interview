@@ -8,6 +8,7 @@ import org.example.series.season.mysql.SeasonMysql;
 import org.example.series.season.mysql.SeasonMysqlRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -58,5 +59,11 @@ public class SeasonService {
     @Transactional
     public void deleteSeason(UUID id){
         seasonMysqlRepository.deleteByPublicId(id);
+    }
+
+    public List<UUID> getAllSeasonsForSeries(UUID seriesId){
+        seriesMysqlRepository.findByPublicId(seriesId)
+                .orElseThrow(()->new NotFoundException("series",seriesId));
+        return seasonMysqlRepository.findAllPublicIdForSeries(seriesId);
     }
 }

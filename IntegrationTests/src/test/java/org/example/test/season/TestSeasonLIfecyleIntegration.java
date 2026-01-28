@@ -5,8 +5,11 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
-import org.example.media.management.sdk.api.SeriesControllerApi;
+import org.example.media.management.sdk.api.SeasonControllerApi;
+import org.example.media.management.sdk.models.SeasonModel;
+import org.example.media.management.sdk.models.SeriesModel;
 import org.example.test.data.AuthenticationGenerator;
+import org.example.test.data.SeasonGenerator;
 import org.example.test.data.SeriesGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +17,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import static io.restassured.RestAssured.given;
 import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -28,6 +37,12 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
     private SeriesGenerator seriesGenerator;
     @Autowired
     private AuthenticationGenerator authenticationGenerator;
+
+    @Autowired
+    SeasonGenerator seasonGenerator;
+
+    @Autowired
+    SeasonControllerApi seasonControllerApi;
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
@@ -88,4 +103,33 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
                 .then()
                 .statusCode(404);
     }
+
+    void testSeriesGetAll(){
+        UUID seriesModel = Objects.requireNonNull(seriesGenerator.generate().getId());
+
+        SeasonModel season1 = seasonGenerator.generate(x->
+            x.toBuilder()
+                    .seasonCreateModel(x.seasonCreateModel().order(0))
+                    .seriesId(seriesModel)
+                    .build()
+        );
+        SeasonModel season2 = seasonGenerator.generate(x->
+                x.toBuilder()
+                        .seasonCreateModel(x.seasonCreateModel().order(1))
+                        .seriesId(seriesModel)
+                        .build()
+        );
+
+        seasonControllerApi.getApiClient().setBearerToken(authenticationGenerator.getAdminBearerToken());
+
+        Set<UUID> allSeasons = seasonControllerApi.getAllSeasonId(seriesModel)
+                .collect(Collectors.toSet())
+                .block();
+
+        assertNotNull(allSeasons);
+
+        assertTrue(allSeasons.contains(season1.getId()));
+        assertTrue(allSeasons.contains(season2.getId()));
+    }
+
 }

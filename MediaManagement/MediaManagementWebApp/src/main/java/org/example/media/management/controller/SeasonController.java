@@ -1,6 +1,7 @@
 package org.example.media.management.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -84,5 +86,19 @@ public class SeasonController {
     public void delete(@PathVariable("id")UUID id,
                            @PathVariable("seriesId") UUID seriesId){
         seasonService.deleteSeason(id);
+    }
+
+    @Operation(summary = "Get All season ids for a series",
+            responses = {
+                    @ApiResponse(description = "Gets the ids of all seasons that are available",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(type = "string", format = "uuid"))
+                            ))})
+    @GetMapping("/series/{seriesId}/season")
+    public List<UUID> getAllSeasonId(@PathVariable("seriesId") UUID seriesId)
+    {
+        return seasonService.getAllSeasonsForSeries(seriesId);
     }
 }

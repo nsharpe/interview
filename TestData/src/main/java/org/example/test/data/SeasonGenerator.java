@@ -1,5 +1,6 @@
 package org.example.test.data;
 
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.example.media.management.sdk.api.SeasonControllerApi;
 import org.example.media.management.sdk.models.SeasonCreateModel;
@@ -51,5 +52,9 @@ public class SeasonGenerator implements Generator<SeasonGenerator.SeasonInput,Se
         return new SeasonInput(seasonCreateModel,baseSeries);
     }
 
-    public record SeasonInput(SeasonCreateModel seasonCreateModel, UUID seriesId){}
+
+    @Builder(toBuilder = true)
+    public record SeasonInput(SeasonCreateModel seasonCreateModel, UUID seriesId){
+
+    }
 }
