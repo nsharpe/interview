@@ -57,7 +57,7 @@ Build jars
 
 Build Images and run all applications
 ```shell
-docker compose -f docker-compose.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
+docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
 ```
 
 Build Images and run all dependencies on fixed ports

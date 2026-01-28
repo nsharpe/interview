@@ -22,7 +22,7 @@ public class PublicRestSdkConfig {
                                          @Value("${publicrest.port}") int port,
                                          WebClient.Builder webClientBuilder) {
 
-        ApiClient apiClient = new ApiClient(webClientBuilder
+        return new ApiClient(webClientBuilder
                 .filter((request, next) -> next.exchange(request)
                         .retryWhen(Retry.backoff(3, Duration.ofSeconds(2))
                                 .filter(throwable -> throwable instanceof IOException ||
@@ -30,8 +30,6 @@ public class PublicRestSdkConfig {
                 )
                 .build())
                 .setBasePath("http://"+host+":"+port);
-
-        return apiClient;
     }
 
     @Bean

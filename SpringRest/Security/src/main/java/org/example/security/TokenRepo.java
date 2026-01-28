@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
@@ -14,6 +16,10 @@ public class TokenRepo {
     private final RedisTemplate<String, AuthenticationInfo> redisTemplate;
 
     public AuthenticationInfo infoForToken(String jwt){
-        return redisTemplate.opsForValue().get("Bearer "+jwt);
+        AuthenticationInfo authenticationInfo = redisTemplate.opsForValue().get("Bearer "+jwt);
+        if(authenticationInfo != null) {
+            authenticationInfo.setToken(jwt);
+        }
+        return authenticationInfo;
     }
 }

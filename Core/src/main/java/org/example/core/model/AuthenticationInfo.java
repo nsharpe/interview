@@ -20,5 +20,6 @@ public class AuthenticationInfo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private UUID userId;
+    private String token;
     private List<String> roles;
 }

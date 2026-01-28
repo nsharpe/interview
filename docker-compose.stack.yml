@@ -99,6 +99,7 @@ services:
       - "9111"
     environment:
       SERVER_PORT: 9110
+      PUBLIC_REST_PORT: 9080
       MANAGEMENT_SERVER_PORT: 9111
       REDIS_HOST: redis
       POSTGRES_PORT: 5432

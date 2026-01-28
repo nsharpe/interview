@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.users.UserRepository;
 import org.example.users.repository.UserCrudRespoitory;
 import org.example.users.repository.UserPostgres;
@@ -32,6 +33,9 @@ public class UserAdminController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserControllerApi userControllerApi;
+
     @Operation(summary = "Get All users",
             responses = {
                     @ApiResponse(description = "The user",
@@ -44,10 +48,12 @@ public class UserAdminController {
 
     @PostMapping("/{id}/loginas")
     public @ResponseBody AdminAuthorization loginAsUser(@PathVariable("id") UUID userId){
-        return new AdminAuthorization(userRepository.loginAs(userId));
+        return userControllerApi.getUser(userId)
+                .map(x->userRepository.loginAs(userId))
+                .map(AdminAuthorization::new)
+                .block();
     }
 
     public record AdminAuthorization(String token){
-
     }
 }
