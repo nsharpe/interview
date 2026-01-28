@@ -2,7 +2,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.admin.web"
+group = "org.example.admin"
 
 tasks.bootBuildImage {
     imageName= "media-player/admin-endpoint:test"

@@ -2,10 +2,10 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.admin.sdk"
+group = "org.example.admin"
 
 tasks.openApiGenerate {
-    dependsOn(":AdminWebApp:generateOpenApiDocs")
+    dependsOn(":admin-endpoint-web-app:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +19,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("AdminWebApp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint-web-app/build/api-spec.json"))
     basePackage.set("org.example.admin.sdk")
 }

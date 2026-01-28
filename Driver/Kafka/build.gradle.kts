@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.kafka"
+group = "org.example.driver"
 
 dependencies {
     api("org.example.core:spring-core")

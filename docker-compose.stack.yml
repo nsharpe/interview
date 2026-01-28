@@ -8,6 +8,15 @@ services:
              done; 
              echo 'MySQL is up';"
 
+  redis-loaded:
+    image: eclipse-temurin:21-jre-alpine
+    command: >
+      sh -c "while ! nc -z redis 6379; do 
+               echo 'Waiting for Redis...'; 
+               sleep 1; 
+             done; 
+             echo 'Redis is up';"
+
   kafka-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
@@ -41,6 +50,8 @@ services:
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully
+      redis-loaded:
+        condition: service_completed_successfully
 
   media-management:
     build:
@@ -58,6 +69,8 @@ services:
       MYSQL_HOST: mysql
     depends_on:
       mysql-loaded:
+        condition: service_completed_successfully
+      redis-loaded:
         condition: service_completed_successfully
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9091"]
@@ -82,6 +95,8 @@ services:
     depends_on:
       kafka-loaded:
         condition: service_completed_successfully
+      redis-loaded:
+        condition: service_completed_successfully
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9101"]
       interval: 10s
@@ -92,7 +107,7 @@ services:
 
   admin-app:
     build:
-      context: AdminEndpoint/AdminWebApp
+      context: AdminEndpoint/admin-endpoint-web-app
       dockerfile: ../../Dockerfile
     ports:
       - "9110"
@@ -114,4 +129,6 @@ services:
       start_period: 5s
     depends_on:
       mysql-loaded:
+        condition: service_completed_successfully
+      redis-loaded:
         condition: service_completed_successfully

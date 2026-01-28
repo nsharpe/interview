@@ -40,14 +40,7 @@ includeBuild("BusinessDomain")
             .using(project(":Users"))
     }
 }
-includeBuild("AdminEndpoint") {
-    dependencySubstitution {
-        substitute(module("org.example.admin:admin-endpoint-web-app"))
-            .using(project(":AdminWebApp"))
-        substitute(module("org.example.admin:admin-sdk"))
-            .using(project(":AdminSdk"))
-    }
-}
+includeBuild("AdminEndpoint")
 includeBuild("MediaManagement") {
     dependencySubstitution {
         substitute(module("org.example.media.management:media-management-web"))
