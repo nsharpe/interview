@@ -27,8 +27,7 @@ import static org.example.test.data.PostPayloadGenerator.createSeasonPojo;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TestSeasonLIfecyleIntegration extends TestContainers {
@@ -104,7 +103,8 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
                 .statusCode(404);
     }
 
-    void testSeriesGetAll(){
+    @Test
+    void testGetAllSeasonForSeries(){
         UUID seriesModel = Objects.requireNonNull(seriesGenerator.generate().getId());
 
         SeasonModel season1 = seasonGenerator.generate(x->
@@ -127,6 +127,8 @@ public class TestSeasonLIfecyleIntegration extends TestContainers {
                 .block();
 
         assertNotNull(allSeasons);
+
+        assertEquals(2,allSeasons.size());
 
         assertTrue(allSeasons.contains(season1.getId()));
         assertTrue(allSeasons.contains(season2.getId()));
