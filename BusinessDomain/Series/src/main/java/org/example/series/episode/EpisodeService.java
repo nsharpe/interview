@@ -10,6 +10,7 @@ import org.example.series.season.SeasonService;
 import org.example.series.season.mysql.SeasonMysql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -66,5 +67,10 @@ public class EpisodeService {
     public void delete(UUID id, UUID seasonId, UUID seriesId) {
         seasonService.getSeason(seasonId,seriesId);
         repository.deleteByPublicId(id);
+    }
+
+    public List<UUID> getAllEpisodeIdsForSeason(UUID seasonId,UUID seriesId){
+        seasonService.getSeason(seasonId,seriesId);
+        return repository.findAllPublicIdForSeason(seriesId,seasonId);
     }
 }

@@ -5,8 +5,11 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
+import org.example.media.management.sdk.api.EpisodeControllerApi;
+import org.example.media.management.sdk.models.EpisodeModel;
 import org.example.media.management.sdk.models.SeasonModel;
 import org.example.test.data.AuthenticationGenerator;
+import org.example.test.data.EpisodeGenerator;
 import org.example.test.data.SeasonGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +20,15 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ComponentScan(basePackages = "org.example.test")
@@ -30,6 +36,12 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
 
     @Autowired
     private SeasonGenerator seasonGenerator;
+
+    @Autowired
+    EpisodeGenerator episodeGenerator;
+
+    @Autowired
+    EpisodeControllerApi episodeControllerApi;
 
     @Autowired
     private AuthenticationGenerator authenticationGenerator;
@@ -107,5 +119,32 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
         pojo.put("length","PT1H");
 
         return pojo;
+    }
+
+    @Test
+    void testGetAllEpisodesForSeason(){
+        SeasonModel seasonModel = seasonGenerator.generate();
+
+        EpisodeModel episode1 = episodeGenerator.generate(x->{
+            x.setSeasonid(seasonModel.getId());
+            x.setSeriesId(seasonModel.getSeriesId());
+            x.getEpisodeCreateModel().setOrder(0);
+            return x;
+        });
+        EpisodeModel episode2 = episodeGenerator.generate(x->{
+            x.setSeasonid(seasonModel.getId());
+            x.setSeriesId(seasonModel.getSeriesId());
+            x.getEpisodeCreateModel().setOrder(2);
+            return x;
+        });
+
+        Set<UUID> episodes =  episodeControllerApi.getAllEpisodesForSeason(seasonModel.getId(),seasonModel.getSeriesId())
+                .collect(Collectors.toSet())
+                .block();
+
+        assertNotNull(episodes);
+        assertEquals(2,episodes.size());
+        assertTrue(episodes.contains(episode1.getId()));
+        assertTrue(episodes.contains(episode2.getId()));
     }
 }

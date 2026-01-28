@@ -1,6 +1,7 @@
 package org.example.media.management.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -92,5 +94,21 @@ public class EpisodeController {
                        @PathVariable("seasonId") UUID seasonId,
                        @PathVariable("seriesId") UUID seriesId){
         episodeService.delete(id,seasonId,seriesId);
+    }
+
+    @Operation(summary = "Get all episode ids for a season of a series",
+            responses = {
+                    @ApiResponse(description = "The Episode ids",
+                    responseCode = "200",
+                    content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(type = "string", format = "uuid"))
+                            )),
+                    @ApiResponse(responseCode = "404", description = "season not found")})
+    @GetMapping("/series/{seriesId}/season/{seasonId}/episode")
+    public @ResponseBody List<UUID> getAllEpisodesForSeason(@PathVariable("seasonId") UUID seasonId,
+                                        @PathVariable("seriesId") UUID seriesId){
+        return episodeService.getAllEpisodeIdsForSeason(seasonId,seriesId);
+
     }
 }
