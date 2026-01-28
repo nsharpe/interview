@@ -17,5 +17,5 @@ tasks.build{
     dependsOn(":admin-endpoint-web-app:bootJar")
     dependsOn(":admin-sdk:build")
     dependsOn(":admin-sdk:openApiGenerate")
-    dependsOn(":admin-typescript-sdk:openApiGenerate")
+    dependsOn(":admin-typescript-sdk:publishSdkLocally")
 }
