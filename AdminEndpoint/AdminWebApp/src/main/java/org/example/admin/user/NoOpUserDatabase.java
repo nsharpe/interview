@@ -49,4 +49,10 @@ public class NoOpUserDatabase implements UserRepository {
     public String loginAs(UUID id) {
         throw new IllegalStateException("disabled as redis is disabled");
     }
+
+    @Override
+    public List<UUID> getAllUserIds() {
+        throw new IllegalStateException("disabled as redis is disabled");
+    }
+
 }

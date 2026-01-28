@@ -3,6 +3,7 @@ package org.example.users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -25,5 +26,9 @@ public class UserService {
     @Transactional
     public void deleteUser(UUID id){
         userRepository.deleteUser(id);
+    }
+
+    public List<UUID> getAllUserIds(){
+        return userRepository.getAllUserIds();
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -66,4 +67,8 @@ public class UserDatabase implements UserRepository {
 
     }
 
+    @Override
+    public List<UUID> getAllUserIds() {
+        throw new IllegalStateException("Get All UserIds not allowed for public access");
+    }
 }

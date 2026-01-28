@@ -71,6 +71,11 @@ public class AdminUserDatabase implements UserRepository {
 
     }
 
+    @Override
+    public List<UUID> getAllUserIds() {
+        return userCrudRespoitory.findAllPublicIds();
+    }
+
     private static AuthenticationInfo authenticationInfoOf(UserPostgres user){
         return AuthenticationInfo.builder()
                 .userId(user.getPublicId())

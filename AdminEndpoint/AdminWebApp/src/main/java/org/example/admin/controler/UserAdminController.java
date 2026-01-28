@@ -1,7 +1,9 @@
 package org.example.admin.controler;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.publicrest.sdk.api.UserControllerApi;
@@ -36,14 +38,17 @@ public class UserAdminController {
     @Autowired
     private UserControllerApi userControllerApi;
 
-    @Operation(summary = "Get All users",
+    @Operation(summary = "Get All user ids",
             responses = {
-                    @ApiResponse(description = "The user",
-                            content = @Content(mediaType = "application/json"))})
+                    @ApiResponse(description = "Gets the ids of all users that are not soft deleted",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(type = "string", format = "uuid"))
+                            ))})
     @GetMapping
-    public @ResponseBody List<UserPostgres> getUsers(){
-        return StreamSupport.stream(userCrudRespoitory.findAll().spliterator(),false)
-                .toList();
+    public @ResponseBody List<UUID> getUsers(){
+        return userRepository.getAllUserIds();
     }
 
     @PostMapping("/{id}/loginas")

@@ -1,5 +1,6 @@
 package org.example.users;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UserRepository {
@@ -15,4 +16,6 @@ public interface UserRepository {
     void deleteUser(UUID id);
 
     String loginAs(UUID id);
+
+    List<UUID> getAllUserIds();
 }
