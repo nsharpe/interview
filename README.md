@@ -118,9 +118,9 @@ If you are unfamiliar with mysql the show command is helpful.
 show databases;
 ```
 
-To view all users run
+To view all series run
 ```agsl
-select * from testdb.external_user;
+select * from series.series;
 ```
 
 

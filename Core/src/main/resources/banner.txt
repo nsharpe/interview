@@ -5,5 +5,6 @@ Author: Neil Sharpe
 Github Repo: https://github.com/nsharpe/interview
 Application: ${spring.application.name}
 Active Profile: ${spring.profiles.active}
+MySql Url: ${spring.datasource.mysql.url}
 
 *********************************************************************
