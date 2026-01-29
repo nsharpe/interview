@@ -2,7 +2,7 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.admin.sdk"
+group = "org.example.media.management"
 
 tasks.openApiGenerate {
     dependsOn(":MediaManagementWebApp:generateOpenApiDocs")

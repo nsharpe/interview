@@ -4,7 +4,9 @@ plugins {
 
 tasks.build{
     dependsOn(":MediaManagementWebApp:build")
-    dependsOn(":MediaManagementSdk:build")
+    dependsOn(":MediaManagementWebApp:buildJar")
+    dependsOn(":media-management-sdk:build")
+    dependsOn(":media-management-sdk:openApiGenerate")
 }
 
 group = "org.example.media.management"

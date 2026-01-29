@@ -14,12 +14,7 @@ project(":admin-sdk").name = "admin-sdk"
 includeBuild("../Plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
-includeBuild("../MediaManagement") {
-    dependencySubstitution {
-        substitute(module("org.example.media.management:media-management-sdk"))
-            .using(project(":MediaManagementSdk"))
-    }
-}
+includeBuild("../MediaManagement")
 includeBuild("../PublicRestEndpoint")
 includeBuild("../Driver")
 includeBuild("../BusinessDomain")

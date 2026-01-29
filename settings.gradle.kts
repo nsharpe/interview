@@ -25,18 +25,11 @@ includeBuild("BusinessDomain")
     }
 }
 includeBuild("AdminEndpoint")
-includeBuild("MediaManagement") {
-    dependencySubstitution {
-        substitute(module("org.example.media.management:media-management-web"))
-            .using(project(":MediaManagementWebApp"))
-        substitute(module("org.example.media.management:media-management-sdk"))
-            .using(project(":MediaManagementSdk"))
-    }
-}
+includeBuild("MediaManagement")
 includeBuild("PublicRestEndpoint")
 includeBuild("media-player-endpoint-root")
 
-include("TestData")
+includeBuild("TestData")
 include("IntegrationTests")
 include("KafkaPod")
 
