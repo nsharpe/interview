@@ -8,6 +8,10 @@ tasks.bootBuildImage {
     imageName = "media-player/public-rest-endpoint:test"
 }
 
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}
+
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")

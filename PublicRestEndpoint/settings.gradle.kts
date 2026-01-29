@@ -4,8 +4,12 @@ pluginManagement {
 
 rootProject.name = "public-rest-sdk"
 
-include(":PublicRestEndpointWebApp")
-include(":PublicRestEndpointSdk")
+include(":public-rest-endpoint-webapp")
+include(":public-rest-endpoint-sdk")
+include(":public-rest-endpoint-typescript-sdk")
+
+project(":public-rest-endpoint-webapp").name = "public-rest-endpoint-webapp"
+project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
 includeBuild("../Plugins")
 includeBuild("../Core")

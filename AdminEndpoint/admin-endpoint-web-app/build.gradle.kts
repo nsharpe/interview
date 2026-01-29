@@ -31,7 +31,7 @@ dependencies {
     implementation("org.example.business-domain:users")
 
     implementation("org.example.media.management:media-management-sdk")
-    implementation("org.example.public.rest:public-rest-sdk")
+    implementation("org.example.public.rest:public-rest-endpoint-sdk")
 
     // SQL
     implementation("org.example.driver:postgres-driver")

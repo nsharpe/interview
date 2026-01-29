@@ -2,10 +2,10 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.public.rest.sdk"
+group = "org.example.public.rest"
 
 tasks.openApiGenerate {
-    dependsOn(":PublicRestEndpointWebApp:generateOpenApiDocs")
+    dependsOn(":public-rest-endpoint-webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +19,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("PublicRestEndpointWebApp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("public-rest-endpoint-webapp/build/api-spec.json"))
     basePackage.set("org.example.publicrest.sdk")
 }

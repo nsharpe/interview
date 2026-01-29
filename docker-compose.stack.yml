@@ -28,7 +28,7 @@ services:
 
   public-rest:
     build:
-      context: PublicRestEndpoint/PublicRestEndpointWebApp
+      context: PublicRestEndpoint/public-rest-endpoint-webapp
       dockerfile: ../../Dockerfile
     ports:
       - "9080"

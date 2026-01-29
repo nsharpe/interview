@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.users.UserRepository;
 import org.example.users.repository.UserCrudRespoitory;
-import org.example.users.repository.UserPostgres;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

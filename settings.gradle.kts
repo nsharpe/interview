@@ -49,14 +49,7 @@ includeBuild("MediaManagement") {
             .using(project(":MediaManagementSdk"))
     }
 }
-includeBuild("PublicRestEndpoint") {
-    dependencySubstitution {
-        substitute(module("org.example.public.rest:public-rest-web"))
-            .using(project(":PublicRestEndpointWebApp"))
-        substitute(module("org.example.public.rest:public-rest-sdk"))
-            .using(project(":PublicRestEndpointSdk"))
-    }
-}
+includeBuild("PublicRestEndpoint")
 
 include("TestData")
 include("IntegrationTests")
