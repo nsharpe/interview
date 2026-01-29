@@ -1,0 +1,2 @@
+
+project.name="redis-driver"

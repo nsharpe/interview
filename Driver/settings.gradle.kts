@@ -6,7 +6,7 @@ rootProject.name="driver"
 
 includeBuild("../Plugins")
 includeBuild("../AvroModel")
-include("MySql")
-include("Postgres")
-include("Kafka")
-include("Redis")
+include("mysql-driver")
+include("postgres-driver")
+include("kafka-driver")
+include("redis-driver")
