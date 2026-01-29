@@ -107,22 +107,41 @@ In order to see how many entries have been cached
 ## MYSQL
 
 To connect to the database run the following
-```
-docker exec -it mysql mysql --user=root --password=rootIsABadPassword
+```shell
+docker exec -it interview-mysql-1 mysql
 ```
 
 some helpful commands
 
 If you are unfamiliar with mysql the show command is helpful.
-```
+```mysql
 show databases;
 ```
 
 To view all series run
-```agsl
+```mysql
 select * from series.series;
 ```
 
+## POSTGRES
+
+### Connect
+to connect to postgres 
+```shell
+docker exec -it interview-postgres-1 psql testdb --u user
+```
+
+### Helper Functions
+
+#### List Tables
+```postgresql
+\dt
+```
+
+#### List All Users
+```postgresql
+select * from external_user;
+```
 
 ## Kafka
 // TODO
