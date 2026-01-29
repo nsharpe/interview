@@ -13,12 +13,7 @@ project(":admin-sdk").name = "admin-sdk"
 
 includeBuild("../Plugins")
 includeBuild("../Core")
-includeBuild("../SpringRest") {
-    dependencySubstitution {
-        substitute(module("org.example.web:spring-web"))
-            .using(project(":SpringWeb"))
-    }
-}
+includeBuild("../SpringRest")
 includeBuild("../MediaManagement") {
     dependencySubstitution {
         substitute(module("org.example.media.management:media-management-sdk"))

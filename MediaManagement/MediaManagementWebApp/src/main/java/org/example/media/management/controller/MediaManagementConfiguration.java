@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableCaching
-@EnableJpaRepositories(basePackages = "org.example")
 @EntityScan(basePackages = "org.example")
 public class MediaManagementConfiguration
 {

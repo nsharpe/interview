@@ -69,7 +69,7 @@ public class SeriesMysql {
     @Column(nullable = false)
     private Locale locale;
 
-    @Column
+    @Column(length = 5000)
     private String description;
 
     @Embedded

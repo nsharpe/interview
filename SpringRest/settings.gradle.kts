@@ -5,7 +5,7 @@ pluginManagement {
 rootProject.name = "spring-rest"
 
 include("Security")
-include("SpringWeb")
+include("spring-web")
 
 includeBuild("../SpringPod")
 includeBuild("../Core")

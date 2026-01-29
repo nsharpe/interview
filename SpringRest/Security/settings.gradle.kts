@@ -1,2 +1,2 @@
 
-rootProject.name = "Security"
+project.name = "security"

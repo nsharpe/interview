@@ -14,12 +14,7 @@ includeBuild("AvroModel")
 includeBuild("Core")
 includeBuild("Driver")
 includeBuild("SpringPod")
-includeBuild("SpringRest") {
-    dependencySubstitution {
-        substitute(module("org.example.web:spring-web"))
-            .using(project(":SpringWeb"))
-    }
-}
+includeBuild("SpringRest")
 includeBuild("BusinessDomain")
 {
     dependencySubstitution {

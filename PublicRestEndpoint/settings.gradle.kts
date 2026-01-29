@@ -13,12 +13,7 @@ project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
 includeBuild("../Plugins")
 includeBuild("../Core")
-includeBuild("../SpringRest") {
-    dependencySubstitution {
-        substitute(module("org.example.web:spring-web"))
-            .using(project(":SpringWeb"))
-    }
-}
+includeBuild("../SpringRest")
 includeBuild("../Driver")
 includeBuild("../BusinessDomain")
 {
