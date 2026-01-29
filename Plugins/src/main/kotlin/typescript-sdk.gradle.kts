@@ -26,10 +26,19 @@ tasks.withType<GenerateTask>().configureEach {
 
 
     configOptions.set(mapOf(
-        "npmName" to "media-player-admin-client",
+        "npmName" to sdkConfig.npmName.get(),
         "supportsES6" to "true",
         "npmVersion" to "0.0.1"
     ))
+}
+
+val cleanSdk by tasks.registering(Exec::class) {
+    group = "publishing"
+    description = "Installs dependencies in the generated SDK"
+
+    dependsOn(tasks.withType<GenerateTask>())
+
+    commandLine("sh", "-c", "npm uninstall -g " + sdkConfig.npmName.get())
 }
 
 val installSdkDeps by tasks.registering(Exec::class) {
@@ -39,15 +48,26 @@ val installSdkDeps by tasks.registering(Exec::class) {
     dependsOn(tasks.withType<GenerateTask>())
 
     workingDir(layout.projectDirectory.dir("build/src/generated"))
-    commandLine("sh", "-c", "npm install")
+    commandLine("sh", "-c", "npm install --ignore-scripts --no-package-lock")
+}
+
+
+val buildSdk by tasks.registering(Exec::class) {
+    group = "publishing"
+    description = "Compiles the TypeScript SDK"
+
+    dependsOn(installSdkDeps) // Ensure install happens first!
+
+    workingDir(layout.projectDirectory.dir("build/src/generated"))
+    commandLine("sh", "-c", "npm run build --ignore-scripts --no-package-lock")
 }
 
 val publishSdkLocally by tasks.registering(Exec::class) {
     group = "publishing"
     description = "Links the SDK locally using npm link"
 
-    dependsOn(installSdkDeps)
+    dependsOn(buildSdk)
 
     workingDir(layout.projectDirectory.dir("build/src/generated"))
-    commandLine("sh", "-c", "npm link")
+    commandLine("sh", "-c", "npm link --ignore-scripts")
 }

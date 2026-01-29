@@ -8,4 +8,5 @@ tasks.openApiGenerate {
 
 sdkConfig {
     specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint-web-app/build/api-spec.json"))
+    npmName.set("media-player-admin-client")
 }
