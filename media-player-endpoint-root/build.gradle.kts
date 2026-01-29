@@ -3,18 +3,11 @@ plugins {
 }
 
 group = "org.example.media.player"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.test {
-    useJUnitPlatform()
+tasks.build{
+    dependsOn(":media-player-endpoint-webapp:build")
+    dependsOn(":media-player-endpoint-webapp:bootJar")
+    dependsOn(":media-player-endpoint-sdk:build")
+    dependsOn(":media-player-endpoint-sdk:openApiGenerate")
+    //dependsOn(":admin-typescript-sdk:publishSdkLocally")
 }

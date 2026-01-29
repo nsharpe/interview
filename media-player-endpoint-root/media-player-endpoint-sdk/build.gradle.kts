@@ -5,7 +5,7 @@ plugins {
 
 evaluationDependsOnChildren()
 
-group = "org.example.media.player.sdk"
+group = "org.example.media.player"
 
 dependencies {
     api("org.example.core:spring-core")
@@ -20,11 +20,11 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
 }
 
-val specFile = rootProject.layout.projectDirectory.file("MediaPlayerEndpoint/build/api-spec.json")
+val specFile = rootProject.layout.projectDirectory.file("media-player-endpoint-webapp/build/api-spec.json")
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
 
 tasks.openApiGenerate {
-    dependsOn(":MediaPlayerEndpoint:generateOpenApiDocs")
+    dependsOn(":media-player-endpoint-webapp:generateOpenApiDocs")
 }
 
 tasks.spotbugsMain{

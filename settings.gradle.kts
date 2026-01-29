@@ -38,7 +38,5 @@ includeBuild("media-player-endpoint-root")
 
 include("TestData")
 include("IntegrationTests")
-include("MediaPlayerEndpoint")
-include("MediaPlayerEndpointSdk")
 include("KafkaPod")
 

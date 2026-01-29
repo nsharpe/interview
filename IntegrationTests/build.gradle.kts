@@ -6,14 +6,6 @@ tasks.bootJar {
     enabled = false
 }
 
-tasks.test{
-    dependsOn(gradle.includedBuild("SpringRest").task(":bootJar"))
-    dependsOn(gradle.includedBuild("AdminEndpoint").task(":build"))
-    dependsOn(gradle.includedBuild("MediaManagement").task(":MediaManagementWebApp:bootJar"))
-    dependsOn(gradle.includedBuild("PublicRestEndpoint").task(":build"))
-    dependsOn(":MediaPlayerEndpoint:bootJar")
-}
-
 val testcontainersVersion = "2.0.3"
 
 dependencies {
