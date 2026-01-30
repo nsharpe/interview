@@ -1,0 +1,1 @@
+project.name="qa-endpoint-typescript-sdk"

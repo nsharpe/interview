@@ -44,7 +44,7 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9081"]
       interval: 10s
-      timeout: 5s
+      timeout: 35s
       retries: 3
       start_period: 5s
     depends_on:
@@ -75,7 +75,7 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9091"]
       interval: 10s
-      timeout: 5s
+      timeout: 35s
       retries: 3
       start_period: 5s
 
@@ -100,7 +100,7 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9101"]
       interval: 10s
-      timeout: 5s
+      timeout: 35s
       retries: 3
       start_period: 5s
 
@@ -123,9 +123,9 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9111"]
       interval: 10s
-      timeout: 5s
+      timeout: 35s
       retries: 3
-      start_period: 5s
+      start_period: 15s
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully
@@ -149,7 +149,7 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9121"]
       interval: 10s
-      timeout: 5s
+      timeout: 35s
       retries: 3
       start_period: 5s
     depends_on:
