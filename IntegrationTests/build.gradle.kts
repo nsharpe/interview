@@ -21,7 +21,8 @@ dependencies {
     // Using the variable defined above
     testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
 
-    testImplementation(project(":TestData"))
+    implementation("org.example.qa:qa-endpoint-sdk")
+    testImplementation("org.example.test.data:test-data")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:testcontainers-kafka")
     testImplementation("org.springframework.boot:spring-boot-docker-compose")

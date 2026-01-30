@@ -5,6 +5,7 @@ import org.example.admin.sdk.models.AdminAuthorization;
 import org.example.core.model.AuthenticationInfo;
 import org.example.publicrest.sdk.models.UserModel;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@ConditionalOnProperty(value = "spring.redis.enabled", havingValue = "true", matchIfMissing = true)
 public class AuthenticationGenerator {
 
     private final static String ADMIN_AUTH_TOKEN = "123";

@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
 import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.publicrest.sdk.models.UserModel;
+import org.example.qa.sdk.api.UserGeneratorControllerApi;
 import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
@@ -20,7 +21,9 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
@@ -38,6 +41,9 @@ public class TestUsersIntegration extends TestContainers {
 
     @Autowired
     private UserGenerator userGenerator;
+
+    @Autowired
+    private UserGeneratorControllerApi userGeneratorApi;
 
     @Autowired
     private UserControllerApi userControllerApi;
@@ -110,17 +116,20 @@ public class TestUsersIntegration extends TestContainers {
 
     @Test
     void testGetWithMoreThanOneEntry()throws  Exception{
-        userGenerator.generate();
-        UserModel userModel = userGenerator.generate();
+        userGeneratorApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
+        List<UUID> userIds = userGeneratorApi.generate(2)
+                .toStream()
+                .toList();
 
-        assertNotNull(userModel);
+        assertEquals(2,userIds.size());
 
-        UserModel getUser = userControllerApi.getUser(userModel.getId())
+        UserModel getUser = userControllerApi.getUser(userIds.get(1))
                 .block();
 
-        assertNotNull(userModel);
+        assertNotNull(getUser);
 
-        assertEquals(getUser.getId(),userModel.getId());
+        assertEquals(userIds.get(1),getUser.getId());
     }
 
     private static Map<String,Object> createUserPojo(){

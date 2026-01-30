@@ -28,8 +28,8 @@ includeBuild("AdminEndpoint")
 includeBuild("MediaManagement")
 includeBuild("PublicRestEndpoint")
 includeBuild("media-player-endpoint-root")
+includeBuild("qa-endpoint-root")
 
 includeBuild("TestData")
 include("IntegrationTests")
 include("KafkaPod")
-

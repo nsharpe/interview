@@ -1,20 +1,34 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
-    id("java")
+    id("web-convention")
 }
 
 group = "org.example.qa"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+tasks.named<BootBuildImage>("bootBuildImage") {
+    imageName = "media-player/qa-endpoints:test"
+}
+
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}
+
+openApi {
+    apiDocsUrl.set("http://localhost:8085/api-docs")
+    outputDir.set(file("build"))
+    outputFileName.set("api-spec.json")
+
+    customBootRun {
+        systemProperties.set(mapOf(
+            "spring.profiles.active" to "openapi"
+        ))
+    }
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
+    implementation("org.example.test.data:test-data")
+    implementation("org.example.web:spring-web")
 
-tasks.test {
-    useJUnitPlatform()
+    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

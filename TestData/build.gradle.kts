@@ -12,6 +12,10 @@ tasks.bootRun{
 
 group = "org.example.test.data"
 
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}
+
 dependencies {
 
     api("org.example.driver:redis-driver")

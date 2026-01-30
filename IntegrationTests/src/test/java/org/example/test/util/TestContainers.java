@@ -27,6 +27,8 @@ public abstract class TestContainers {
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
+                    ).withExposedService("qa-endpoint-app", 9120,
+                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     )
                     .withExposedService("postgres", 5432, Wait.forListeningPort())
                     .withExposedService("media-player-endpoint",9100,
@@ -41,6 +43,7 @@ public abstract class TestContainers {
                     .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
                     .withLogConsumer("public-rest", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
                     .withLogConsumer("admin-app", new Slf4jLogConsumer(LoggerFactory.getLogger("AdminApp")))
+                    .withLogConsumer("qa-endpoint-app", new Slf4jLogConsumer(LoggerFactory.getLogger("QaEndpoint")))
                     .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")));
 
     static {
@@ -54,6 +57,9 @@ public abstract class TestContainers {
 
         registry.add("admin.endpoint.port", TestContainers::getAdminPort);
         registry.add("admin.endpoint.host", TestContainers::getAdminHost);
+
+        registry.add("qa.endpoint.port", TestContainers::getQaPort);
+        registry.add("qa.endpoint.host", TestContainers::getQaHost);
 
         registry.add("media.management.port", TestContainers::getMediaManagmentPort);
         registry.add("media.management.host", () -> "localhost");
@@ -102,6 +108,14 @@ public abstract class TestContainers {
 
     public static int getAdminPort(){
         return ENVIRONMENT.getServicePort("admin-app", 9110);
+    }
+
+    public static String getQaHost(){
+        return ENVIRONMENT.getServiceHost("qa-endpoint-app", 9120);
+    }
+
+    public static int getQaPort(){
+        return ENVIRONMENT.getServicePort("qa-endpoint-app", 9120);
     }
 
 }

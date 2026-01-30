@@ -104,7 +104,6 @@ services:
       retries: 3
       start_period: 5s
 
-
   admin-app:
     build:
       context: AdminEndpoint/admin-endpoint-web-app
@@ -132,3 +131,34 @@ services:
         condition: service_completed_successfully
       redis-loaded:
         condition: service_completed_successfully
+
+  qa-endpoint-app:
+    build:
+      context: qa-endpoint-root/qa-endpoint-webapp
+      dockerfile: ../../Dockerfile
+    ports:
+      - "9120"
+      - "9121"
+    environment:
+      SERVER_PORT: 9120
+      MANAGEMENT_SERVER_PORT: 9121
+      REDIS_HOST: redis
+      PUBLIC_REST_PORT: 9080
+      ADMIN_ENDOPOINT_PORT: 9110
+      MEDIA_MANAGEMENT_PORT: 9090
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9121"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      admin-app:
+        condition: service_healthy
+      public-rest:
+        condition: service_healthy
+      media-management:
+        condition: service_healthy
+      media-player-endpoint:
+        condition: service_healthy
+
