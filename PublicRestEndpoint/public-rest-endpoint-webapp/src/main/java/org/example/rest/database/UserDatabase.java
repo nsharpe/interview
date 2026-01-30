@@ -11,6 +11,8 @@ import org.example.users.repository.UserCrudRespoitory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,7 +70,7 @@ public class UserDatabase implements UserRepository {
     }
 
     @Override
-    public List<UUID> getAllUserIds() {
+    public Page<UserModel> getAllUsers(Pageable pageable) {
         throw new IllegalStateException("Get All UserIds not allowed for public access");
     }
 }

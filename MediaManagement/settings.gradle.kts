@@ -4,7 +4,7 @@ pluginManagement {
 
 rootProject.name = "media-management-root"
 
-include(":MediaManagementWebApp")
+include(":media-management-webapp")
 include(":media-management-sdk")
 
 includeBuild("../Plugins")

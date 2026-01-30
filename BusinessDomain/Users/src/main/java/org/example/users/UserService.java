@@ -1,9 +1,10 @@
 package org.example.users;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class UserService {
         userRepository.deleteUser(id);
     }
 
-    public List<UUID> getAllUserIds(){
-        return userRepository.getAllUserIds();
+    public Page<UserModel> getAllUsers(Pageable pageable){
+        return userRepository.getAllUsers(pageable);
     }
 }

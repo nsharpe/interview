@@ -14,6 +14,12 @@ public class OpenApiConfig {
 
     static {
         SpringDocUtils.getConfig().addAnnotationsToIgnore(JsonIgnore.class);
+        SpringDocUtils.getConfig().replaceWithClass(org.springframework.data.domain.Pageable.class,
+                org.springdoc.core.converters.models.Pageable.class);
+        SpringDocUtils.getConfig().replaceWithClass(
+                org.springframework.data.domain.Page.class,
+                PageModel.class
+        );
     }
 
     @Bean

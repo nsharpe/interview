@@ -1,6 +1,8 @@
 package org.example.users;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.UUID;
 
 public interface UserRepository {
@@ -17,5 +19,5 @@ public interface UserRepository {
 
     String loginAs(UUID id);
 
-    List<UUID> getAllUserIds();
+    Page<UserModel> getAllUsers(Pageable pageable);
 }

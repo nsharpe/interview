@@ -9,9 +9,11 @@ import org.example.users.UserRepository;
 import org.example.users.repository.UserCrudRespoitory;
 import org.example.users.repository.UserPostgres;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
@@ -22,12 +24,12 @@ import java.util.UUID;
 public class NoOpUserDatabase implements UserRepository {
     @Override
     public UserModel getUser(long i) {
-        throw new IllegalStateException("disabled as redis is disabled");
+        throw ex();
     }
 
     @Override
     public UserModel getUser(UUID publicId) {
-        throw new IllegalStateException("disabled as redis is disabled");
+        throw ex();
     }
 
     @Override
@@ -37,22 +39,26 @@ public class NoOpUserDatabase implements UserRepository {
 
     @Override
     public UserModel updateUser(UUID id, UpdateUserModel updateUserModel) {
-        throw new IllegalStateException("disabled as redis is disabled");
+        throw ex();
     }
 
     @Override
     public void deleteUser(UUID id) {
-        throw new IllegalStateException("disabled as redis is disabled");
+        throw ex();
     }
 
     @Override
     public String loginAs(UUID id) {
-        throw new IllegalStateException("disabled as redis is disabled");
+        throw ex();
     }
 
     @Override
-    public List<UUID> getAllUserIds() {
-        throw new IllegalStateException("disabled as redis is disabled");
+    public Page<UserModel> getAllUsers(org.springframework.data.domain.Pageable pageable) {
+        throw ex();
+    }
+
+    public IllegalStateException ex(){
+        return new IllegalStateException("disabled as redis is disabled");
     }
 
 }

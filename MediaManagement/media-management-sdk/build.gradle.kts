@@ -5,7 +5,7 @@ plugins {
 group = "org.example.media.management"
 
 tasks.openApiGenerate {
-    dependsOn(":MediaManagementWebApp:generateOpenApiDocs")
+    dependsOn(":media-management-webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +19,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("MediaManagementWebApp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("media-management-webapp/build/api-spec.json"))
     basePackage.set("org.example.media.management.sdk")
 }

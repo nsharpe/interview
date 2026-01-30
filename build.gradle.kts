@@ -13,6 +13,13 @@ tasks.test {
     enabled = false
 }
 
+tasks.build{
+    dependsOn(gradle.includedBuild("PublicRestEndpoint").task(":build"))
+    dependsOn(gradle.includedBuild("MediaManagement").task(":build"))
+    dependsOn(gradle.includedBuild("qa-endpoint-root").task(":build"))
+    dependsOn(gradle.includedBuild("AdminEndpoint").task(":build"))
+}
+
 subprojects {
     apply{
         plugin("java-convention")

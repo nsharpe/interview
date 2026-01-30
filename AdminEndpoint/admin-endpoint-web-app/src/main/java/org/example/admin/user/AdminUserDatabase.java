@@ -9,6 +9,8 @@ import org.example.users.UserRepository;
 import org.example.users.repository.UserCrudRespoitory;
 import org.example.users.repository.UserPostgres;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -72,8 +74,8 @@ public class AdminUserDatabase implements UserRepository {
     }
 
     @Override
-    public List<UUID> getAllUserIds() {
-        return userCrudRespoitory.findAllPublicIds();
+    public Page<UserModel> getAllUsers(Pageable pageable) {
+        return userCrudRespoitory.findAll(pageable).map(UserPostgres::toModel);
     }
 
     private static AuthenticationInfo authenticationInfoOf(UserPostgres user){

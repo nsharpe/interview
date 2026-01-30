@@ -3,8 +3,8 @@ plugins {
 }
 
 tasks.build{
-    dependsOn(":MediaManagementWebApp:build")
-    dependsOn(":MediaManagementWebApp:buildJar")
+    dependsOn(":media-management-webapp:build")
+    dependsOn(":media-management-webapp:bootJar")
     dependsOn(":media-management-sdk:build")
     dependsOn(":media-management-sdk:openApiGenerate")
 }
