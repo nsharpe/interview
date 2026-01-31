@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {userAdminClient} from "../../api/user-admin-client";
+import '../Table.css';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export interface UserItem {
     id: string;
@@ -8,7 +10,6 @@ export interface UserItem {
     email: string;
     createdAt?: string;
 }
-
 
 const UserTable: React.FC = () => {
     const usersPerPage = 40;
@@ -67,38 +68,38 @@ const UserTable: React.FC = () => {
         pageNumbers.push(i);
     }
 
+    const navigate = useNavigate();
+
+    const resetPage = () => {
+        navigate('/series');
+    };
+
     if (loading) return <h2>Loading...</h2>;
 
     return (
-        <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-            <table className="min-w-full divide-y divide-gray-200 bg-white text-sm">
-                <thead className="bg-gray-50">
+        <div>
+            <table>
+                <thead>
                 <tr>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-900">ID</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Name</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Email</th>
-                    <th className="px-4 py-3 text-right font-semibold text-gray-900">LogIn As</th>
+                    <th className="table-header">ID</th>
+                    <th className="table-header">Name</th>
+                    <th className="table-header">Email</th>
+                    <th className="table-header">LogIn As</th>
                 </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200">
+                <tbody>
                 {users.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-500">
-                            {item.id}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-medium">
-                            {item.firstName}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-medium">
-                            {item.email}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-3 text-right">
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.firstName}</td>
+                        <td>{item.email}</td>
+                        <td>
                             <button
                                 onClick={() => {
                                     logInAs(item.id)
+                                    resetPage()
                                 }}
-                                className="text-red-600 hover:text-red-900 font-medium text-xs"
                             >
                                 Log In As
                             </button>

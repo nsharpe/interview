@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {seriesControllerApi} from "../../api/media-management-client";
-import './SeriesDashBoard.css';
+import '../../components/Table.css';
+import PageHeader from "../../components/util/PageHeader";
 
 export interface SeriesItem {
     id: string;
@@ -57,15 +58,15 @@ const SeriesDashBoard: React.FC = () => {
             <table>
                 <thead className="bg-gray-50">
                 <tr>
-                    <th className="cell-header">ID</th>
-                    <th className="cell-header">Title</th>
-                    <th className="cell-header">Play</th>
+                    <th className="table-header">ID</th>
+                    <th className="table-header">Title</th>
+                    <th className="table-header">Play</th>
                 </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200">
+                <tbody >
                 {series.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={item.id} >
                         <td>
                             {item.id}
                         </td>
@@ -77,7 +78,6 @@ const SeriesDashBoard: React.FC = () => {
                                 onClick={() => {
                                     //logInAs(item.id)
                                 }}
-                                className="text-red-600 hover:text-red-900 font-medium text-xs"
                             >
                                 Play
                             </button>

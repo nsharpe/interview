@@ -1,5 +1,5 @@
 
-.cell-header {
+.table-header {
     border: 1px solid black;
     background-color: #61dafb;
     height: 5vh;
@@ -8,9 +8,6 @@
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
-
-    /*justify-content: center;*/
-    /*align-items: center;*/
 
     width: 90vw;
     height: 2.5vh;
