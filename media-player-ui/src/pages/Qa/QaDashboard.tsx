@@ -5,11 +5,9 @@ import {userGeneratorControllerApi} from '../../api/qa-rest-client-factory'
 import axios from "axios";
 
 const getCurrentToken = () => {
-    // Access the common headers object
     const authHeader = axios.defaults.headers.common['Authorization'];
 
     if (authHeader && typeof authHeader === 'string') {
-        // Removes 'Bearer ' and returns just the JWT string
         return authHeader.replace('Bearer ', '');
     }
     return null;

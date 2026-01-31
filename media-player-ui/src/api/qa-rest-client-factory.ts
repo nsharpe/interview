@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
     UserGeneratorControllerApi,
     Configuration
@@ -10,6 +9,7 @@ export const userGeneratorControllerApi  = (token?: string | null) => {
         const config = new Configuration({
             basePath: "http://localhost:9120"
         });
+        return new UserGeneratorControllerApi(config);
     }
 
     const str: string = `${token}`;

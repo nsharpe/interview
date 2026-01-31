@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {userAdminClient} from "../../api/user-admin-client";
+import axios from "axios";
 
-// Define the shape of your data based on your generated SDK types
 export interface UserItem {
     id: string;
     firstName: string;
@@ -14,14 +15,65 @@ export interface UserTableProps {
     onDelete?: (id: string) => void;
 }
 
-const UserTable: React.FC<UserTableProps> = ({ items, isLoading, onDelete }) => {
-    if (isLoading) {
-        return <div className="p-8 text-center text-gray-500">Loading Users...</div>;
+
+const UserTable: React.FC = () => {
+    const usersPerPage = 40;
+
+    const [token, setToken] = useState<string>('');
+    const [users, setUsers] = useState<UserItem[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const logInAs = async (id: string) =>{
+        const request = await userAdminClient().loginAsUser(id)
+        if(request.data == null) {
+            setError("no data on login as")
+        }
+        const newToken = request.data.token;
+        if (!newToken) {
+            setError("no token on login as");
+            return;
+        }
+        axios.defaults.headers.common['Authorization'] = `Bearer ${request.data.token}`
+        localStorage.setItem('token', newToken);
+    };
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true);
+
+            const data = await userAdminClient()
+                .getUsers(currentPage,usersPerPage)
+
+            if(data.data==null){
+                setError("No Data Returned")
+                return;
+            }
+            if(data.data.content==null){
+                setError("No Data Returned")
+                return;
+            }
+
+            const userItems = data.data.content.map((x: any): UserItem => ({
+                id: x.id,
+                firstName: x.firstName,
+                email: x.email
+            }));
+
+            setUsers(userItems)
+            setLoading(false)
+        };
+
+        fetchPosts();
+    }, []);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(users.length / usersPerPage); i++) {
+        pageNumbers.push(i);
     }
 
-    if (items.length === 0) {
-        return <div className="p-8 text-center text-gray-400">No users found.</div>;
-    }
+    if (loading) return <h2>Loading...</h2>;
 
     return (
         <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
@@ -29,14 +81,14 @@ const UserTable: React.FC<UserTableProps> = ({ items, isLoading, onDelete }) => 
                 <thead className="bg-gray-50">
                 <tr>
                     <th className="px-4 py-3 text-left font-semibold text-gray-900">ID</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Title</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Status</th>
-                    <th className="px-4 py-3 text-right font-semibold text-gray-900">Actions</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Name</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Email</th>
+                    <th className="px-4 py-3 text-right font-semibold text-gray-900">LogIn As</th>
                 </tr>
                 </thead>
 
                 <tbody className="divide-y divide-gray-200">
-                {items.map((item) => (
+                {users.map((item) => (
                     <tr key={item.id} className="hover:bg-gray-50 transition-colors">
                         <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-gray-500">
                             {item.id}
@@ -44,12 +96,17 @@ const UserTable: React.FC<UserTableProps> = ({ items, isLoading, onDelete }) => 
                         <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-medium">
                             {item.firstName}
                         </td>
+                        <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-medium">
+                            {item.email}
+                        </td>
                         <td className="whitespace-nowrap px-4 py-3 text-right">
                             <button
-                                onClick={() => onDelete?.(item.id)}
+                                onClick={() => {
+                                    logInAs(item.id)
+                                }}
                                 className="text-red-600 hover:text-red-900 font-medium text-xs"
                             >
-                                Delete
+                                Log In As
                             </button>
                         </td>
                     </tr>

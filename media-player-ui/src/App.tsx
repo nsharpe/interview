@@ -4,6 +4,7 @@ import './App.css';
 import QaDashboard from './pages/Qa/QaDashboard';
 
 import TokenManager from './components/tokens/TokenManager'
+import UserTable from "./components/Users/UserTable";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Routes>
               <Route path="/" element={<TokenManager />} />
               <Route path="/qa-dashboard" element={<QaDashboard />} />
+              <Route path="/admin/user" element={<UserTable />}/>
           </Routes>
       </Router>
   );

@@ -1,6 +1,12 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, {createContext, useContext, useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+interface AuthContextType {
+    token: string | null;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const TokenManager: React.FC = () => {
     const [activePage, setActivePage] = useState<'setup' | 'generate'>('setup');
@@ -10,8 +16,10 @@ const TokenManager: React.FC = () => {
     const handleApplyToken = (): void => {
         if (token.trim()) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            localStorage.setItem('token', token);
         } else {
             delete axios.defaults.headers.common['Authorization'];
+            localStorage.removeItem('token');
         }
 
         navigate('/qa-dashboard')
@@ -43,6 +51,10 @@ const TokenManager: React.FC = () => {
             </div>
         </div>
     );
+};
+
+export const getToken = () => {
+    return localStorage.getItem('token')
 };
 
 export default TokenManager;
