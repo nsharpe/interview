@@ -50,7 +50,7 @@ class MediaPlayerEventControllerTest {
 
         AuthenticationInfo authenticationInfo = AuthenticationInfo.builder()
                 .userId(userID)
-                .roles(List.of("SUBSCRIBER"))
+                .roles(List.of("ROLE_SUBSCRIBER"))
                 .build();
 
         MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
@@ -84,7 +84,7 @@ class MediaPlayerEventControllerTest {
 
         AuthenticationInfo authenticationInfo = AuthenticationInfo.builder()
                 .userId(userID)
-                .roles(List.of("SUBSCRIBER"))
+                .roles(List.of("ROLE_SUBSCRIBER"))
                 .build();
 
         MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()

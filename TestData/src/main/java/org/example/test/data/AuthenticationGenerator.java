@@ -35,7 +35,7 @@ public class AuthenticationGenerator {
                 "Bearer " + ADMIN_AUTH_TOKEN,
                 AuthenticationInfo.builder()
                         .userId(UUID.randomUUID())
-                        .roles(List.of("ADMIN"))
+                        .roles(List.of("ROLE_ADMIN"))
                         .build(),
                 Duration.ofDays(365)
         );

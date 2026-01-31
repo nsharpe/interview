@@ -1,23 +1,25 @@
 package org.example.test.admin;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.restassured.RestAssured;
 import org.example.admin.sdk.api.UserAdminControllerApi;
 import org.example.admin.sdk.models.UserModelPage;
 import org.example.publicrest.sdk.models.UserModel;
 import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,6 +35,12 @@ public class UserAdminIntegrationTests extends TestContainers {
 
     @Autowired
     private UserAdminControllerApi userAdminControllerApi;
+
+    @BeforeEach
+    @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+    public void beforeEach() {
+        RestAssured.baseURI = "http://localhost:"+getAdminPort();
+    }
 
     @Test
     void testGetAllUser(){
@@ -59,5 +67,18 @@ public class UserAdminIntegrationTests extends TestContainers {
 
         assertTrue(allIds.contains(user1.getId()));
         assertTrue(allIds.contains(user2.getId()));
+    }
+
+    @Test
+    void unauthorizedUsers(){
+        UserModel userModel = userGenerator.generate();
+        String subscriberToken = authenticationGenerator.generateTokenForSubscriber(userModel);
+
+        given().header("Content-type", "application/json")
+                .header("Authorization", "Bearer " + subscriberToken)
+                .when()
+                .get("/admin/user?page=1&size=1")
+                .then()
+                .statusCode(403);
     }
 }

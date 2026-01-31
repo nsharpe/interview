@@ -1,6 +1,7 @@
 package org.example.security;
 
 import org.example.core.model.AuthenticationInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,10 @@ import java.util.List;
 
 @Configuration
 public class SecurityConfiguration {
+
+    @Value(value = "${application.role:ANY}")
+    private String role;
+
     @Bean
     @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
     public SecurityFilterChain filterChain(HttpSecurity http, TokenRepo tokenRepo) throws Exception {
@@ -31,12 +36,19 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api-docs/**",
-                                "/swagger-ui.html",
-                                "/swagger-ui/**")
-                        .permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(auth -> {
+                            var reqMatcher = auth.requestMatchers("/api-docs/**",
+                                            "/swagger-ui.html",
+                                            "/swagger-ui/**")
+                                    .permitAll();
+
+                            if ("ANY".equals(role)) {
+                                reqMatcher.anyRequest().permitAll();
+                            } else {
+                                reqMatcher.anyRequest()
+                                        .hasRole(role);
+                            }
+                        }
                 )
                 .addFilterBefore(new TokenProcessor(tokenRepo), UsernamePasswordAuthenticationFilter.class);
 

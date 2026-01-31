@@ -81,7 +81,7 @@ public class AdminUserDatabase implements UserRepository {
     private static AuthenticationInfo authenticationInfoOf(UserPostgres user){
         return AuthenticationInfo.builder()
                 .userId(user.getPublicId())
-                .roles(List.of("SUBSCRIBER"))
+                .roles(List.of("ROLE_SUBSCRIBER"))
                 .build();
     }
 }

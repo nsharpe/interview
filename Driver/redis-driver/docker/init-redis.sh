@@ -5,7 +5,7 @@ until redis-cli ping; do
   sleep 1
 done
 
-redis-cli SET "Bearer 123" '{"roles":["ADMIN"]}'
+redis-cli SET "Bearer 123" '{"roles":["ROLE_ADMIN"]}'
 
 redis-cli shutdown
 
