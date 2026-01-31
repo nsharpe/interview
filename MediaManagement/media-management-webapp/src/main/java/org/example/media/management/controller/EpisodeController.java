@@ -109,6 +109,5 @@ public class EpisodeController {
     public @ResponseBody List<UUID> getAllEpisodesForSeason(@PathVariable("seasonId") UUID seasonId,
                                         @PathVariable("seriesId") UUID seriesId){
         return episodeService.getAllEpisodeIdsForSeason(seasonId,seriesId);
-
     }
 }

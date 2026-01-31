@@ -60,7 +60,7 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
 
     @Getter
     @Setter
-    @Builder
+    @Builder(toBuilder = true)
     @AllArgsConstructor
     public static class EpisodeInput{
         private EpisodeCreateModel episodeCreateModel;

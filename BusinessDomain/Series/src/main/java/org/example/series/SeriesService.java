@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -40,6 +39,10 @@ public class SeriesService {
 
     public Page<SeriesModel> getAllSeries(Pageable pageable){
         return repository.findAll(pageable).map(SeriesMysql::toModel);
+    }
+
+    public UUID getFirstEpisode(UUID seriesId){
+        return repository.firstEpisode(seriesId);
     }
 
     @Transactional

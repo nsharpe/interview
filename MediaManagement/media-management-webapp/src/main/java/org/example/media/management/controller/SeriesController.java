@@ -1,6 +1,7 @@
 package org.example.media.management.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -94,5 +94,20 @@ public class SeriesController {
     @GetMapping
     public @ResponseBody Page<SeriesModel> getAll(@ParameterObject Pageable pageable){
         return seriesService.getAllSeries(pageable);
+    }
+
+
+    @Operation(summary = "Get the first episode of a series.  This can also be used for a movie as a movie is a series with one season and one episode",
+            responses = {
+                    @ApiResponse(description = "The episode id",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(type = "string", format = "uuid"))
+                            )),
+                    @ApiResponse(responseCode = "404", description = "series not found")})
+    @GetMapping("/{seriesId}/firstEpisodeId")
+    public UUID getFirstEpisodeId( @PathVariable("seriesId") UUID seriesId){
+        return seriesService.getFirstEpisode(seriesId);
     }
 }

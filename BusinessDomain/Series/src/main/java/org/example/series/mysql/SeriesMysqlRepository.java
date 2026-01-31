@@ -16,4 +16,14 @@ public interface SeriesMysqlRepository extends CrudRepository<SeriesMysql, Long>
 
     @Query("SELECT sm.publicId FROM SeriesMysql sm ORDER BY sm.timeStamp.creationTimestamp DESC")
     List<UUID> findAllPublicId();
+
+    @Query("""
+            SELECT episode.publicId FROM EpisodeMysql episode
+            LEFT JOIN episode.season season
+            LEFT JOIN season.series series
+            WHERE series.publicId=:seriesId
+            AND season.order = (SELECT MIN(innerSeason.order) FROM SeasonMysql innerSeason WHERE innerSeason.series.id=series.id)
+            AND episode.order = (SELECT MIN(innerEpisode.order) FROM EpisodeMysql innerEpisode WHERE innerEpisode.season.id = season.id)
+            """)
+    UUID firstEpisode(UUID seriesId);
 }
