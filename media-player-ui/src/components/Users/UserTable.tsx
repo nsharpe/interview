@@ -9,12 +9,6 @@ export interface UserItem {
     createdAt?: string;
 }
 
-export interface UserTableProps {
-    items: UserItem[];
-    isLoading: boolean;
-    onDelete?: (id: string) => void;
-}
-
 
 const UserTable: React.FC = () => {
     const usersPerPage = 40;

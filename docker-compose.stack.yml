@@ -44,9 +44,9 @@ services:
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "9081"]
       interval: 10s
-      timeout: 35s
+      timeout: 55s
       retries: 3
-      start_period: 5s
+      start_period: 35s
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully
@@ -77,7 +77,7 @@ services:
       interval: 10s
       timeout: 35s
       retries: 3
-      start_period: 25s
+      start_period: 35s
 
   media-player-endpoint:
     build:
@@ -102,7 +102,7 @@ services:
       interval: 10s
       timeout: 35s
       retries: 3
-      start_period: 5s
+      start_period: 35s
 
   admin-app:
     build:
@@ -125,7 +125,7 @@ services:
       interval: 10s
       timeout: 35s
       retries: 3
-      start_period: 15s
+      start_period: 35s
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully
@@ -151,7 +151,7 @@ services:
       interval: 10s
       timeout: 35s
       retries: 3
-      start_period: 5s
+      start_period: 35s
     depends_on:
       admin-app:
         condition: service_healthy

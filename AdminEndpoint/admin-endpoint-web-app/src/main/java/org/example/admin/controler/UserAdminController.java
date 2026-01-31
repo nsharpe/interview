@@ -9,11 +9,9 @@ import org.example.admin.config.openapi.UserModelPage;
 import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.users.UserModel;
 import org.example.users.UserRepository;
-import org.example.web.PageModel;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/user")

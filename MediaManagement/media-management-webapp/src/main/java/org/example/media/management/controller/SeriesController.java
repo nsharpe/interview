@@ -1,15 +1,18 @@
 package org.example.media.management.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.example.media.management.controller.openapi.SeriesPage;
 import org.example.series.SeriesCreateModel;
 import org.example.series.SeriesModel;
 import org.example.series.SeriesService;
 import org.example.series.SeriesUpdateModel;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +30,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/series")
 public class SeriesController {
 
     private final SeriesService seriesService;
@@ -40,7 +45,7 @@ public class SeriesController {
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SeriesModel.class))),
                     @ApiResponse(responseCode = "404", description = "Series not found")})
-    @GetMapping("/series/{id}")
+    @GetMapping("/{id}")
     public @ResponseBody SeriesModel get(@PathVariable("id")UUID id){
         return seriesService.getSeries(id);
     }
@@ -51,7 +56,7 @@ public class SeriesController {
                             responseCode = "201",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SeriesModel.class)))})
-    @PostMapping("/series")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public SeriesModel create(@RequestBody @Valid SeriesCreateModel seriesModel){
         return seriesService.createSeries(seriesModel);
@@ -63,7 +68,7 @@ public class SeriesController {
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SeriesUpdateModel.class))),
                     @ApiResponse(responseCode = "404", description = "Series not found")})
-    @PutMapping("/series/{id}")
+    @PutMapping("/{id}")
     public SeriesModel modify(@PathVariable("id") UUID id, @RequestBody SeriesUpdateModel seriesModel){
         return seriesService.updateSeries( seriesModel, id);
     }
@@ -71,23 +76,23 @@ public class SeriesController {
     @Operation(summary = "Delete a Series",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Series deleted")})
-    @DeleteMapping("/series/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id")UUID id){
         seriesService.deleteSeries(id);
     }
 
 
-    @Operation(summary = "Get All series ids",
+    @Operation(summary = "Get All series paginated",
             responses = {
-                    @ApiResponse(description = "Gets the ids of all series that are available",
+                    @ApiResponse(description = "Gets the series that are available",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(type = "string", format = "uuid"))
+                                    schema = @Schema(implementation = SeriesPage.class)
                             ))})
     @GetMapping
-    public List<UUID> getAll(){
-        return seriesService.getAllSeriesId();
+    public @ResponseBody Page<SeriesModel> getAll(@ParameterObject Pageable pageable){
+        return seriesService.getAllSeries(pageable);
     }
 }

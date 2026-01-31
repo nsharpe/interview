@@ -12,6 +12,7 @@
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "axios": "^1.13.4",
+    "media-player-media-management-client": "file:../MediaManagement/media-management-typescript-sdk/build/src/generated",
     "media-player-admin-client": "file:../AdminEndpoint/admin-typescript-sdk/build/src/generated",
     "media-player-public-rest-client": "file:../PublicRestEndpoint/public-rest-endpoint-typescript-sdk/build/src/generated",
     "media-player-qa-client": "file:../qa-endpoint-root/qa-endpoint-typescript-sdk/build/src/generated",

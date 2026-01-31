@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.core.exceptions.NotFoundException;
 import org.example.series.mysql.SeriesMysql;
 import org.example.series.mysql.SeriesMysqlRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -36,8 +38,8 @@ public class SeriesService {
         return repository.save(SeriesMysql.of(seriesModel,uuid)).toModel();
     }
 
-    public List<UUID> getAllSeriesId(){
-        return repository.findAllPublicId();
+    public Page<SeriesModel> getAllSeries(Pageable pageable){
+        return repository.findAll(pageable).map(SeriesMysql::toModel);
     }
 
     @Transactional

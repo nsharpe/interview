@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.example.integration.util.TimeTestUtil;
 import org.example.media.management.sdk.api.SeriesControllerApi;
 import org.example.media.management.sdk.models.SeriesModel;
+import org.example.media.management.sdk.models.SeriesPage;
 import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.SeriesGenerator;
 import org.example.test.util.TestContainers;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -104,11 +107,19 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
         SeriesModel series1 = seriesGenerator.generate();
         SeriesModel series2 = seriesGenerator.generate();
 
-        Set<UUID> series = seriesControllerApi.getAll()
-                .collect(Collectors.toSet())
-                .block();
+        seriesControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
+        Set<UUID> series =  seriesControllerApi.getAll(0, 1000, null)
+                        .mapNotNull(SeriesPage::getContent)
+                .mapNotNull(x->x.stream()
+                        .map(SeriesModel::getId)
+                        .collect(Collectors.toSet()))
+                        .block();
 
         assertNotNull(series);
+
+        assertTrue(series.size() <= 999, "There are now over 1k series in the test suite.  You will have to rework (rethink) this test, series.size="+series.size());
+
         assertTrue(series.contains(series1.getId()));
         assertTrue(series.contains(series2.getId()));
     }
