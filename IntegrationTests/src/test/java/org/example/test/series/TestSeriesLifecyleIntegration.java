@@ -337,7 +337,7 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
         assertNotNull(firstSeasonEpisode1);
         assertNotNull(firstSeasonEpisode1.getId());
 
-        EpisodeModel firstSeasonEpisode2 = episodeGenerator.generate(x ->
+        episodeGenerator.generate(x ->
                 x.toBuilder()
                         .seriesId(seriesId)
                         .seasonid(firstSeasonId)
