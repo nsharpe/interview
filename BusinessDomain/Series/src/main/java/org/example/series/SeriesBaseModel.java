@@ -23,4 +23,6 @@ class SeriesBaseModel {
     private String description;
     @Builder.Default
     private Locale locale = Locale.US;
+
+    private SeriesType seriesType;
 }

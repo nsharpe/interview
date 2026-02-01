@@ -2,11 +2,13 @@ pluginManagement {
     includeBuild("../Plugins")
 }
 
-rootProject.name="driver"
+rootProject.name="Driver"
 
-includeBuild("../Plugins")
-includeBuild("../AvroModel")
 include("mysql-driver")
 include("postgres-driver")
 include("kafka-driver")
 include("redis-driver")
+
+includeBuild("../Plugins")
+includeBuild("../AvroModel")
+

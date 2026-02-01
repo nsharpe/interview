@@ -4,6 +4,8 @@ package org.example.series.mysql;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +21,7 @@ import org.example.mysql.MysqlSoftDelete;
 import org.example.mysql.MysqlTimeStamp;
 import org.example.series.SeriesCreateModel;
 import org.example.series.SeriesModel;
+import org.example.series.SeriesType;
 import org.example.series.SeriesUpdateModel;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -71,6 +74,10 @@ public class SeriesMysql {
 
     @Column(length = 5000)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "series_type", nullable = false, length = 15)
+    private SeriesType seriesType;
 
     @Embedded
     private MysqlTimeStamp timeStamp;

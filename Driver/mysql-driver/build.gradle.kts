@@ -11,3 +11,7 @@ dependencies {
 
     runtimeOnly("com.mysql:mysql-connector-j")
 }
+
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}

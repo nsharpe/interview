@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.media.management.sdk.models.EpisodeModel;
 import org.example.media.management.sdk.models.SeasonModel;
+import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class MovieGenerator implements Generator<MovieGenerator.MovieInput, Seri
     public SeriesModel save(MovieInput input) {
         SeriesModel seriesModel = seriesGenerator.generate(
           x->x.locale("en")
+                  .seriesType(SeriesCreateModel.SeriesTypeEnum.MOVIE)
                   .title(input.title)
         );
 

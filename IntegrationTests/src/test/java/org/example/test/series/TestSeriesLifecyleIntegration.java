@@ -77,6 +77,7 @@ public class TestSeriesLifecyleIntegration extends TestContainers {
                 .and()
                 .body("title", equalTo("Series Title"))
                 .body("description", equalTo("A rousing story"))
+                .body("seriesType", equalTo("TV_SERIES"))
                 .body("locale", equalTo("en"))
                 .body("id", notNullValue())
                 .extract()

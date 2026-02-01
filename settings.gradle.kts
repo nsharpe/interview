@@ -1,10 +1,5 @@
 pluginManagement {
     includeBuild("Plugins")
-
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
 }
 
 rootProject.name = "MediaPlayer"

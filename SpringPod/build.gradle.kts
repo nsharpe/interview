@@ -19,3 +19,7 @@ dependencies {
     api( "org.springframework.boot:spring-boot-starter-web")
     api( "org.springframework.boot:spring-boot-starter-actuator")
 }
+
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}

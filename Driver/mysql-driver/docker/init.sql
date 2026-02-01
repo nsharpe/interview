@@ -15,6 +15,7 @@ CREATE TABLE series
     title              VARCHAR(255)            NULL,
     locale             VARCHAR(255)            NOT NULL,
     `description`      VARCHAR(5000)           NULL,
+    `series_type`      VARCHAR(20)             NOT NULL,
     creation_timestamp timestamp DEFAULT NOW() NULL,
     last_updated_date  datetime                NULL,
     deletion_timestamp datetime                NULL,

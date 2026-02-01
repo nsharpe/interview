@@ -13,6 +13,7 @@ public class PostPayloadGenerator {
         seriesPojo.put("title",title);
         seriesPojo.put("description","A rousing story");
         seriesPojo.put("locale","en");
+        seriesPojo.put("seriesType","TV_SERIES");
 
         return seriesPojo;
     }

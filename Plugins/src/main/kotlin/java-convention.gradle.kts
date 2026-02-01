@@ -22,6 +22,8 @@ repositories {
 dependencies {
     add("testImplementation", platform("org.junit:junit-bom:5.10.2"))
     add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
+
+    add("testImplementation","org.junit.jupiter:junit-jupiter")
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {

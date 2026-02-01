@@ -36,6 +36,8 @@ public class SeriesGenerator implements Generator<SeriesCreateModel,SeriesModel>
         seriesModel.setDescription(FAKER.lorem().paragraph(3));
         seriesModel.setLocale(FAKER.locality().localeString());
         seriesModel.setTitle(FAKER.lorem().sentence(2,4));
+        seriesModel.setSeriesType(SeriesCreateModel.SeriesTypeEnum.TV_SERIES);
+
         return seriesModel;
     }
 }
