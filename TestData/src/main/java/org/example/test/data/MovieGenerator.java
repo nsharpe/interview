@@ -10,6 +10,7 @@ import org.example.media.management.sdk.models.SeasonModel;
 import org.example.media.management.sdk.models.SeriesCreateModel;
 import org.example.media.management.sdk.models.SeriesModel;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -73,20 +74,25 @@ public class MovieGenerator implements Generator<MovieGenerator.MovieInput, Seri
     @Override
     public MovieInput generateInput() {
 
-        String title = null;
-        switch (ThreadLocalRandom.current().nextInt(3)){
+        String title;
+        switch (ThreadLocalRandom.current().nextInt(4)){
             case 0:
-                title = FAKER.word().noun() + " " + FAKER.word().conjunction() + " " + FAKER.word().noun();
+                title = FAKER.word().noun() + " " + StringUtils.capitalize(FAKER.word().conjunction()) + " " + StringUtils.capitalize(FAKER.word().noun());
                 break;
             case 1:
-                title = FAKER.word().noun() + " " + FAKER.word().verb();
+                title = FAKER.word().noun() + " " + StringUtils.capitalize(FAKER.word().verb());
                 break;
             case 2:
-                title = FAKER.word().noun() + " " + FAKER.word().verb() + " " + FAKER.word().adverb();
+                title = FAKER.word().noun() + " " + StringUtils.capitalize(FAKER.word().verb()) + " " + StringUtils.capitalize(FAKER.word().adverb());
+                break;
+            case 3:
+                title = FAKER.word().adjective() + " " + StringUtils.capitalize(FAKER.word().noun()) + " " + StringUtils.capitalize(FAKER.word().verb());
                 break;
             default:
                 title = FAKER.word().noun() + " " + UUID.randomUUID();
         }
+
+        title = StringUtils.capitalize(title);
 
         return MovieInput.builder()
                 .length(Duration.ofSeconds(ThreadLocalRandom.current().nextLong(MIN_LENGTH.toSeconds(),MAX_LENGTH.toSeconds())))

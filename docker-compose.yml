@@ -63,6 +63,57 @@ services:
         echo 'Kafka is up, starting Schema Registry...';
         /etc/confluent/docker/run
 
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect-base:7.7.7
+    container_name: kafka-connect
+    depends_on:
+      broker:
+        condition: service_started
+      schema-registry:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8083
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "broker:29092"
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: kafka-connect
+      CONNECT_CONFIG_STORAGE_TOPIC: _connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: _connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: _connect-status
+      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL:  'http://schema-registry:8091'
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: 'http://schema-registry:8091'
+      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+      CONNECT_LOG4J_APPENDER_STDOUT_LAYOUT_CONVERSIONPATTERN: "[%d] %p %X{connector.context}%m (%c:%L)%n"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/kafka-connect/connect-jars
+    volumes:
+      - $PWD/data:/data
+      # Store conflue-hub jars to avoid reinstalling
+      - ./kafka-connect/local/docker:/usr/share/confluent-hub-components
+      - ./kafka-connect/install-plugin.sh:/home/appuser/install-plugin.sh
+      - ./kafka-connect/start.sh:/home/appuser/start.sh
+      - ./kafka-connect/install-connections.sh:/home/appuser/install-connections.sh
+      - ./kafka-connect/connections:/home/appuser/connections
+    # In the command section, $ are replaced with $$ to avoid the error 'Invalid interpolation format for "command" option'
+    command:
+      - bash
+      - -c
+      - |
+        ./install-plugin.sh &&
+        #
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
+        ./install-connections.sh &&
+        #
+        sleep infinity
+
   mysql:
     image: mysql:8.4.7
     command: ["mysqld", "--mysql-native-password=ON"]
@@ -91,8 +142,14 @@ services:
       POSTGRES_DB: media
     volumes:
       - ./Driver/postgres-driver/docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./Driver/postgres-driver/docker/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
     ports:
       - "5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
     labels:
       org.springframework.boot.datasource.name: postgresql
 

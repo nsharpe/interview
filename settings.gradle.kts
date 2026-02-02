@@ -8,8 +8,6 @@ includeBuild("Plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
 includeBuild("Driver")
-includeBuild("SpringPod")
-includeBuild("SpringRest")
 includeBuild("BusinessDomain")
 {
     dependencySubstitution {
@@ -19,6 +17,13 @@ includeBuild("BusinessDomain")
             .using(project(":Users"))
     }
 }
+
+// Pod setup
+includeBuild("kafka-pod")
+includeBuild("SpringPod")
+includeBuild("SpringRest")
+
+// Rest Deployable
 includeBuild("AdminEndpoint")
 includeBuild("MediaManagement")
 includeBuild("PublicRestEndpoint")
@@ -27,4 +32,3 @@ includeBuild("qa-endpoint-root")
 
 includeBuild("TestData")
 include("IntegrationTests")
-include("KafkaPod")

@@ -24,3 +24,7 @@ services:
     ports:
       - "9120:9120"
       - "9121:9121"
+
+  kafka-connect:
+    ports:
+      - "8083:8083"

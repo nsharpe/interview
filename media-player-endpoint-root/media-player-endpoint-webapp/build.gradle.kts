@@ -11,7 +11,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 }
 
 openApi {
-    apiDocsUrl.set("http://localhost:8083/api-docs")
+    apiDocsUrl.set("http://localhost:8086/api-docs")
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
 
