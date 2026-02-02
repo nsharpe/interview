@@ -28,9 +28,11 @@ public abstract class TestContainers {
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     ).withExposedService("qa-endpoint-app", 9120,
-                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
-                    )
+                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("postgres", 5432, Wait.forListeningPort())
+//                    .withExposedService("kafka-connect", 8083,
+//                            Wait.forHealthcheck()
+//                    )
                     .withExposedService("media-player-endpoint",9100,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("admin-app", 9110,

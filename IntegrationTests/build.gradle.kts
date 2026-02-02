@@ -1,3 +1,7 @@
+plugins {
+    id("java-convention")
+}
+
 tasks.bootRun {
     enabled = false
 }

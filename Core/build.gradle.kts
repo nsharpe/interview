@@ -10,6 +10,10 @@ tasks.processResources{
     into("build/resources/main/docker")
 }
 
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}
+
 dependencies {
     api("org.modelmapper:modelmapper:3.2.6")
 

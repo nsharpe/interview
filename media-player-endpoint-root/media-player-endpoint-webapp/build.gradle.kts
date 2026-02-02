@@ -6,6 +6,10 @@ plugins {
 
 group = "org.example.media.player"
 
+configure<com.github.spotbugs.snom.SpotBugsExtension> {
+    excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
+}
+
 tasks.named<BootBuildImage>("bootBuildImage") {
     imageName = "media-player/media-player-endpoints:test"
 }

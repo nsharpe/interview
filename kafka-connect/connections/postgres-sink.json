@@ -8,11 +8,12 @@
     "connection.password": "kc_password",
     "topics.regex": "media.player.*",
 
-
+    "auto.create": "true",
+    "auto.evolve": "true",
 
     "transforms": "addPrefix",
     "transforms.addPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
-    "transforms.addPrefix.regex":".*",
+    "transforms.addPrefix.regex":".*-(.*)",
     "transforms.addPrefix.replacement":"kafka_$0"
   }
 }

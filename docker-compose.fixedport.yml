@@ -4,10 +4,6 @@ services:
       - "9092:9092"
       - "29092:29092"
 
-  ksqldb-server:
-    ports:
-      - "8088:8088"
-
   schema-registry:
     ports:
       - '8091:8091'
@@ -23,3 +19,7 @@ services:
   redis:
     ports:
       - "6379:6379"
+
+  kafka-connect:
+    ports:
+      - "8083:8083"

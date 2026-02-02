@@ -20,11 +20,11 @@ services:
   kafka-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
-      sh -c "while ! nc -z broker 9092 || ! nc -z schema-registry 8091; do 
-               echo 'Waiting for kafka And Schema Registry...'; 
+      sh -c "while ! nc -z broker 9092 || ! nc -z schema-registry 8091 || ! nc -z kafka-connect 8083; do 
+               echo 'Waiting for kafka, kafka-connect And Schema Registry...'; 
                sleep 1; 
              done; 
-             echo 'kafka And Schema Registry is up';"
+             echo 'kafka, kafka-connect And Schema Registry is up';"
 
   public-rest:
     build:
