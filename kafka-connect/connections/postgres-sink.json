@@ -2,18 +2,21 @@
   "name": "media-player-postgres-connector",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-    "connection.url": "jdbc:postgresql://postgres:5432/media",
+    "connection.url": "jdbc:postgresql://postgres:5432/media?currentSchema=kafka_sink",
     "dialect.name": "PostgreSqlDatabaseDialect",
     "connection.user": "kafka_connect_user",
     "connection.password": "kc_password",
-    "topics.regex": "media.player.*",
+    "topics.regex": "media\\.player.*",
+    "table.name.format": "kafka_sink.${topic}",
 
     "auto.create": "true",
     "auto.evolve": "true",
 
-    "transforms": "addPrefix",
+    "transforms": "addPrefix,flatten",
     "transforms.addPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
-    "transforms.addPrefix.regex":".*-(.*)",
-    "transforms.addPrefix.replacement":"kafka_$0"
+    "transforms.addPrefix.regex":"media\\.player\\.(.*)",
+    "transforms.addPrefix.replacement":"media_player_$1",
+    "transforms.flatten.type": "org.apache.kafka.connect.transforms.Flatten$Value",
+    "transforms.flatten.delimiter": "_"
   }
 }

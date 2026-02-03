@@ -1,5 +1,6 @@
 CREATE DATABASE testdb;
 
+CREATE SCHEMA kafka_sink;
 
 CREATE ROLE kafka_connect_user WITH REPLICATION LOGIN PASSWORD 'kc_password';
 
@@ -7,8 +8,18 @@ CREATE ROLE kafka_connect_user WITH REPLICATION LOGIN PASSWORD 'kc_password';
 -- This is done to simplify development as this is not going to be production code
 GRANT CONNECT ON DATABASE testdb TO kafka_connect_user;
 GRANT CONNECT ON DATABASE media TO kafka_connect_user;
+GRANT CREATE ON DATABASE media TO kafka_connect_user;
+
 GRANT USAGE ON SCHEMA public TO kafka_connect_user;
+GRANT CREATE ON SCHEMA public TO kafka_connect_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO kafka_connect_user;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO kafka_connect_user;
 
+GRANT USAGE ON SCHEMA kafka_sink TO kafka_connect_user;
+GRANT CREATE ON SCHEMA kafka_sink TO kafka_connect_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA kafka_sink TO kafka_connect_user;
+GRANT SELECT ON ALL TABLES IN SCHEMA kafka_sink TO kafka_connect_user;
 
-GRANT CONNECT ON DATABASE testdb TO `user`;
+GRANT CONNECT ON DATABASE testdb TO "user";
+GRANT CONNECT ON DATABASE media TO "user";
+
