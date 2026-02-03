@@ -30,8 +30,8 @@ import static org.modelmapper.convention.MatchingStrategies.STRICT;
 
 
 @Entity
-@Table(name = "external_user")
-@SQLDelete(sql = "UPDATE external_user SET deletion_timestamp = now() WHERE id=?")
+@Table(name = "external_user", schema = "users")
+@SQLDelete(sql = "UPDATE users.external_user SET deletion_timestamp = now() WHERE id=?")
 @SQLRestriction("deletion_timestamp IS NULL")
 @Getter
 @Setter

@@ -45,7 +45,7 @@ public class MediaEventService {
                 log.atError()
                         .addKeyValue("topic",MEDIA_START)
                         .setCause(ex)
-                        .log("");
+                        .log("An error occurred sending a message to a kafka topic");
             }
         })
                 .get();
@@ -63,9 +63,9 @@ public class MediaEventService {
         future.whenComplete((result, ex) -> {
                     if (ex != null) {
                         log.atError()
-                                .addKeyValue("topic",MEDIA_ENGAGEMENT)
+                                .addKeyValue("topic",MEDIA_STOP)
                                 .setCause(ex)
-                                .log("");
+                                .log("An error occurred sending a message to a kafka topic");
                     }
                 })
                 .get();

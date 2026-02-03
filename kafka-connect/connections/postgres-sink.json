@@ -12,6 +12,9 @@
     "auto.create": "true",
     "auto.evolve": "true",
 
+    "pk.mode": "record_key",
+    "pk.fields": "eventId",
+
     "transforms": "addPrefix,flatten",
     "transforms.addPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.addPrefix.regex":"media\\.player\\.(.*)",

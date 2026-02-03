@@ -14,7 +14,6 @@ export interface UserItem {
 const UserTable: React.FC = () => {
     const usersPerPage = 40;
 
-    const [token, setToken] = useState<string>('');
     const [users, setUsers] = useState<UserItem[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);

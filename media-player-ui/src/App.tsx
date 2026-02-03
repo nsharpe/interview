@@ -7,6 +7,7 @@ import TokenManager from './components/tokens/TokenManager'
 import UserTable from "./components/Users/UserTable";
 import SeriesDashBoard from "./pages/ContentDashboard/SeriesDashBoard";
 import PageHeader from "./components/util/PageHeader";
+import MediaPlayer from "./components/media/MediaPlayer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path="/qa-dashboard" element={<QaDashboard />} />
               <Route path="/admin/user" element={<UserTable />}/>
               <Route path="/series" element={<SeriesDashBoard />}/>
+              <Route path="/player/:seriesId" element={<MediaPlayer/>}/>
           </Routes>
       </Router>
   );

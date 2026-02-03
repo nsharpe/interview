@@ -1,6 +1,7 @@
 CREATE DATABASE testdb;
 
 CREATE SCHEMA kafka_sink;
+CREATE SCHEMA users;
 
 CREATE ROLE kafka_connect_user WITH REPLICATION LOGIN PASSWORD 'kc_password';
 

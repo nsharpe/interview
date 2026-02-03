@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {seriesControllerApi} from "../../api/media-management-client";
 import '../../components/Table.css';
 import PageHeader from "../../components/util/PageHeader";
+import { useNavigate } from 'react-router-dom';
 
 export interface SeriesItem {
     id: string;
@@ -12,11 +13,12 @@ export interface SeriesItem {
 const SeriesDashBoard: React.FC = () => {
     const usersPerPage = 40;
 
-    const [token, setToken] = useState<string>('');
+    const [selectedSeries, setSelectedSeries] = useState<string|undefined>(undefined)
     const [series, setSeries] = useState<SeriesItem[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const naviagate = useNavigate()
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -53,6 +55,15 @@ const SeriesDashBoard: React.FC = () => {
 
     if (loading) return <h2>Loading...</h2>;
 
+    const goToMedia = (item: SeriesItem) => {
+        var itemId = item.id;
+        if(itemId == null){
+            setError("No item id")
+            return;
+        }
+        naviagate('/player/'+itemId);
+    };
+
     return (
         <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
             <table>
@@ -75,8 +86,8 @@ const SeriesDashBoard: React.FC = () => {
                         </td>
                         <td>
                             <button
-                                onClick={() => {
-                                    //logInAs(item.id)
+                                onClick={(x) => {
+                                    goToMedia(item)
                                 }}
                             >
                                 Play

@@ -9,5 +9,5 @@ tasks.build{
     dependsOn(":media-player-endpoint-webapp:bootJar")
     dependsOn(":media-player-endpoint-sdk:build")
     dependsOn(":media-player-endpoint-sdk:openApiGenerate")
-    //dependsOn(":admin-typescript-sdk:publishSdkLocally")
+    dependsOn(":media-player-typescript-sdk:publishSdkLocally")
 }

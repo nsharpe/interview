@@ -4,7 +4,7 @@ The purpose of this repo is to provide the following information
 * Provide example of documentation expectations
 * Provides examples of monorepo architecture for small/medium sized project
 * Demonstrate module setup to allow for parallel development between multiple developers in a single repo
-* Provide example of integration tests with separate executables each living in it's own submodule. See [IntegrationTests](IntegrationTests/README.md)
+* Provide example of integration tests with separate executables each defined in it's own submodule. See [IntegrationTests](IntegrationTests/README.md)
 * Demonstrate basic knowledge in a variety of technologies and frameworks
 * Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
@@ -18,6 +18,66 @@ This environment does not cover the following as these are tasks that can be wor
 * Debug Ports on test containers
 
 Time permitting the above should be addressed.
+
+## Quick start
+
+Requirements
+* Java 21 
+  * older version chosen intentionally to reduce problems as this is publicly avaialable
+* Docker 
+  * Development was done with orbstack
+* npm 
+
+Build jars
+```shell
+./gradlew clean build bootJar
+```
+
+Build Images and run all applications
+```shell
+docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
+```
+
+Start ui locally
+```shell
+cd media-player-ui;
+npm install;
+npm start;
+```
+
+Actions from the ui
+1. Log in with the token 123
+2. Generate Users
+3. Generate Movies
+4. go to users tab
+5. log in as user
+6. Go to series tab
+7. press play on movie
+8. press stop
+
+At this point you can run from the postgres container
+
+```postgresql
+select eu.email as email, mp_start."mediaId" as media_id, (mp_stop."mediaEvent_mediaTimestampMs" - mp_start."mediaEvent_mediaTimestampMs") as view_time_ms
+from kafka_sink.media_player_start mp_start
+         left join kafka_sink.media_player_stop mp_stop on mp_start."eventId" = mp_stop."lastActionId"
+         left join users.external_user eu on eu.public_id = uuid(mp_start."mediaEvent_userId");
+```
+
+And you will get output like
+
+| email | media\_id | view\_time\_ms |
+| :--- | :--- | :--- |
+| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 5160 |
+| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 4302 |
+| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 6851 |
+
+
+* `email` is the email of the user you loged in as.
+* `media_id` is the id of the media being played.  Not the series.  You will see id mismatch here as in a real world scenerio, for a movie, you may have a different media id based on locale.  I.e. spanish media id could be different from an english media id.  The media id in this case is the public id of episode in mysql
+* `view_time_ms` a discreate unit of view time for a play/stop cycle
+
+
 
 ## What the application does
 This is a mock application for a netflix like company.
