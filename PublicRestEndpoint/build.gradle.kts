@@ -19,3 +19,9 @@ tasks.build{
     dependsOn(":public-rest-endpoint-sdk:openApiGenerate")
     dependsOn(":public-rest-endpoint-typescript-sdk:publishSdkLocally")
 }
+
+tasks.register("cleanAll") {
+    dependsOn(":public-rest-endpoint-webapp:clean")
+    dependsOn(":public-rest-endpoint-sdk:clean")
+    dependsOn(":public-rest-endpoint-typescript-sdk:clean")
+}
