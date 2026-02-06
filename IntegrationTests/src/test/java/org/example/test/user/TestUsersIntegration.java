@@ -111,16 +111,29 @@ public class TestUsersIntegration extends TestContainers {
     }
 
     @Test
-    void testGetMultipleUsers()throws  Exception{
+    void testGenerateUsers() {
         userGeneratorApi.getApiClient()
                 .setBearerToken(authenticationGenerator.getAdminBearerToken());
+
+        // Randomly generate 2 valid users.
         List<UUID> userIds = userGeneratorApi.generate(2)
                 .toStream()
                 .toList();
 
         assertEquals(2,userIds.size());
 
-        UserModel getUser = userControllerApi.getUser(userIds.get(1))
+        // Get the first user that was generated
+        userControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
+        UserModel getUser = userControllerApi.getUser(userIds.getFirst())
+                .block();
+
+        assertNotNull(getUser);
+
+        assertEquals(userIds.getFirst(),getUser.getId());
+
+        // Get the second user that was generated
+        getUser = userControllerApi.getUser(userIds.get(1))
                 .block();
 
         assertNotNull(getUser);
