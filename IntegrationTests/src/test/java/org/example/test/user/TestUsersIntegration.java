@@ -9,7 +9,6 @@ import org.example.publicrest.sdk.api.UserControllerApi;
 import org.example.publicrest.sdk.models.UserModel;
 import org.example.qa.sdk.api.UserGeneratorControllerApi;
 import org.example.test.data.AuthenticationGenerator;
-import org.example.test.data.UserGenerator;
 import org.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -38,9 +37,6 @@ import static org.junit.jupiter.api.Assertions.*;
 ))
 @DirtiesContext
 public class TestUsersIntegration extends TestContainers {
-
-    @Autowired
-    private UserGenerator userGenerator;
 
     @Autowired
     private UserGeneratorControllerApi userGeneratorApi;
@@ -115,7 +111,7 @@ public class TestUsersIntegration extends TestContainers {
     }
 
     @Test
-    void testGetWithMoreThanOneEntry()throws  Exception{
+    void testGetMultipleUsers()throws  Exception{
         userGeneratorApi.getApiClient()
                 .setBearerToken(authenticationGenerator.getAdminBearerToken());
         List<UUID> userIds = userGeneratorApi.generate(2)
