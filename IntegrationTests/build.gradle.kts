@@ -10,6 +10,12 @@ tasks.bootJar {
     enabled = false
 }
 
+tasks.assemble {
+    gradle.includedBuilds.forEach { includedBuild ->
+        dependsOn(includedBuild.task(":build"))
+    }
+}
+
 val testcontainersVersion = "2.0.3"
 
 dependencies {

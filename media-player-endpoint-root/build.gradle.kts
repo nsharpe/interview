@@ -12,9 +12,14 @@ tasks.build{
     dependsOn(":media-player-typescript-sdk:publishSdkLocally")
 }
 
-
 tasks.register("cleanAll") {
     dependsOn(":media-player-endpoint-webapp:clean")
     dependsOn(":media-player-endpoint-sdk:clean")
     dependsOn(":media-player-typescript-sdk:clean")
+}
+
+tasks.clean{
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "clean" })
+    }
 }

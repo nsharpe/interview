@@ -41,15 +41,17 @@ public class UserGenerator implements Generator<UserGenerator.UserInput, UserMod
         createUserModel.setFirstName(FAKER.name().firstName());
         createUserModel.setLastName(FAKER.name().lastName());
 
-        switch(ThreadLocalRandom.current().nextInt(2)) {
+        switch (ThreadLocalRandom.current().nextInt(2)) {
             case 0:
-            createUserModel.setEmail(FAKER.internet().emailAddress(createUserModel.getFirstName() + " "
-                    + createUserModel.getLastName() + " "
-                    + ThreadLocalRandom.current().nextInt(2000)));
+                createUserModel.setEmail(FAKER.internet().emailAddress(createUserModel.getFirstName() + " "
+                        + createUserModel.getLastName() + " "
+                        + ThreadLocalRandom.current().nextInt(2000)));
+                break;
             case 1:
                 createUserModel.setEmail(FAKER.internet().emailAddress(FAKER.word().adjective() + " "
                         + FAKER.word().noun() + " "
                         + ThreadLocalRandom.current().nextInt(2000)));
+                break;
             default:
                 createUserModel.setEmail(FAKER.internet().emailAddress());
         }

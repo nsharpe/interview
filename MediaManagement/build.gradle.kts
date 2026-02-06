@@ -10,4 +10,10 @@ tasks.build{
     dependsOn(":media-management-typescript-sdk:publishSdkLocally")
 }
 
+tasks.clean{
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "clean" })
+    }
+}
+
 group = "org.example.media.management"

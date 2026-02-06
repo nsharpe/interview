@@ -13,6 +13,11 @@ tasks.test {
     enabled = false
 }
 
+tasks.register("cleanAll"){
+    dependsOn(gradle.includedBuilds.map {
+        it.task(":clean") })
+}
+
 tasks.compileJava {
     dependsOn(gradle.includedBuild("PublicRestEndpoint").task(":build"))
     dependsOn(gradle.includedBuild("MediaManagement").task(":build"))

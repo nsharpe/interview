@@ -20,8 +20,8 @@ tasks.build{
     dependsOn(":public-rest-endpoint-typescript-sdk:publishSdkLocally")
 }
 
-tasks.register("cleanAll") {
-    dependsOn(":public-rest-endpoint-webapp:clean")
-    dependsOn(":public-rest-endpoint-sdk:clean")
-    dependsOn(":public-rest-endpoint-typescript-sdk:clean")
+tasks.clean{
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "clean" })
+    }
 }

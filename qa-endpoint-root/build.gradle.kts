@@ -12,6 +12,12 @@ tasks.spotbugsMain{
     enabled = false
 }
 
+tasks.clean{
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "clean" })
+    }
+}
+
 tasks.build{
     dependsOn(":qa-endpoint-webapp:build")
     dependsOn(":qa-endpoint-webapp:bootJar")

@@ -19,3 +19,9 @@ tasks.build{
     dependsOn(":admin-sdk:openApiGenerate")
     dependsOn(":admin-typescript-sdk:publishSdkLocally")
 }
+
+tasks.clean{
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "clean" })
+    }
+}
