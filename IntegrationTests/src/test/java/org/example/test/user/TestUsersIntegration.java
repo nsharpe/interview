@@ -52,6 +52,12 @@ public class TestUsersIntegration extends TestContainers {
     public void beforeEach() {
         authenticationGenerator.resetBearerToken();
         RestAssured.baseURI = "http://localhost:" + getPublicRestPort();
+
+        userControllerApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
+
+        userGeneratorApi.getApiClient()
+                .setBearerToken(authenticationGenerator.getAdminBearerToken());
     }
 
     @Test
@@ -112,9 +118,6 @@ public class TestUsersIntegration extends TestContainers {
 
     @Test
     void testGenerateUsers() {
-        userGeneratorApi.getApiClient()
-                .setBearerToken(authenticationGenerator.getAdminBearerToken());
-
         // Randomly generate 2 valid users.
         List<UUID> userIds = userGeneratorApi.generate(2)
                 .toStream()
@@ -123,13 +126,10 @@ public class TestUsersIntegration extends TestContainers {
         assertEquals(2,userIds.size());
 
         // Get the first user that was generated
-        userControllerApi.getApiClient()
-                .setBearerToken(authenticationGenerator.getAdminBearerToken());
         UserModel getUser = userControllerApi.getUser(userIds.getFirst())
                 .block();
 
         assertNotNull(getUser);
-
         assertEquals(userIds.getFirst(),getUser.getId());
 
         // Get the second user that was generated
@@ -137,7 +137,6 @@ public class TestUsersIntegration extends TestContainers {
                 .block();
 
         assertNotNull(getUser);
-
         assertEquals(userIds.get(1),getUser.getId());
     }
 

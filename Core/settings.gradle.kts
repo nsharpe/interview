@@ -3,3 +3,5 @@ pluginManagement {
 }
 
 rootProject.name="spring-core"
+
+includeBuild("../Plugins")

@@ -140,6 +140,10 @@ public class TestEpisodeLifecyleIntegration extends TestContainers {
             return x;
         });
 
+        assertNotNull(seasonModel);
+        assertNotNull(seasonModel.getId());
+        assertNotNull(seasonModel.getSeriesId());
+
         Set<UUID> episodes =  episodeControllerApi.getAllEpisodesForSeason(seasonModel.getId(),seasonModel.getSeriesId())
                 .collect(Collectors.toSet())
                 .block();
