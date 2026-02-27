@@ -1,0 +1,20 @@
+{
+  "name": "mysql-source-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "debezium",
+    "database.password": "dbz_password",
+    "database.server.id": "173091",
+    "topic.prefix": "mysql_series",
+    "database.include.list": "series",
+    "table.include.list": "series\\.(episode|season|series)",
+    "schema.history.internal.kafka.bootstrap.servers": "broker:29092",
+    "schema.history.internal.kafka.topic": "schema-changes.series",
+    "database.ssl.mode": "disabled",
+    "database.allowPublicKeyRetrieval": "true",
+    "auto.create.topics.enable": "true"
+  }
+}

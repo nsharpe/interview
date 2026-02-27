@@ -64,7 +64,6 @@ services:
         echo 'Kafka is up, starting Schema Registry...';
         /etc/confluent/docker/run
 
-
   kafka-connect:
     image: confluentinc/cp-kafka-connect-base:7.7.7
     depends_on:
@@ -73,6 +72,8 @@ services:
       schema-registry:
         condition: service_healthy
       postgres:
+        condition: service_healthy
+      mysql:
         condition: service_healthy
     ports:
       - 8083
@@ -120,6 +121,19 @@ services:
         #
         sleep infinity
 
+  kafka-setup:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - broker
+      - schema-registry
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: |
+      "
+      ./create-topics.sh
+      "
+    volumes:
+      - ./kafka-connect/create-topics.sh:/home/appuser/create-topics.sh
+
   mysql:
     image: mysql:8.4.7
     command: ["mysqld", "--mysql-native-password=ON"]
@@ -130,6 +144,7 @@ services:
       MYSQL_DATABASE: testdb
     volumes:
       - ./Driver/mysql-driver/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Driver/mysql-driver/docker/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
     ports:
       - '3306'
     healthcheck:

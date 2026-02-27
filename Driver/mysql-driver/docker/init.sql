@@ -4,6 +4,10 @@ CREATE DATABASE series;
 
 GRANT ALL PRIVILEGES ON series.* TO 'user'@'%';
 
+CREATE USER 'debezium'@'%' IDENTIFIED BY 'dbz_password';
+
+GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'debezium'@'%';
+
 FLUSH PRIVILEGES;
 
 use series;

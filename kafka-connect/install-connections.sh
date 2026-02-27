@@ -10,5 +10,10 @@ until [ "$(curl -s -o /dev/null -w "%{http_code}" localhost:8083/connectors)" = 
 echo "connectors init"
 echo "Install Connections";
 
+echo "Install postgres Connector"
 curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" \
   localhost:8083/connectors/ -d @./connections/postgres-sink.json
+
+echo "Install Mysql Connector"
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" \
+  localhost:8083/connectors/ -d @./connections/mysql-producer.json
