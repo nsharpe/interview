@@ -188,7 +188,7 @@ select * from series.series;
 ### Connect
 to connect to postgres 
 ```shell
-docker exec -it interview-postgres-1 psql testdb --u user
+docker exec -it interview-postgres-1 psql media --u user
 ```
 
 ### Helper Functions
@@ -200,7 +200,17 @@ docker exec -it interview-postgres-1 psql testdb --u user
 
 #### List All Users
 ```postgresql
-select * from external_user;
+select * from users.external_user;
+```
+
+#### List All Episodes
+```postgresql
+select * from kafka_sink.mysql_series_episode;
+```
+
+### Add kafka_sink to search path
+```postgresql
+SET search_path TO kafka_sink, public;
 ```
 
 ## Kafka

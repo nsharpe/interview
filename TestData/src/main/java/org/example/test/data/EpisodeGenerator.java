@@ -37,6 +37,8 @@ public class EpisodeGenerator implements Generator<EpisodeGenerator.EpisodeInput
         this.baseSeries = seasonModel.getSeriesId();
         this.baseSeason = seasonModel.getId();
         this.authenticationGenerator = Objects.requireNonNull(authenticationGenerator);
+
+        this.generate();
     }
 
     @Override

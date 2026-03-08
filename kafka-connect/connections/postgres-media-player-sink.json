@@ -1,12 +1,12 @@
 {
-  "name": "media-player-postgres-connector",
+  "name": "postgres-media-player-sink",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-    "connection.url": "jdbc:postgresql://postgres:5432/media?currentSchema=kafka_sink",
+    "connection.url": "jdbc:postgresql://postgres:5432/media",
     "dialect.name": "PostgreSqlDatabaseDialect",
     "connection.user": "kafka_connect_user",
     "connection.password": "kc_password",
-    "topics.regex": "media\\.player.*",
+    "topics.regex": "media\\.player\\..*",
     "table.name.format": "kafka_sink.${topic}",
 
     "auto.create": "true",

@@ -1,0 +1,30 @@
+{
+  "name": "postgres-mysql-topic-sink",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgresql://postgres:5432/media",
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "connection.user": "kafka_connect_user",
+    "connection.password": "kc_password",
+    "topics.regex": "mysql_series\\.series\\..*",
+
+    "table.name.format": "kafka_sink.${topic}",
+    "insert.mode": "upsert",
+    "delete.enabled": "true",
+
+    "auto.create": "true",
+    "auto.evolve": "true",
+
+    "pk.mode": "record_key",
+    "pk.fields": "id",
+
+    "transforms": "unwrap,addPrefix",
+    "transforms.addPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.addPrefix.regex":"mysql_series\\.series\\.(.*)",
+    "transforms.addPrefix.replacement":"mysql_series_$1",
+
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "true",
+    "transforms.unwrap.delete.handling.mode": "rewrite"
+  }
+}

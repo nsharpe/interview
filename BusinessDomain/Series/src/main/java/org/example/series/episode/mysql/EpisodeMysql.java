@@ -2,6 +2,7 @@ package org.example.series.episode.mysql;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,15 +18,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.mysql.DurationMillisConverter;
 import org.example.mysql.MysqlSoftDelete;
 import org.example.mysql.MysqlTimeStamp;
-import org.example.series.SeriesCreateModel;
-import org.example.series.SeriesModel;
-import org.example.series.SeriesUpdateModel;
 import org.example.series.episode.EpisodeCreateModel;
 import org.example.series.episode.EpisodeModel;
 import org.example.series.episode.EpisodeUpdateModel;
-import org.example.series.mysql.SeriesMysql;
 import org.example.series.season.mysql.SeasonMysql;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
@@ -74,6 +72,8 @@ public class EpisodeMysql {
 
     @Column(nullable = false)
     private String title;
+
+    @Convert(converter = DurationMillisConverter.class)
     private Duration length;
     @Column(name = "episode_order", nullable = false)
     private int order;
