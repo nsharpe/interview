@@ -2,10 +2,10 @@
   "name": "postgres-mysql-topic-sink",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-    "connection.url": "jdbc:postgresql://postgres:5432/media",
+    "connection.url": "jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DB}",
     "dialect.name": "PostgreSqlDatabaseDialect",
-    "connection.user": "kafka_connect_user",
-    "connection.password": "kc_password",
+    "connection.user": "${PG_USER}",
+    "connection.password": "${PG_PASSWORD}",
     "topics.regex": "mysql_series\\.series\\..*",
 
     "table.name.format": "kafka_sink.${topic}",

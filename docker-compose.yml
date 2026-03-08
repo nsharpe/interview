@@ -174,6 +174,33 @@ services:
     labels:
       org.springframework.boot.datasource.name: postgresql
 
+  flyway-migrate:
+    image: flyway/flyway:12.0-alpine
+    environment:
+      FLYWAY_URL: jdbc:postgresql://${FLYWAY_HOST:-postgres}:${FLYWAY_PORT:-5432}/${FLYWAY_DATABASE:-media}
+      FLYWAY_USER: ${FLYWAY_USER:-user}
+      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD:-password}
+      FLYWAY_LOCATIONS: filesystem:/flyway/migrations
+    volumes:
+      - ./Driver/postgres-driver/migrations:/flyway/migrations
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: ["flyway"]
+    command: ["migrate"]
+    labels:
+      org.springframework.boot.datasource.name: flyway
+
+  postgres-init:
+    image: postgres:18.1
+    command: /bin/bash /docker-entrypoint-initdb.d/init-postgres.sh
+    restart: "no"
+    depends_on:
+      flyway-migrate:
+        condition: service_completed_successfully
+    labels:
+      org.springframework.boot.datasource.name: postgres-init
+
   redis:
     image: redis:8.4.0
     entrypoint: [ "sh", "/usr/local/bin/init-redis.sh" ]

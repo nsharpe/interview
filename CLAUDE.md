@@ -81,22 +81,20 @@ Subprojects with TS SDKs:
 
 ## API Documentation
 
-| Service | Swagger | Health |
-|---------|---------|--------|
-| Admin | http://localhost:8081/swagger-ui | /actuator/health |
-| Public Rest | http://localhost:9080/swagger-ui | /actuator/health |
-| Media Management | http://localhost:9090/swagger-ui | /actuator/health |
-| Media Player | http://localhost:9091/swagger-ui | /actuator/health |
-| QA | http://localhost:8085/swagger-ui | /actuator/health |
+| Service | Swagger | Health                 |
+|---------|---------|------------------------|
+| Admin | http://localhost:8081/swagger-ui | /admin/actuator/health |
+| Public Rest | http://localhost:9080/swagger-ui | /actuator/health       |
+| Media Management | http://localhost:9090/swagger-ui | /actuator/health       |
+| Media Player | http://localhost:9091/swagger-ui | /actuator/health       |
+| QA | http://localhost:8085/swagger-ui | /actuator/health       |
 
 ## Integration Tests
 
-Run the full stack and execute integration tests:
+All integration tests are in the `IntegrationTests` submodule
 
+To run integration tests run 
 ```shell
-./gradlew clean build bootJar
-docker compose -f docker-compose.yml -f docker-compose.fixedport.yml up -d --build
 ./gradlew :IntegrationTests:test
 ```
-
 Test containers use `TestContainers.java` profile with fixed ports for predictable testing.

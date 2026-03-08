@@ -3,10 +3,10 @@
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
-    "database.hostname": "mysql",
+    "database.hostname": "${MYSQL_HOST}",
     "database.port": "3306",
     "database.user": "debezium",
-    "database.password": "dbz_password",
+    "database.password": "${MYSQL_PASSWORD}",
     "database.server.id": "173091",
     "topic.prefix": "mysql_series",
     "database.include.list": "series",
