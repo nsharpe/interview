@@ -26,7 +26,8 @@ Requirements
   * older version chosen intentionally to reduce problems as this is publicly avaialable
 * Docker 
   * Development was done with orbstack
-* npm 
+* npm
+  * Required for typescript sdk builders 
 
 Build jars
 ```shell
