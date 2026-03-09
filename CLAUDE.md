@@ -24,6 +24,7 @@ cd media-player-ui && npm install && npm start
 This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 
 ```
+├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── AdminEndpoint/          - Admin API for user management
 ├── BusinessDomain/
 │   ├── Series/            - TV series/movies domain (MySQL)
@@ -45,6 +46,7 @@ This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 - **OpenAPI 2.0** generated from controllers via springdoc-openapi
 - **Docker Compose** manages: Kafka, MySQL, PostgreSQL, Redis, Schema Registry, Kafka Connect
 - **TestContainers-style** integration tests using docker-compose profiles
+- **Kafka Connect** used to transfer information between datasources
 
 ## Build Tasks
 

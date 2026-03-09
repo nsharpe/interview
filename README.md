@@ -39,6 +39,12 @@ Build Images and run all applications
 docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
 ```
 
+You can also run 
+```shell
+./run_locally.sh
+```
+
+
 Start ui locally
 ```shell
 cd media-player-ui;

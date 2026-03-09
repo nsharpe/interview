@@ -75,6 +75,8 @@ services:
         condition: service_healthy
       mysql:
         condition: service_healthy
+      kafka-setup:
+        condition: service_completed_successfully
     ports:
       - 8083
     healthcheck:
@@ -124,8 +126,8 @@ services:
   kafka-setup:
     image: confluentinc/cp-kafka:latest
     depends_on:
-      - broker
-      - schema-registry
+      schema-registry:
+        condition: service_healthy
     entrypoint: [ "/bin/sh", "-c" ]
     command: |
       "

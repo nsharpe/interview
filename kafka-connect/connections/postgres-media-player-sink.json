@@ -9,8 +9,8 @@
     "topics.regex": "media\\.player\\..*",
     "table.name.format": "kafka_sink.${topic}",
 
-    "auto.create": "true",
-    "auto.evolve": "true",
+    "auto.create": "false",
+    "auto.evolve": "false",
 
     "pk.mode": "record_key",
     "pk.fields": "eventId",
