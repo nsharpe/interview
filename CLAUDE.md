@@ -24,13 +24,14 @@ cd media-player-ui && npm install && npm start
 This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 
 ```
+├── AvroModel              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── AdminEndpoint/          - Admin API for user management
 ├── BusinessDomain/
 │   ├── Series/            - TV series/movies domain (MySQL)
 │   └── Users/             - User domain (PostgreSQL)
 ├── Core/                  - Shared models and utilities
-├── Driver/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka)
+├── Driver/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
 ├── IntegrationTests/      - Integration tests (runs full docker stack)
 ├── MediaManagement/       - Media CRUD endpoints + SDKs
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
@@ -47,6 +48,10 @@ This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 - **Docker Compose** manages: Kafka, MySQL, PostgreSQL, Redis, Schema Registry, Kafka Connect
 - **TestContainers-style** integration tests using docker-compose profiles
 - **Kafka Connect** used to transfer information between datasources
+
+## Kafka
+
+Kafka topics produced or read by java applications are stored in `Driver/kafka-driver/src/main/java/org/example/kafka/KafkaTopics.java`.
 
 ## Build Tasks
 
