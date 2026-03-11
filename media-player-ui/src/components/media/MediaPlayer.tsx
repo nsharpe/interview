@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {seriesControllerApi} from "../../api/media-management-client";
 import {mediaPlayerClient} from "../../api/media-player-client";
 import '../Table.css';
 import { useParams } from 'react-router-dom';
+import bouncingBallGif from '../../assets/bouncing_ball.gif';
 
 export interface MediaItem {
     id: string;
@@ -15,9 +16,11 @@ const MediaPlayer: React.FC = () => {
     const [buttonText, setButtonText] = useState<string>("Start");
     const [lastActionId, setLastActionId] = useState<string|undefined>();
     const [media, setMedia] = useState<MediaItem>();
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const { seriesId } = useParams();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const gifRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -61,6 +64,11 @@ const MediaPlayer: React.FC = () => {
         setStartTime(Date.now)
 
         setButtonText("Stop");
+        setIsPlaying(true);
+
+        if (gifRef.current) {
+            gifRef.current.src = bouncingBallGif;
+        }
 
         mediaPlayerClient().start(media.id,{
             eventState: {
@@ -77,6 +85,7 @@ const MediaPlayer: React.FC = () => {
         const eventId = crypto.randomUUID();
 
         setButtonText("Start");
+        setIsPlaying(false);
 
         const newMediaPosition = mediaPosition + (Date.now() - startTime)
 
@@ -113,7 +122,23 @@ const MediaPlayer: React.FC = () => {
                 </thead>
 
                 <tbody>
-                <td>
+                <td style={{ textAlign: 'center' }}>
+                    <div style={{
+                        marginBottom: '10px',
+                        height: '300px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        {isPlaying && (
+                            <img
+                                ref={gifRef}
+                                src={bouncingBallGif}
+                                alt="Playing"
+                                style={{ maxWidth: '100%', maxHeight: '300px' }}
+                            />
+                        )}
+                    </div>
                     <button
                         onClick={() => {
                             if(buttonText == "Start") {
@@ -121,6 +146,15 @@ const MediaPlayer: React.FC = () => {
                             }else{
                                 stop();
                         }}}
+                        style={{
+                            marginBottom: '10px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+
+                            transform: 'scale(3)',
+                            margin: '40px',
+                        }}
                     >
                         {buttonText}
                     </button>
