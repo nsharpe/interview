@@ -12,6 +12,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build
 ```
 
+## Documentation
+** Spring boot **
+```
+../spring-boot
+```
+
+** Spring Jpa
+```
+../spring-data-jpa
+```
+
+For
+
+**Gradle commands**
+all gradle commands should be run from the root of the project
+
+for example building the mysql driver should be done as 
+```
+./gradlew :Driver:mysql-driver:build
+```
+
 **React UI (local):**
 ```shell
 cd media-player-ui && npm install && npm start
@@ -32,8 +53,13 @@ This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 │   └── Users/             - User domain (PostgreSQL)
 ├── Core/                  - Shared models and utilities
 ├── Driver/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
+    ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations
+    ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion
+    ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
+    ├── redis-driver/      - Everything needed for redis
 ├── IntegrationTests/      - Integration tests (runs full docker stack)
 ├── MediaManagement/       - Media CRUD endpoints + SDKs
+    ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
 ├── SpringRest/            - Common Spring config (security, web)
 ├── TestData/              - Test data generators
@@ -48,6 +74,14 @@ This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 - **Docker Compose** manages: Kafka, MySQL, PostgreSQL, Redis, Schema Registry, Kafka Connect
 - **TestContainers-style** integration tests using docker-compose profiles
 - **Kafka Connect** used to transfer information between datasources
+
+## Spring Boot Paterns
+
+All applications do the following
+```
+@SpringBootApplication(scanBasePackages = {"org.example"})  
+```
+so that libraries that are defined in other modules are automatically imported
 
 ## Kafka
 

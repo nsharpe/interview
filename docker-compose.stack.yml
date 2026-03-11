@@ -67,6 +67,10 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: aPassword
       MYSQL_HOST: mysql
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST: postgres
     depends_on:
       mysql-loaded:
         condition: service_completed_successfully

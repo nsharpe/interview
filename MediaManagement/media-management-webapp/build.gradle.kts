@@ -32,7 +32,9 @@ dependencies {
 
     // SQL
     implementation("org.example.driver:mysql-driver")
+    implementation("org.example.driver:postgres-driver")
     runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 
     // Cache

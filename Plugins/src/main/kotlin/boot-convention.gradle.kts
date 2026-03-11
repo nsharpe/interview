@@ -9,13 +9,24 @@ tasks.bootJar{
     archiveFileName = "app.jar"
 }
 
-tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
-    systemProperty("spring.docker.compose.file",
-        rootProject.file("docker-compose.yml").absolutePath +","+
-                rootProject.file("docker-compose.fixedport.yml").absolutePath)
+val copyDockerConfig = tasks.register<Copy>("copyDockerConfig") {
+    // Look two levels up for the source files
+    from(file("../../docker-compose.yml"))
+    from(file("../../docker-compose.fixedport.yml"))
+
+    into(layout.buildDirectory.dir("docker-config"))
 }
 
-dependencies{
+tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
+    dependsOn(copyDockerConfig)
+    val dockerConfigDir = layout.buildDirectory.dir("docker-config")
+    val dockerFiles = "docker-compose.yml,docker-compose.fixedport.yml"
+        .split(",")
+        .joinToString(",") { "${dockerConfigDir.get().asFile.absolutePath}/$it" }
+    systemProperty("spring.docker.compose.file", dockerFiles)
+}
+
+dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
