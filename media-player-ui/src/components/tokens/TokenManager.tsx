@@ -10,7 +10,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const TokenManager: React.FC = () => {
     const [activePage, setActivePage] = useState<'setup' | 'generate'>('setup');
-    const [token, setToken] = useState<string>('');
+    const [token, setToken] = useState<string>('123');
     const navigate = useNavigate();
 
     const handleApplyToken = (): void => {
@@ -31,7 +31,7 @@ const TokenManager: React.FC = () => {
 
     return (
         <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-            <h3>Manual Broker Token Setup</h3>
+            <h3>Manual Broker Token Setup (123 is the default admin token for qa)</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '400px' }}>
                 <input
                     type="text"
