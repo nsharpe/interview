@@ -8,6 +8,7 @@ import bouncingBallGif from '../../assets/bouncing_ball.gif';
 
 export interface MediaItem {
     id: string;
+    title: string | undefined;
 }
 
 const MediaPlayer: React.FC = () => {
@@ -49,6 +50,8 @@ const MediaPlayer: React.FC = () => {
                 return;
             }
 
+            const seriesData = await seriesControllerApi().get2(seriesId)
+
             const data = await seriesControllerApi().getFirstEpisodeId(seriesId);
 
             if(data.data==null){
@@ -63,7 +66,8 @@ const MediaPlayer: React.FC = () => {
             }
 
             setMedia({
-                id: mediaId
+                id: mediaId,
+                title: seriesData.data.title
             })
 
             setLoading(false)
@@ -147,7 +151,7 @@ const MediaPlayer: React.FC = () => {
             <table>
                 <thead>
                     <tr>
-                        <th className="table-header">ID: {media.id}</th>
+                        <th className="table-header">{media.title}</th>
                     </tr>
                 </thead>
 
