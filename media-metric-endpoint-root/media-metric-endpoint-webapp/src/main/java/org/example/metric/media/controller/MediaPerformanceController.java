@@ -38,9 +38,10 @@ public class MediaPerformanceController {
             
             SELECT
             SUM(view_time_ms) as total_play_time_millis,
-            COUNT(*) as total_plays
+            COUNT(CASE WHEN last_action_id IS NULL THEN 1 END) as total_plays
             FROM (
                   SELECT
+                     mp_start.last_action_id as last_action_id,
                      mp_start.media_id as media_id,
                      (mp_stop.media_timestamp_ms - mp_start.media_timestamp_ms) as view_time_ms
                   FROM users.media_player_start mp_start

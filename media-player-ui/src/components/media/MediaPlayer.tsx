@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {seriesControllerApi} from "../../api/media-management-client";
 import {mediaPlayerClient} from "../../api/media-player-client";
+import {mediaControllerApi} from "../../api/media-metric-client";
 import '../Table.css';
 import { useParams } from 'react-router-dom';
 import bouncingBallGif from '../../assets/bouncing_ball.gif';
@@ -20,7 +21,24 @@ const MediaPlayer: React.FC = () => {
     const { seriesId } = useParams();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const [totalPlays, setTotalPlays] = useState<number | undefined>(0);
+    const [totalViewTimeSeconds, setTotalViewTimeSeconds] = useState<number | undefined>(0);
     const gifRef = useRef<HTMLImageElement>(null);
+
+    const fetchAndLogMetrics = async () => {
+        if (!media?.id) return;
+        try {
+            const { data: { totalPlayTimeMillis, totalPlays } } = await mediaControllerApi().getMediaViewTime(media.id);
+
+            // If totalPlayTimeMillis is null or undefined, use 0
+            const formattedTime = totalPlayTimeMillis ?? 0;
+
+            setTotalPlays(totalPlays);
+            setTotalViewTimeSeconds(formattedTime / 1000);
+        } catch (error) {
+            console.error("Error fetching metrics:", error);
+        }
+    };
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -47,16 +65,22 @@ const MediaPlayer: React.FC = () => {
             setMedia({
                 id: mediaId
             })
+
             setLoading(false)
         };
 
         fetchPosts();
     }, []);
 
+    useEffect(() => {
+        if (media?.id) {
+            fetchAndLogMetrics();
+        }
+    }, [media?.id]);
+
     if(error!=null) return <h2>Error: {error}</h2>
     if (media == null) return <h2>No Media Found</h2>
     if (loading) return <h2>Loading...</h2>;
-
 
     const start = async() => {
         const eventId = crypto.randomUUID();
@@ -110,6 +134,8 @@ const MediaPlayer: React.FC = () => {
             lastActionId: lastActionId
         });
         setLastActionId(eventId);
+
+        await fetchAndLogMetrics();
     }
 
     return (
@@ -158,6 +184,12 @@ const MediaPlayer: React.FC = () => {
                     >
                         {buttonText}
                     </button>
+                    {totalPlays !== null && (
+                        <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                            <p>Total Plays: {totalPlays}</p>
+                            <p>Total View Time (seconds): {totalViewTimeSeconds}</p>
+                        </div>
+                    )}
                 </td>
 
                 </tbody>
