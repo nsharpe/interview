@@ -21,7 +21,7 @@ Time permitting the above should be addressed.
 
 ## Quick start
 
-Requirements
+### Requirements
 * Java 21 
   * older version chosen intentionally to reduce problems as this is publicly avaialable
 * Docker 
@@ -99,14 +99,6 @@ This is a monorepo with several executables required to do the following
 * This is not intended to be replace the interview process.
 * Shows how to setup a project in a way where work can be parallelized between multiple developers.
 
-## Requirements
-You have jdk 21+ installed
-
-## Optional
-Docker compose needs to be installed on your machine for local integration tests. See [their site](https://docs.docker.com/compose/) for more information on what docker is and how to install
-
-In otherwords, if running against a local mysql, cassandra, or other database/tool, you will need the above installed
-
 ## IDE Setup
 
 It is recomended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that has not been setup yet. 
@@ -170,6 +162,23 @@ The health of the system can be viewed through
 In order to see how many entries have been cached
 [metric cache size](http://localhost:9091/actuator/metrics/cache.size)
 
+
+## Spring Boot Conventions
+
+This application provides a collection of submodules to act as opinionated setup for connecting with items such as drivers to connect to a third party library or modules on how the database is setup.
+
+In order to quickly connect with these opinionated pieces, you should have the following in your application at a minimum
+```java
+@SpringBootApplication(scanBasePackages = {"org.example"})
+public class YourApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(YourApplication.class, args);
+  }
+
+}
+
+```
 
 ## MYSQL
 

@@ -83,6 +83,31 @@ services:
       retries: 3
       start_period: 35s
 
+  media-metrics:
+    build:
+      context: media-metric-endpoint-root/media-metric-endpoint-webapp
+      dockerfile: ../../Dockerfile
+    ports:
+      - "8080"
+      - "8081"
+    environment:
+      REDIS_HOST: redis
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST: postgres
+    depends_on:
+      mysql-loaded:
+        condition: service_completed_successfully
+      redis-loaded:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
+      interval: 10s
+      timeout: 35s
+      retries: 3
+      start_period: 35s
+
   media-player-endpoint:
     build:
       context: media-player-endpoint-root/media-player-endpoint-webapp

@@ -2,10 +2,10 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.media.management"
+group = "org.example.media.metric"
 
 tasks.bootBuildImage {
-    imageName= "media-player/media-management:test"
+    imageName = "media-metric/media-metric-endpoint:test"
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
@@ -15,24 +15,20 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8082/api-docs")
+    apiDocsUrl.set("http://localhost:8087/api-docs")
 
     customBootRun {
-        systemProperties.set(mapOf(
-            "spring.profiles.active" to "openapi",
-            "spring.jpa.database-platform" to "org.hibernate.dialect.H2Dialect",
-            "spring.jpa.hibernate.ddl-auto" to "none"
-        ))
+        args.set(listOf("--spring.profiles.active=openapi"))
+        args.add("--spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
+        args.add("--spring.jpa.hibernate.ddl-auto=none")
     }
 }
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation("org.example.business-domain:series")
 
     // SQL
-    implementation("org.example.driver:mysql-driver")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.example.driver:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

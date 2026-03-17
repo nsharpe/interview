@@ -40,9 +40,116 @@ cd media-player-ui && npm install && npm start
 
 **Auth token:** `123` (for local development)
 
+Never search from the path `/`.
+
+## Gradle Build Types
+
+This project uses two types of Gradle build structures:
+
+### Composite Builds
+These are top-level modules that include other builds in the composite:
+- `root` (MediaPlayer) - Main entry point
+- `Driver/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
+- `BusinessDomain/` - Domain-specific modules
+- `MediaManagement/` - Media CRUD endpoints
+- `PublicRestEndpoint/` - Public API endpoints
+- And others...
+
+These are included using `includeBuild("path")` in settings.gradle.kts files.
+
+### Regular Submodules
+These are individual projects that exist within composite builds:
+- `Driver/mysql-driver/`
+- `Driver/postgres-driver/`
+- `Driver/kafka-driver/`
+- `Driver/redis-driver/`
+
+These are included using `include(":project-name")` in their parent's settings.gradle.kts.
+
+### Key Distinction:
+- **Composite builds** (`includeBuild`) - These can be built independently and include other builds
+- **Regular submodules** (`include`) - These are projects within a composite build that depend on each other
+
+## Gradle Plugins
+Gradle plugins allow centralizing common build tasks into a central location.  They are located in the `Plugins` submodule.
+
+For example, common build tasks for all java applications are in the file `Plugins/src/main/kotlin/java-convention.gradle.kts`
+
+Plugins are included by having 
+```kotlin
+pluginManagement {
+   includeBuild(<relative path to the Plugin submodule>)
+}
+```
+in the `settings.gradle.kts` of the module.
+
+You can include them in a `build.gradle.kts` (using `java-convention` as an example) with
+```kotlin
+plugins {
+   `java-convention`
+}
+```
+
+
+
+
+## Module Structure and Dependencies
+
+In this project, modules can be either:
+1. **Top-level composite builds** - These include their own subprojects and other builds
+2. **Submodules within composite builds** - These are regular projects that exist within a build but don't form their own composite
+
+For example, in the `Driver/` module:
+Driver/
+├── settings.gradle.kts          # Includes mysql-driver, postgres-driver, kafka-driver, redis-driver
+├── mysql-driver/                # Regular submodule - no includeBuild(), only include()
+├── postgres-driver/             # Regular submodule
+└── ...
+
+The `Driver/settings.gradle.kts` includes all its submodules:
+  ```kotlin
+  include("mysql-driver")
+  include("postgres-driver")
+  include("kafka-driver")
+  include("redis-driver")
+```
+
+  But it also includes parent builds for dependency resolution:
+```kotlin
+  includeBuild("../Plugins")
+  includeBuild("../AvroModel")
+```
+
+## Understanding the Build Process
+
+When you run Gradle commands:
+
+1. **Root-level commands** (e.g., `./gradlew :Driver:mysql-driver:build`):
+    - Gradle resolves the composite build structure
+    - It finds `Driver/` as a composite build and follows its settings.gradle.kts
+    - It then finds `mysql-driver` as an included project within that build
+
+2. **Submodule-specific commands**:
+    - For modules like `mysql-driver`, you can run `./gradlew :Driver:mysql-driver:build`
+    - The `mysql-driver/build.gradle.kts` is processed directly, not through a composite structure
+
+This hybrid approach allows for both modular development and efficient dependency resolution across the entire codebase.
+
+## Dependency Resolution Clarification
+
+When looking for dependencies:
+
+- **Local dependencies**: Projects within the same composite build are resolved directly, not as packaged jars
+- **External dependencies**: Resolved from Maven repositories (like `com.mysql:mysql-connector-j`)
+- **Build process**: When `bootJar` is run, Gradle packages all necessary dependencies into executable JARs
+
+This means:
+1. When you reference `org.example.driver:mysql-driver` in a build.gradle.kts, it resolves to the local project
+2. When you reference external libraries, they are resolved from Maven repositories
+
 ## Architecture
 
-This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
+This is a **monorepo** with Spring Boot Gradle composite build, organized by domain:
 
 ```
 ├── AvroModel              - All avro models are stored here, and all kafka streams use avro for key and records
@@ -61,11 +168,13 @@ This is a **monorepo** with Spring Boot Gradle subprojects, organized by domain:
 ├── MediaManagement/       - Media CRUD endpoints + SDKs
     ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
-├── SpringRest/            - Common Spring config (security, web)
+├── SpringRest/            - Common Spring config, beans, and classes (security, web)
 ├── TestData/              - Test data generators
 ├── media-player-endpoint-root/ - Media player event tracking
 └── qa-endpoint-root/      - QA/generator endpoints
 ```
+
+Information about dependencies for a module are stored in `settings.gradle.kts` for that module
 
 ## Key Patterns
 

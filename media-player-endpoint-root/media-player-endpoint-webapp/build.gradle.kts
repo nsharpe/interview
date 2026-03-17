@@ -10,14 +10,10 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
 }
 
-tasks.named<BootBuildImage>("bootBuildImage") {
-    imageName = "media-player/media-player-endpoints:test"
-}
-
 openApi {
-    apiDocsUrl.set("http://localhost:8086/api-docs")
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
+    apiDocsUrl.set("http://localhost:8086/api-docs")
 
     customBootRun {
         args.set(listOf("--spring.profiles.active=openapi"))

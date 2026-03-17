@@ -25,6 +25,11 @@ services:
       - "9120:9120"
       - "9121:9121"
 
+  media-metrics:
+    ports:
+      - "9130:8080"
+      - "9131:8081"
+
   kafka-connect:
     ports:
       - "8083:8083"

@@ -25,24 +25,9 @@ import javax.sql.DataSource;
 )
 public class UserRepositoryConfiguration {
 
-    @Bean
-    @ConfigurationProperties(prefix="spring.datasource.postgresql")
-    @Qualifier("userDataSourceProperties")
-    public DataSourceProperties postgresDataSourceProperties(){
-        return new DataSourceProperties();
-    }
-
-    @Bean
-    @Qualifier("userDataSource")
-    public DataSource userPostgresDataSource(DataSourceProperties postgresDataSourceProperties) {
-        return postgresDataSourceProperties
-                .initializeDataSourceBuilder()
-                .build();
-    }
-
     @Bean(name = "postgresqlEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean postgresEntityManagerFactory(
-            @Qualifier("userDataSource") DataSource dataSource,
+            @Qualifier("postgresDataSource") DataSource dataSource,
             EntityManagerFactoryBuilder builder) {
 
         return builder

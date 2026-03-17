@@ -48,7 +48,7 @@ val installSdkDeps by tasks.registering(Exec::class) {
     dependsOn(tasks.withType<GenerateTask>())
 
     workingDir(layout.projectDirectory.dir("build/src/generated"))
-    commandLine("sh", "-c", "npm install --ignore-scripts --no-package-lock")
+    commandLine("sh", "-c", "npm install --ignore-scripts --no-package-lock --no-audit")
 }
 
 
@@ -59,7 +59,7 @@ val buildSdk by tasks.registering(Exec::class) {
     dependsOn(installSdkDeps) // Ensure install happens first!
 
     workingDir(layout.projectDirectory.dir("build/src/generated"))
-    commandLine("sh", "-c", "npm run build --ignore-scripts --no-package-lock")
+    commandLine("sh", "-c", "npm run build --ignore-scripts --no-package-lock --no-audit")
 }
 
 val publishSdkLocally by tasks.registering(Exec::class) {

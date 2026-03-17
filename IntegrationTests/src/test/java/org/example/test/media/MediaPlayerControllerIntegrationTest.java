@@ -4,6 +4,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.example.media.management.sdk.models.EpisodeModel;
+import org.example.media.metric.sdk.api.MediaPerformanceControllerApi;
+import org.example.media.metric.sdk.models.MediaMetricModel;
 import org.example.publicrest.sdk.models.UserModel;
 import org.example.test.data.AuthenticationGenerator;
 import org.example.test.data.EpisodeGenerator;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.Map;
@@ -22,6 +25,7 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -37,11 +41,14 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
     @Autowired
     private AuthenticationGenerator authenticationGenerator;
 
+    private MediaPerformanceControllerApi mediaPerformanceControllerApi;
 
     @BeforeEach
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     public void beforeEach() {
         RestAssured.baseURI = "http://localhost:"+getMediaPlayPort();
+        mediaPerformanceControllerApi = new MediaPerformanceControllerApi(getMediaMetricsApiClient());
+        mediaPerformanceControllerApi.getApiClient().setBearerToken(authenticationGenerator.getAdminBearerToken());
     }
 
     @Test
@@ -50,6 +57,7 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
         UserModel user = userGenerator.generate();
         String authToken = authenticationGenerator.generateTokenForSubscriber(user);
         EpisodeModel episodeModel = episodeGenerator.generate();
+        assertNotNull(episodeModel.getLength());
         Duration episodeDuration = Duration.parse(episodeModel.getLength());
         UUID actionID = UUID.randomUUID();
 
@@ -101,5 +109,13 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
 
         actionId = jsonPath.get("actionId");
         assertNotNull(UUID.fromString(actionId));
+
+        assertNotNull(episodeModel.getId());
+
+        MediaMetricModel result = mediaPerformanceControllerApi.getMediaViewTime(episodeModel.getId()).block();
+
+        assertNotNull(result);
+        assertEquals( episodeDuration.toMillis(), result.getTotalPlayTimeMillis());
+        assertEquals( 1, result.getTotalPlays() );
     }
 }

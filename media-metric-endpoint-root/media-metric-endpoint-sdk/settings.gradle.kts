@@ -1,0 +1,1 @@
+project.name = "media-metric-endpoint-sdk"

@@ -32,6 +32,7 @@ dependencies {
     testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
 
     implementation("org.example.qa:qa-endpoint-sdk")
+    implementation("org.example.media.metric:media-metric-endpoint-sdk")
     testImplementation("org.example.test.data:test-data")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:testcontainers-kafka")

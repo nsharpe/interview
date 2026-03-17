@@ -18,14 +18,6 @@ tasks.register("cleanAll"){
         it.task(":clean") })
 }
 
-tasks.compileJava {
-    dependsOn(gradle.includedBuild("PublicRestEndpoint").task(":build"))
-    dependsOn(gradle.includedBuild("MediaManagement").task(":build"))
-    dependsOn(gradle.includedBuild("qa-endpoint-root").task(":build"))
-    dependsOn(gradle.includedBuild("media-player-endpoint-root").task(":build"))
-    dependsOn(gradle.includedBuild("AdminEndpoint").task(":build"))
-}
-
 subprojects {
     apply{
         plugin("java-convention")

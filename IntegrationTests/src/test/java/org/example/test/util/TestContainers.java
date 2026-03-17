@@ -28,11 +28,11 @@ public abstract class TestContainers {
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     ).withExposedService("qa-endpoint-app", 9120,
+                            Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
+                    ).withExposedService("media-metrics", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("postgres", 5432, Wait.forListeningPort())
-//                    .withExposedService("kafka-connect", 8083,
-//                            Wait.forHealthcheck()
-//                    )
+
                     .withExposedService("media-player-endpoint",9100,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("admin-app", 9110,
@@ -66,6 +66,9 @@ public abstract class TestContainers {
         registry.add("media.management.port", TestContainers::getMediaManagmentPort);
         registry.add("media.management.host", () -> "localhost");
 
+        registry.add("media.metric.host", () -> "localhost");
+        registry.add("media.metric.port", TestContainers::getMediaMetricsPort);
+
         registry.add("spring.data.redis.port", () -> ENVIRONMENT.getServicePort("redis", REDIS_PORT));
         registry.add("spring.data.redis.host", () -> "localhost");
         registry.add("spring.data.redis.username", () -> "default");
@@ -98,6 +101,15 @@ public abstract class TestContainers {
     public static org.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {
         return new org.example.media.player.sdk.invoker.ApiClient(WebClient.builder().build())
                 .setBasePath("http://"+getPublicRestHost()+":" + getMediaPlayPort());
+    }
+
+    public static org.example.media.metric.sdk.invoker.ApiClient getMediaMetricsApiClient(){
+        return new org.example.media.metric.sdk.invoker.ApiClient(WebClient.builder().build())
+                .setBasePath("http://localhost:" + getMediaMetricsPort());
+    }
+
+    public static int getMediaMetricsPort(){
+        return ENVIRONMENT.getServicePort("media-metrics", 8080);
     }
 
     public static int getMediaPlayPort(){
