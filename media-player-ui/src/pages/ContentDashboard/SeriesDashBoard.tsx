@@ -70,7 +70,7 @@ const SeriesDashBoard: React.FC = () => {
                 <thead className="bg-gray-50">
                 <tr>
                     <th className="table-header">ID</th>
-                    <th className="table-header">Title</th>
+                    <th className="table-header">Movie Title</th>
                     <th className="table-header">Play</th>
                 </tr>
                 </thead>

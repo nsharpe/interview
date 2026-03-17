@@ -72,15 +72,6 @@ const MediaPlayer: React.FC = () => {
         fetchPosts();
     }, []);
 
-    useEffect(() => {
-        if (media?.id) {
-            fetchAndLogMetrics();
-        }
-    }, [media?.id]);
-
-    if(error!=null) return <h2>Error: {error}</h2>
-    if (media == null) return <h2>No Media Found</h2>
-    if (loading) return <h2>Loading...</h2>;
 
     const start = async() => {
         const eventId = crypto.randomUUID();
@@ -94,16 +85,29 @@ const MediaPlayer: React.FC = () => {
             gifRef.current.src = bouncingBallGif;
         }
 
-        mediaPlayerClient().start(media.id,{
-            eventState: {
-                mediaPosition: mediaPosition,
-                timestamp: new Date().toISOString(),
-                eventId: eventId
-            },
-            lastActionId: lastActionId
-        });
-        setLastActionId(eventId);
+        if(media?.id) {
+            mediaPlayerClient().start(media.id, {
+                eventState: {
+                    mediaPosition: mediaPosition,
+                    timestamp: new Date().toISOString(),
+                    eventId: eventId
+                },
+                lastActionId: lastActionId
+            });
+            setLastActionId(eventId);
+        }
     }
+
+    useEffect(() => {
+        if (media?.id) {
+            start();
+            fetchAndLogMetrics();
+        }
+    }, [media?.id]);
+
+    if(error!=null) return <h2>Error: {error}</h2>
+    if (media == null) return <h2>No Media Found</h2>
+    if (loading) return <h2>Loading...</h2>;
 
     const stop = async() => {
         const eventId = crypto.randomUUID();

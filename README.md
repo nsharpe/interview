@@ -53,37 +53,12 @@ npm start;
 ```
 
 Actions from the ui
-1. Log in with the token 123
+1. Log in with the token 123 (will redirect you to the qa page)
 2. Generate Users
-3. Generate Movies
-4. go to users tab
-5. log in as user
-6. Go to series tab
-7. press play on movie
-8. press stop
-
-At this point you can run from the postgres container
-
-```postgresql
-select eu.email as email, mp_start."mediaId" as media_id, (mp_stop."mediaEvent_mediaTimestampMs" - mp_start."mediaEvent_mediaTimestampMs") as view_time_ms
-from kafka_sink.media_player_start mp_start
-         left join kafka_sink.media_player_stop mp_stop on mp_start."eventId" = mp_stop."lastActionId"
-         left join users.external_user eu on eu.public_id = uuid(mp_start."mediaEvent_userId");
-```
-
-And you will get output like
-
-| email | media\_id | view\_time\_ms |
-| :--- | :--- | :--- |
-| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 5160 |
-| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 4302 |
-| herman.koelpin@yahoo.com | a45c871a-8b85-4476-abe2-87f0dda4b16b | 6851 |
-
-
-* `email` is the email of the user you loged in as.
-* `media_id` is the id of the media being played.  Not the series.  You will see id mismatch here as in a real world scenerio, for a movie, you may have a different media id based on locale.  I.e. spanish media id could be different from an english media id.  The media id in this case is the public id of episode in mysql
-* `view_time_ms` a discreate unit of view time for a play/stop cycle
-
+3. log in as user (It will redirect you to the series tab)
+4. press play on movie of your choice ( this will redirect you to the movie which will automatically play)
+5. press stop
+6. The number of views and total view time should now be visible for 
 
 
 ## What the application does
