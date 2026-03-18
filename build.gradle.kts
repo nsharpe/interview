@@ -13,6 +13,11 @@ tasks.test {
     enabled = false
 }
 
+tasks.register("npmStart"){
+    val uiBuild = gradle.includedBuild("media-player-ui")
+    dependsOn(uiBuild.task(":npmStart"))
+}
+
 tasks.register("cleanAll"){
     dependsOn(gradle.includedBuilds.map {
         it.task(":clean") })

@@ -31,5 +31,8 @@ includeBuild("media-player-endpoint-root")
 includeBuild("qa-endpoint-root")
 includeBuild("media-metric-endpoint-root")
 
+// UI
+includeBuild("media-player-ui")
+
 includeBuild("TestData")
 include("IntegrationTests")
