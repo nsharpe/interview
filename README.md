@@ -1,7 +1,6 @@
 # Interview environment
 
 The purpose of this repo is to provide the following information
-* Provide example of documentation expectations
 * Provides examples of monorepo architecture for small/medium sized project
 * Demonstrate module setup to allow for parallel development between multiple developers in a single repo
 * Provide example of integration tests with separate executables each defined in it's own submodule. See [IntegrationTests](IntegrationTests/README.md)
@@ -11,13 +10,10 @@ The purpose of this repo is to provide the following information
 
 This environment does not cover the following as these are tasks that can be worked in parallel and under normal circumstances would be given to another developer to perform
 * Deployment best practices
-* Indexes in mysql
-* Database Migrations
+* Indexes in databases
 * Optimal algorithms for some operations
-* Authentication
 * Debug Ports on test containers
-
-Time permitting the above should be addressed.
+* UI error handling
 
 ## Quick start
 
