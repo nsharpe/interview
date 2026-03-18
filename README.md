@@ -19,7 +19,7 @@ This environment does not cover the following as these are tasks that can be wor
 
 ### Requirements
 * Java 21 
-  * older version chosen intentionally to reduce problems as this is publicly avaialable
+  * older version chosen intentionally to reduce problems as this is publicly available
 * Docker 
   * Development was done with orbstack
 * npm
