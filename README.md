@@ -29,19 +29,24 @@ Time permitting the above should be addressed.
 * npm
   * Required for typescript sdk builders 
 
-Build jars
-```shell
-./gradlew clean build bootJar
-```
 
-Build Images and run all applications
-```shell
-docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build 
-```
+The following scripts does the following
+1) build jars
+2) start docker compose
+3) start npm locally
+4) tear down the docker compose file when npm has stopped
 
-You can also run 
+
+#### MAC
+This has been tested and is how this developer does quick spot checks that everything is working as intended
 ```shell
 ./run_locally.sh
+```
+
+#### PC
+This has not been tested as i do not have a pc to test against.  Based on documentation the bellow should work
+```shell
+./run_local.bat
 ```
 
 
