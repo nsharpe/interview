@@ -171,6 +171,8 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── SpringRest/            - Common Spring config, beans, and classes (security, web)
 ├── TestData/              - Test data generators
 ├── media-player-endpoint-root/ - Media player event tracking
+├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database
+├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
 └── qa-endpoint-root/      - QA/generator endpoints
 ```
 

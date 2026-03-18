@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
+import static org.awaitility.Awaitility.await;
 import static org.example.test.util.TestMapper.MAPPER;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -112,10 +113,16 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
 
         assertNotNull(episodeModel.getId());
 
+        await()
+                .atMost(Duration.ofSeconds(10))
+                .pollInterval(Duration.ofMillis(50))
+                .until(() -> null != mediaPerformanceControllerApi.getMediaViewTime(episodeModel.getId()).block());
+
         MediaMetricModel result = mediaPerformanceControllerApi.getMediaViewTime(episodeModel.getId()).block();
 
         assertNotNull(result);
         assertEquals( episodeDuration.toMillis(), result.getTotalPlayTimeMillis());
+
         assertEquals( 1, result.getTotalPlays() );
     }
 }
