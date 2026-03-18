@@ -82,7 +82,7 @@ const MediaPlayer: React.FC = () => {
 
         setStartTime(Date.now)
 
-        setButtonText("Stop");
+        setButtonText("Pause");
         setIsPlaying(true);
 
         if (gifRef.current) {
@@ -113,7 +113,7 @@ const MediaPlayer: React.FC = () => {
     if (media == null) return <h2>No Media Found</h2>
     if (loading) return <h2>Loading...</h2>;
 
-    const stop = async() => {
+    const pause = async() => {
         const eventId = crypto.randomUUID();
 
         setButtonText("Start");
@@ -178,7 +178,7 @@ const MediaPlayer: React.FC = () => {
                             if(buttonText == "Start") {
                                 start()
                             }else{
-                                stop();
+                                pause();
                         }}}
                         style={{
                             marginBottom: '10px',
@@ -194,7 +194,7 @@ const MediaPlayer: React.FC = () => {
                     </button>
                     {totalPlays !== null && (
                         <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                            <p>Total Plays: {totalPlays}</p>
+                            <p>Total Plays (number of times this page was loaded): {totalPlays}</p>
                             <p>Total View Time (seconds): {totalViewTimeSeconds}</p>
                         </div>
                     )}
