@@ -70,6 +70,10 @@ This is a monorepo with several executables required to do the following
 * Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](Series/README.md) for definitions
 * Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
 
+### Media Player Workflow
+When the application plays some media it interacts with the backend system in the following manner.
+![media workflow](doc/assets/media-player-workflow.jpg)
+
 ## Assumptions
 
 * This is not intended to be replace the interview process.
@@ -77,7 +81,7 @@ This is a monorepo with several executables required to do the following
 
 ## IDE Setup
 
-It is recomended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that has not been setup yet. 
+It is recommended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that has not been setup yet. 
 
 ## Running the application
 
