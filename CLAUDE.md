@@ -218,7 +218,7 @@ Generated from OpenAPI specs. Build flow:
 
 Subprojects with TS SDKs:
 - `admin-typescript-sdk`
-- `public-rest-endpoint-typescript-sdk`
+- `user-management-endpoint-typescript-sdk`
 - `media-management-typescript-sdk`
 - `media-player-typescript-sdk`
 - `qa-endpoint-typescript-sdk`
