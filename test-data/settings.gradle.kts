@@ -5,7 +5,7 @@ pluginManagement {
 rootProject.name = "test-data"
 
 includeBuild("../gradle-plugins")
-includeBuild("../AdminEndpoint")
+includeBuild("../admin-endpoint-root")
 includeBuild("../MediaManagement")
 includeBuild("../PublicRestEndpoint")
 includeBuild("../media-player-endpoint-root")

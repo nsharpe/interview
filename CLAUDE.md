@@ -154,7 +154,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ```
 ├── avro-model              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
-├── AdminEndpoint/         - Admin API for user management
+├── admin-endpoint-root/         - Admin API for user management
 ├── BusinessDomain/
 │   ├── Series/            - TV series/movies domain (MySQL)
 │   └── Users/             - User domain (PostgreSQL)

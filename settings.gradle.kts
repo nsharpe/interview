@@ -24,7 +24,7 @@ includeBuild("SpringPod")
 includeBuild("SpringRest")
 
 // Rest Deployable
-includeBuild("AdminEndpoint")
+includeBuild("admin-endpoint-root")
 includeBuild("MediaManagement")
 includeBuild("PublicRestEndpoint")
 includeBuild("media-player-endpoint-root")
