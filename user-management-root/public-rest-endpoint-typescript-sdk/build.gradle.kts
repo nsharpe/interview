@@ -3,10 +3,10 @@ plugins {
 }
 
 tasks.openApiGenerate {
-    dependsOn(":public-rest-endpoint-webapp:generateOpenApiDocs")
+    dependsOn(":user-management-endpoint-webapp:generateOpenApiDocs")
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("public-rest-endpoint-webapp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("user-management-endpoint-webapp/build/api-spec.json"))
     npmName.set("media-player-public-rest-client")
 }

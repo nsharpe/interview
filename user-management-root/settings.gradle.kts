@@ -4,11 +4,11 @@ pluginManagement {
 
 rootProject.name = "user-management-root"
 
-include(":public-rest-endpoint-webapp")
+include(":user-management-endpoint-webapp")
 include(":public-rest-endpoint-sdk")
 include(":public-rest-endpoint-typescript-sdk")
 
-project(":public-rest-endpoint-webapp").name = "public-rest-endpoint-webapp"
+project(":user-management-endpoint-webapp")
 project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
 includeBuild("../gradle-plugins")

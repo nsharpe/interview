@@ -28,7 +28,7 @@ services:
 
   public-rest:
     build:
-      context: user-management-root/public-rest-endpoint-webapp
+      context: user-management-root/user-management-endpoint-webapp
       dockerfile: ../../Dockerfile
     ports:
       - "9080"
