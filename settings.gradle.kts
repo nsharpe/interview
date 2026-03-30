@@ -20,7 +20,7 @@ includeBuild("BusinessDomain")
 
 // Pod setup
 includeBuild("kafka-pod")
-includeBuild("SpringPod")
+includeBuild("spring-pod")
 includeBuild("spring-rest")
 
 // Rest Deployable

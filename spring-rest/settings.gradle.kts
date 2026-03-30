@@ -7,7 +7,7 @@ rootProject.name = "spring-rest"
 include("security")
 include("spring-web")
 
-includeBuild("../SpringPod")
+includeBuild("../spring-pod")
 includeBuild("../java-core")
 includeBuild("../gradle-plugins")
 includeBuild("../drivers")
