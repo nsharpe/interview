@@ -15,7 +15,7 @@ tasks.jar{
 }
 
 dependencies {
-    api("org.example.core:spring-core")
+    api("org.example.core:java-core")
     api( "org.springframework.boot:spring-boot-starter-web")
     api( "org.springframework.boot:spring-boot-starter-actuator")
 }

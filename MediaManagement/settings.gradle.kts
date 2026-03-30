@@ -9,7 +9,7 @@ include(":media-management-sdk")
 include("media-management-typescript-sdk")
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")

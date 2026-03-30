@@ -9,7 +9,7 @@ include(":media-player-endpoint-sdk")
 include(":media-player-typescript-sdk")
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")

@@ -5,6 +5,6 @@ pluginManagement {
 rootProject.name = "kafka-pod"
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../kafka-pod")
 includeBuild("../drivers")

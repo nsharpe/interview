@@ -9,7 +9,7 @@ include(":qa-endpoint-sdk")
 include(":qa-endpoint-typescript-sdk")
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../test-data")
 

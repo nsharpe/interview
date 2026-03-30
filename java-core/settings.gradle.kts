@@ -2,6 +2,6 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name="spring-core"
+rootProject.name="java-core"
 
 includeBuild("../gradle-plugins")

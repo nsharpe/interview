@@ -9,6 +9,6 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 }
 
 dependencies {
-    api("org.example.core:spring-core")
+    api("org.example.core:java-core")
     api("org.example.drivers:mysql-driver")
 }

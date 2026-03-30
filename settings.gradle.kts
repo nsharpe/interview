@@ -6,7 +6,7 @@ rootProject.name = "MediaPlayer"
 
 includeBuild("gradle-plugins")
 includeBuild("AvroModel")
-includeBuild("Core")
+includeBuild("java-core")
 includeBuild("drivers")
 includeBuild("BusinessDomain")
 {

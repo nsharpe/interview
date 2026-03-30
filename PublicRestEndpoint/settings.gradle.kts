@@ -12,7 +12,7 @@ project(":public-rest-endpoint-webapp").name = "public-rest-endpoint-webapp"
 project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")

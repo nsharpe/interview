@@ -8,7 +8,7 @@ evaluationDependsOnChildren()
 group = "org.example.media.player"
 
 dependencies {
-    api("org.example.core:spring-core")
+    api("org.example.core:java-core")
     api("org.springframework.boot:spring-boot-starter-webflux")
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")

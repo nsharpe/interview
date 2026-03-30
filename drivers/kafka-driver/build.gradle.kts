@@ -5,7 +5,7 @@ plugins {
 group = "org.example.drivers"
 
 dependencies {
-    api("org.example.core:spring-core")
+    api("org.example.core:java-core")
     api("org.example.avro:avro-model")
 
     api("org.springframework.kafka:spring-kafka")

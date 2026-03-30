@@ -9,7 +9,7 @@ include(":media-metric-endpoint-sdk")
 include(":media-metric-typescript-sdk")
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")

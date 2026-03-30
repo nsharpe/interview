@@ -7,7 +7,7 @@ group = "org.example.drivers"
 dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    api("org.example.core:spring-core")
+    api("org.example.core:java-core")
 
     runtimeOnly("com.mysql:mysql-connector-j")
 }

@@ -12,7 +12,7 @@ project(":admin-endpoint-web-app").name = "admin-endpoint-web-app"
 project(":admin-sdk").name = "admin-sdk"
 
 includeBuild("../gradle-plugins")
-includeBuild("../Core")
+includeBuild("../java-core")
 includeBuild("../SpringRest")
 includeBuild("../MediaManagement")
 includeBuild("../PublicRestEndpoint")

@@ -154,17 +154,17 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ```
 ├── AvroModel              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
-├── AdminEndpoint/          - Admin API for user management
+├── AdminEndpoint/         - Admin API for user management
 ├── BusinessDomain/
 │   ├── Series/            - TV series/movies domain (MySQL)
 │   └── Users/             - User domain (PostgreSQL)
-├── Core/                  - Shared models and utilities
-├── drivers/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
+├── java-core/             - Shared java models and utilities that don't require spring
+├── drivers/               - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
     ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations
     ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion
     ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
     ├── redis-driver/      - Everything needed for redis
-├── integration-tests/      - Integration tests (runs full docker stack)
+├── integration-tests/     - Integration tests (runs full docker stack)
 ├── MediaManagement/       - Media CRUD endpoints + SDKs
     ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
