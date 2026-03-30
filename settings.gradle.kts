@@ -21,7 +21,7 @@ includeBuild("BusinessDomain")
 // Pod setup
 includeBuild("kafka-pod")
 includeBuild("SpringPod")
-includeBuild("SpringRest")
+includeBuild("spring-rest")
 
 // Rest Deployable
 includeBuild("admin-endpoint-root")

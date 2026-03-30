@@ -13,7 +13,7 @@ project(":admin-sdk").name = "admin-sdk"
 
 includeBuild("../gradle-plugins")
 includeBuild("../java-core")
-includeBuild("../SpringRest")
+includeBuild("../spring-rest")
 includeBuild("../media-management-root")
 includeBuild("../PublicRestEndpoint")
 includeBuild("../drivers")

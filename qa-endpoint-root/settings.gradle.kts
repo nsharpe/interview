@@ -10,6 +10,6 @@ include(":qa-endpoint-typescript-sdk")
 
 includeBuild("../gradle-plugins")
 includeBuild("../java-core")
-includeBuild("../SpringRest")
+includeBuild("../spring-rest")
 includeBuild("../test-data")
 

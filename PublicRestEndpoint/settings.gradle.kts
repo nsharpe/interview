@@ -13,7 +13,7 @@ project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
 includeBuild("../gradle-plugins")
 includeBuild("../java-core")
-includeBuild("../SpringRest")
+includeBuild("../spring-rest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")
 {
