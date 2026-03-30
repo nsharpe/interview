@@ -2,21 +2,13 @@ pluginManagement {
     includeBuild("gradle-plugins")
 }
 
-rootProject.name = "MediaPlayer"
+rootProject.name = "media-ecosystem"
 
 includeBuild("gradle-plugins")
 includeBuild("avro-model")
 includeBuild("java-core")
 includeBuild("drivers")
 includeBuild("BusinessDomain")
-{
-    dependencySubstitution {
-        substitute(module("org.example.business-domain:series"))
-            .using(project(":Series"))
-        substitute(module("org.example.business-domain:users"))
-            .using(project(":Users"))
-    }
-}
 
 // Pod setup
 includeBuild("kafka-pod")

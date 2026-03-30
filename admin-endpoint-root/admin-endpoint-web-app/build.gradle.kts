@@ -28,7 +28,7 @@ openApi {
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation("org.example.business-domain:users")
+    implementation("org.example.libs:users")
 
     implementation("org.example.media.management:media-management-sdk")
     implementation("org.example.public.rest:user-management-endpoint-sdk")

@@ -4,8 +4,8 @@ pluginManagement {
 
 rootProject.name="business-domain"
 
-include("Series")
-include("Users")
+include("series")
+include("users")
 
 includeBuild("../java-core")
 includeBuild("../gradle-plugins")

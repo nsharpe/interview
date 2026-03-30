@@ -28,7 +28,7 @@ openApi {
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation("org.example.business-domain:series")
+    implementation("org.example.libs:series")
 
     // SQL
     implementation("org.example.drivers:mysql-driver")

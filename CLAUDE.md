@@ -156,8 +156,8 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── admin-endpoint-root/         - Admin API for user management
 ├── BusinessDomain/
-│   ├── Series/            - TV series/movies domain (MySQL)
-│   └── Users/             - User domain (PostgreSQL)
+│   ├── series/            - TV series/movies domain (MySQL)
+│   └── users/             - User domain (PostgreSQL)
 ├── java-core/             - Shared java models and utilities that don't require spring
 ├── drivers/               - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
     ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations

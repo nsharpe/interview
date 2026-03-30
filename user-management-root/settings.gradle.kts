@@ -13,11 +13,3 @@ includeBuild("../java-core")
 includeBuild("../spring-rest")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")
-{
-    dependencySubstitution {
-        substitute(module("org.example.business-domain:series"))
-            .using(project(":Series"))
-        substitute(module("org.example.business-domain:users"))
-            .using(project(":Users"))
-    }
-}

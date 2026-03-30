@@ -18,11 +18,3 @@ includeBuild("../media-management-root")
 includeBuild("../user-management-root")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")
-{
-    dependencySubstitution {
-        substitute(module("org.example.business-domain:series"))
-            .using(project(":Series"))
-        substitute(module("org.example.business-domain:users"))
-            .using(project(":Users"))
-    }
-}

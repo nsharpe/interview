@@ -66,8 +66,8 @@ Actions from the ui
 This is a mock application for a netflix like company.
 
 This is a monorepo with several executables required to do the following
-* Manage Users.  See [Users](Users/README.md)
-* Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](Series/README.md) for definitions
+* Manage Users.  See [Users](BusinessDomain/Users/README.md) for user structures
+* Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](BusinessDomain/Series/README.md) for definitions
 * Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
 
 ### Media Player Workflow

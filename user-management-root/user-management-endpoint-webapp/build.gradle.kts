@@ -27,7 +27,7 @@ openApi {
 
 dependencies {
     implementation("org.example.web:spring-web")
-    implementation("org.example.business-domain:users")
+    implementation("org.example.libs:users")
 
     // SQL
     implementation("org.example.drivers:postgres-driver")
