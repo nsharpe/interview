@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "media-player-endpoint-root"
@@ -8,7 +8,7 @@ include(":media-player-endpoint-webapp")
 include(":media-player-endpoint-sdk")
 include(":media-player-typescript-sdk")
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../Driver")

@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "PublicRestEndpoint"
@@ -11,7 +11,7 @@ include(":public-rest-endpoint-typescript-sdk")
 project(":public-rest-endpoint-webapp").name = "public-rest-endpoint-webapp"
 project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../Driver")

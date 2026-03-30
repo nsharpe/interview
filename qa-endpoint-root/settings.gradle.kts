@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "qa-endpoint-root"
@@ -8,7 +8,7 @@ include(":qa-endpoint-webapp")
 include(":qa-endpoint-sdk")
 include(":qa-endpoint-typescript-sdk")
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../TestData")

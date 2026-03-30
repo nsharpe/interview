@@ -1,10 +1,10 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "test-data"
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../AdminEndpoint")
 includeBuild("../MediaManagement")
 includeBuild("../PublicRestEndpoint")

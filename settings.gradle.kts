@@ -1,10 +1,10 @@
 pluginManagement {
-    includeBuild("Plugins")
+    includeBuild("gradle-plugins")
 }
 
 rootProject.name = "MediaPlayer"
 
-includeBuild("Plugins")
+includeBuild("gradle-plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
 includeBuild("Driver")

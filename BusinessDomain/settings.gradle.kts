@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name="business-domain"
@@ -8,5 +8,5 @@ include("Series")
 include("Users")
 
 includeBuild("../Core")
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Driver")

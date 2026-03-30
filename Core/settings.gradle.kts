@@ -1,7 +1,7 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name="spring-core"
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")

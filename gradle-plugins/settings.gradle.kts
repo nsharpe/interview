@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Plugins"
+rootProject.name = "gradle-plugins"

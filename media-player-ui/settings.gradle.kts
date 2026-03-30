@@ -1,7 +1,7 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "media-player-ui"
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")

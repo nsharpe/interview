@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name="Driver"
@@ -9,6 +9,6 @@ include("postgres-driver")
 include("kafka-driver")
 include("redis-driver")
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../AvroModel")
 

@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "media-metric-endpoint-root"
@@ -8,7 +8,7 @@ include(":media-metric-endpoint-webapp")
 include(":media-metric-endpoint-sdk")
 include(":media-metric-typescript-sdk")
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../Driver")

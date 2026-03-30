@@ -71,14 +71,14 @@ These are included using `include(":project-name")` in their parent's settings.g
 - **Regular submodules** (`include`) - These are projects within a composite build that depend on each other
 
 ## Gradle Plugins
-Gradle plugins allow centralizing common build tasks into a central location.  They are located in the `Plugins` submodule.
+Gradle plugins allow centralizing common build tasks into a central location.  They are located in the `gradle-plugins` submodule.
 
-For example, common build tasks for all java applications are in the file `Plugins/src/main/kotlin/java-convention.gradle.kts`
+For example, common build tasks for all java applications are in the file `gradle-plugins/src/main/kotlin/java-convention.gradle.kts`
 
 Plugins are included by having 
 ```kotlin
 pluginManagement {
-   includeBuild(<relative path to the Plugin submodule>)
+   includeBuild(<relative path to the gradle-plugin submodule>)
 }
 ```
 in the `settings.gradle.kts` of the module.
@@ -116,7 +116,7 @@ The `Driver/settings.gradle.kts` includes all its submodules:
 
   But it also includes parent builds for dependency resolution:
 ```kotlin
-  includeBuild("../Plugins")
+  includeBuild("../gradle-plugins")
   includeBuild("../AvroModel")
 ```
 

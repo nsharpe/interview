@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../Plugins")
+    includeBuild("../gradle-plugins")
 }
 
 rootProject.name = "admin-endpoint-root"
@@ -11,7 +11,7 @@ include(":admin-typescript-sdk")
 project(":admin-endpoint-web-app").name = "admin-endpoint-web-app"
 project(":admin-sdk").name = "admin-sdk"
 
-includeBuild("../Plugins")
+includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../MediaManagement")
