@@ -11,5 +11,5 @@ include(":qa-endpoint-typescript-sdk")
 includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
-includeBuild("../TestData")
+includeBuild("../test-data")
 

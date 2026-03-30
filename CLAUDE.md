@@ -169,7 +169,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
     ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
 ├── SpringRest/            - Common Spring config, beans, and classes (security, web)
-├── TestData/              - Test data generators
+├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking
 ├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database
 ├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
