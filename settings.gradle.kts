@@ -8,7 +8,7 @@ includeBuild("gradle-plugins")
 includeBuild("avro-model")
 includeBuild("java-core")
 includeBuild("drivers")
-includeBuild("BusinessDomain")
+includeBuild("libs")
 
 // Pod setup
 includeBuild("kafka-pod")

@@ -50,7 +50,7 @@ This project uses two types of Gradle build structures:
 These are top-level modules that include other builds in the composite:
 - `root` (MediaPlayer) - Main entry point
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
-- `BusinessDomain/` - Domain-specific modules
+- `libs/` - Domain-specific modules
 - `media-management-root/` - Media CRUD endpoints
 - `user-management-root/` - Public API endpoints
 - And others...
@@ -155,7 +155,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── avro-model              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── admin-endpoint-root/         - Admin API for user management
-├── BusinessDomain/
+├── libs/
 │   ├── series/            - TV series/movies domain (MySQL)
 │   └── users/             - User domain (PostgreSQL)
 ├── java-core/             - Shared java models and utilities that don't require spring

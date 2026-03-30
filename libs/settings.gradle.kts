@@ -2,7 +2,7 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name="business-domain"
+rootProject.name="libs"
 
 include("series")
 include("users")

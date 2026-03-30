@@ -12,5 +12,5 @@ includeBuild("../gradle-plugins")
 includeBuild("../java-core")
 includeBuild("../spring-rest")
 includeBuild("../drivers")
-includeBuild("../BusinessDomain")
+includeBuild("../libs")
 
