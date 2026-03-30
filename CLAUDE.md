@@ -164,7 +164,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
     ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion
     ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
     ├── redis-driver/      - Everything needed for redis
-├── IntegrationTests/      - Integration tests (runs full docker stack)
+├── integration-tests/      - Integration tests (runs full docker stack)
 ├── MediaManagement/       - Media CRUD endpoints + SDKs
     ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
@@ -243,10 +243,10 @@ Subprojects with TS SDKs:
 
 ## Integration Tests
 
-All integration tests are in the `IntegrationTests` submodule
+All integration tests are in the `integration-tests` submodule
 
 To run integration tests run 
 ```shell
-./gradlew :IntegrationTests:test
+./gradlew :integration-tests:test
 ```
 Test containers use `TestContainers.java` profile with fixed ports for predictable testing.

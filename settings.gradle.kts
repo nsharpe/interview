@@ -35,4 +35,4 @@ includeBuild("media-metric-endpoint-root")
 includeBuild("media-player-ui")
 
 includeBuild("TestData")
-include("IntegrationTests")
+include("integration-tests")
