@@ -25,6 +25,10 @@ public class MediaMetricModel {
 
     @Transient
     public BigDecimal getAveragePlayTime() {
+        if( totalPlays == null || totalPlays == 0){
+            return BigDecimal.ZERO;
+        }
+
         return BigDecimal.valueOf(totalPlayTimeMillis)
                 .divide(BigDecimal.valueOf(totalPlays), RoundingMode.DOWN)
                 .setScale(2,RoundingMode.DOWN);
