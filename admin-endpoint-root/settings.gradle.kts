@@ -14,7 +14,7 @@ project(":admin-sdk").name = "admin-sdk"
 includeBuild("../gradle-plugins")
 includeBuild("../java-core")
 includeBuild("../SpringRest")
-includeBuild("../MediaManagement")
+includeBuild("../media-management-root")
 includeBuild("../PublicRestEndpoint")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")

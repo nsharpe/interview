@@ -51,7 +51,7 @@ These are top-level modules that include other builds in the composite:
 - `root` (MediaPlayer) - Main entry point
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
 - `BusinessDomain/` - Domain-specific modules
-- `MediaManagement/` - Media CRUD endpoints
+- `media-management-root/` - Media CRUD endpoints
 - `PublicRestEndpoint/` - Public API endpoints
 - And others...
 
@@ -165,7 +165,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
     ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
     ├── redis-driver/      - Everything needed for redis
 ├── integration-tests/     - Integration tests (runs full docker stack)
-├── MediaManagement/       - Media CRUD endpoints + SDKs
+├── media-management-root/       - Media CRUD endpoints + SDKs
     ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
 ├── PublicRestEndpoint/    - Public user-facing API + SDKs
 ├── SpringRest/            - Common Spring config, beans, and classes (security, web)

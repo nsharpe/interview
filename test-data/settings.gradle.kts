@@ -6,6 +6,6 @@ rootProject.name = "test-data"
 
 includeBuild("../gradle-plugins")
 includeBuild("../admin-endpoint-root")
-includeBuild("../MediaManagement")
+includeBuild("../media-management-root")
 includeBuild("../PublicRestEndpoint")
 includeBuild("../media-player-endpoint-root")
