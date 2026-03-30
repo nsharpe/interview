@@ -117,7 +117,7 @@ The `drivers/settings.gradle.kts` includes all its submodules:
   But it also includes parent builds for dependency resolution:
 ```kotlin
   includeBuild("../gradle-plugins")
-  includeBuild("../AvroModel")
+  includeBuild("../avro-model")
 ```
 
 ## Understanding the Build Process
@@ -152,7 +152,7 @@ This means:
 This is a **monorepo** with Spring Boot Gradle composite build, organized by domain:
 
 ```
-├── AvroModel              - All avro models are stored here, and all kafka streams use avro for key and records
+├── avro-model              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── AdminEndpoint/         - Admin API for user management
 ├── BusinessDomain/
