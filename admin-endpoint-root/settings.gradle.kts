@@ -15,7 +15,7 @@ includeBuild("../gradle-plugins")
 includeBuild("../java-core")
 includeBuild("../spring-rest")
 includeBuild("../media-management-root")
-includeBuild("../PublicRestEndpoint")
+includeBuild("../user-management-root")
 includeBuild("../drivers")
 includeBuild("../BusinessDomain")
 {

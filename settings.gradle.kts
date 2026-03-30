@@ -26,7 +26,7 @@ includeBuild("spring-rest")
 // Rest Deployable
 includeBuild("admin-endpoint-root")
 includeBuild("media-management-root")
-includeBuild("PublicRestEndpoint")
+includeBuild("user-management-root")
 includeBuild("media-player-endpoint-root")
 includeBuild("qa-endpoint-root")
 includeBuild("media-metric-endpoint-root")

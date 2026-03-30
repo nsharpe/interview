@@ -52,7 +52,7 @@ These are top-level modules that include other builds in the composite:
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
 - `BusinessDomain/` - Domain-specific modules
 - `media-management-root/` - Media CRUD endpoints
-- `PublicRestEndpoint/` - Public API endpoints
+- `user-management-root/` - Public API endpoints
 - And others...
 
 These are included using `includeBuild("path")` in settings.gradle.kts files.
@@ -166,8 +166,8 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
     ├── redis-driver/      - Everything needed for redis
 ├── integration-tests/     - Integration tests (runs full docker stack)
 ├── media-management-root/       - Media CRUD endpoints + SDKs
-    ├── media-player-endpoint-webapp/ - The spring boot application for MediaManagement
-├── PublicRestEndpoint/    - Public user-facing API + SDKs
+    ├── media-management-webapp/ - The spring boot application for MediaManagement
+├── user-management-root/   - User management tools API + SDKs
 ├── spring-rest/            - Common Spring config, beans, and classes (security, web)
 ├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking

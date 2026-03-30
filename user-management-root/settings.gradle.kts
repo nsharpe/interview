@@ -2,7 +2,7 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name = "PublicRestEndpoint"
+rootProject.name = "user-management-root"
 
 include(":public-rest-endpoint-webapp")
 include(":public-rest-endpoint-sdk")
