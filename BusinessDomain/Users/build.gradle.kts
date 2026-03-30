@@ -10,6 +10,6 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 
 dependencies {
     api("org.example.core:spring-core")
-    api("org.example.driver:postgres-driver")
+    api("org.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
 }

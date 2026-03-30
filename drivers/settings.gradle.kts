@@ -2,7 +2,7 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name="Driver"
+rootProject.name="drivers"
 
 include("mysql-driver")
 include("postgres-driver")

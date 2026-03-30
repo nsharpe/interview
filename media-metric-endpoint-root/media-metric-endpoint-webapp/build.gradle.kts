@@ -28,7 +28,7 @@ dependencies {
     implementation("org.example.web:spring-web")
 
     // SQL
-    implementation("org.example.driver:postgres-driver")
+    implementation("org.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

@@ -14,7 +14,7 @@ project(":public-rest-endpoint-sdk").name = "public-rest-endpoint-sdk"
 includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
-includeBuild("../Driver")
+includeBuild("../drivers")
 includeBuild("../BusinessDomain")
 {
     dependencySubstitution {

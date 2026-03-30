@@ -9,4 +9,4 @@ include("Users")
 
 includeBuild("../Core")
 includeBuild("../gradle-plugins")
-includeBuild("../Driver")
+includeBuild("../drivers")

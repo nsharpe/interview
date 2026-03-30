@@ -2,11 +2,11 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.driver"
+group = "org.example.drivers"
 
 dependencies {
-    api("org.example.core:spring-core")
-    api("org.springframework.boot:spring-boot-starter-data-redis")
+    api("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.postgresql:postgresql")
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {

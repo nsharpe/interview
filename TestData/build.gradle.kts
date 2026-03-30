@@ -18,7 +18,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 
 dependencies {
 
-    api("org.example.driver:redis-driver")
+    api("org.example.drivers:redis-driver")
     api("net.datafaker:datafaker:2.5.3")
     api("org.example.media.management:media-management-sdk")
     api("org.example.public.rest:public-rest-endpoint-sdk")

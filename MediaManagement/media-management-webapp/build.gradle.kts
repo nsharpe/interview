@@ -31,7 +31,7 @@ dependencies {
     implementation("org.example.business-domain:series")
 
     // SQL
-    implementation("org.example.driver:mysql-driver")
+    implementation("org.example.drivers:mysql-driver")
     runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")

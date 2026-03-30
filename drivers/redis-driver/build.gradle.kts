@@ -2,13 +2,11 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.driver"
+group = "org.example.drivers"
 
 dependencies {
     api("org.example.core:spring-core")
-    api("org.example.avro:avro-model")
-
-    api("org.springframework.kafka:spring-kafka")
+    api("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {

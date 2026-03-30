@@ -2,7 +2,7 @@ plugins {
     id("java-convention")
 }
 
-group = "org.example.driver"
+group = "org.example.drivers"
 
 tasks.clean{
     subprojects.forEach { proj ->

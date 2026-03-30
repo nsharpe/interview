@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.driver"
+group = "org.example.drivers"
 
 dependencies {
     api("org.springframework.boot:spring-boot-starter-data-jpa")

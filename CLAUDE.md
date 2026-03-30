@@ -30,7 +30,7 @@ all gradle commands should be run from the root of the project
 
 for example building the mysql driver should be done as 
 ```
-./gradlew :Driver:mysql-driver:build
+./gradlew :drivers:mysql-driver:build
 ```
 
 **React UI (local):**
@@ -49,7 +49,7 @@ This project uses two types of Gradle build structures:
 ### Composite Builds
 These are top-level modules that include other builds in the composite:
 - `root` (MediaPlayer) - Main entry point
-- `Driver/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
+- `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
 - `BusinessDomain/` - Domain-specific modules
 - `MediaManagement/` - Media CRUD endpoints
 - `PublicRestEndpoint/` - Public API endpoints
@@ -59,10 +59,10 @@ These are included using `includeBuild("path")` in settings.gradle.kts files.
 
 ### Regular Submodules
 These are individual projects that exist within composite builds:
-- `Driver/mysql-driver/`
-- `Driver/postgres-driver/`
-- `Driver/kafka-driver/`
-- `Driver/redis-driver/`
+- `drivers/mysql-driver/`
+- `drivers/postgres-driver/`
+- `drivers/kafka-driver/`
+- `drivers/redis-driver/`
 
 These are included using `include(":project-name")` in their parent's settings.gradle.kts.
 
@@ -99,14 +99,14 @@ In this project, modules can be either:
 1. **Top-level composite builds** - These include their own subprojects and other builds
 2. **Submodules within composite builds** - These are regular projects that exist within a build but don't form their own composite
 
-For example, in the `Driver/` module:
-Driver/
+For example, in the `drivers/` module:
+drivers/
 ├── settings.gradle.kts          # Includes mysql-driver, postgres-driver, kafka-driver, redis-driver
 ├── mysql-driver/                # Regular submodule - no includeBuild(), only include()
 ├── postgres-driver/             # Regular submodule
 └── ...
 
-The `Driver/settings.gradle.kts` includes all its submodules:
+The `drivers/settings.gradle.kts` includes all its submodules:
   ```kotlin
   include("mysql-driver")
   include("postgres-driver")
@@ -124,13 +124,13 @@ The `Driver/settings.gradle.kts` includes all its submodules:
 
 When you run Gradle commands:
 
-1. **Root-level commands** (e.g., `./gradlew :Driver:mysql-driver:build`):
+1. **Root-level commands** (e.g., `./gradlew :drivers:mysql-driver:build`):
     - Gradle resolves the composite build structure
-    - It finds `Driver/` as a composite build and follows its settings.gradle.kts
+    - It finds `drivers/` as a composite build and follows its settings.gradle.kts
     - It then finds `mysql-driver` as an included project within that build
 
 2. **Submodule-specific commands**:
-    - For modules like `mysql-driver`, you can run `./gradlew :Driver:mysql-driver:build`
+    - For modules like `mysql-driver`, you can run `./gradlew :drivers:mysql-driver:build`
     - The `mysql-driver/build.gradle.kts` is processed directly, not through a composite structure
 
 This hybrid approach allows for both modular development and efficient dependency resolution across the entire codebase.
@@ -144,7 +144,7 @@ When looking for dependencies:
 - **Build process**: When `bootJar` is run, Gradle packages all necessary dependencies into executable JARs
 
 This means:
-1. When you reference `org.example.driver:mysql-driver` in a build.gradle.kts, it resolves to the local project
+1. When you reference `org.example.drivers:mysql-driver` in a build.gradle.kts, it resolves to the local project
 2. When you reference external libraries, they are resolved from Maven repositories
 
 ## Architecture
@@ -159,7 +159,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 │   ├── Series/            - TV series/movies domain (MySQL)
 │   └── Users/             - User domain (PostgreSQL)
 ├── Core/                  - Shared models and utilities
-├── Driver/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
+├── drivers/                - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
     ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations
     ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion
     ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
@@ -196,7 +196,7 @@ so that libraries that are defined in other modules are automatically imported
 
 ## Kafka
 
-Kafka topics produced or read by java applications are stored in `Driver/kafka-driver/src/main/java/org/example/kafka/KafkaTopics.java`.
+Kafka topics produced or read by java applications are stored in `drivers/kafka-driver/src/main/java/org/example/kafka/KafkaTopics.java`.
 
 ## Build Tasks
 

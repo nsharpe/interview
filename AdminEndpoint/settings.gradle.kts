@@ -16,7 +16,7 @@ includeBuild("../Core")
 includeBuild("../SpringRest")
 includeBuild("../MediaManagement")
 includeBuild("../PublicRestEndpoint")
-includeBuild("../Driver")
+includeBuild("../drivers")
 includeBuild("../BusinessDomain")
 {
     dependencySubstitution {

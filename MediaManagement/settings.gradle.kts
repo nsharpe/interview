@@ -11,7 +11,7 @@ include("media-management-typescript-sdk")
 includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../SpringRest")
-includeBuild("../Driver")
+includeBuild("../drivers")
 includeBuild("../BusinessDomain")
 {
     dependencySubstitution {

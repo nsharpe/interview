@@ -25,7 +25,7 @@ openApi {
 dependencies {
     implementation("org.example.web:spring-web")
     implementation("org.example.avro:avro-model")
-    implementation("org.example.driver:kafka-driver")
+    implementation("org.example.drivers:kafka-driver")
 
     implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

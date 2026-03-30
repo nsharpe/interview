@@ -7,7 +7,7 @@ rootProject.name = "MediaPlayer"
 includeBuild("gradle-plugins")
 includeBuild("AvroModel")
 includeBuild("Core")
-includeBuild("Driver")
+includeBuild("drivers")
 includeBuild("BusinessDomain")
 {
     dependencySubstitution {

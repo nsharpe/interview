@@ -7,4 +7,4 @@ rootProject.name = "kafka-pod"
 includeBuild("../gradle-plugins")
 includeBuild("../Core")
 includeBuild("../kafka-pod")
-includeBuild("../Driver")
+includeBuild("../drivers")

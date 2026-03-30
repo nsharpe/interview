@@ -30,7 +30,7 @@ dependencies {
     implementation("org.example.business-domain:users")
 
     // SQL
-    implementation("org.example.driver:postgres-driver")
+    implementation("org.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 
