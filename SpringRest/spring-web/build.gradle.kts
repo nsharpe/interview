@@ -16,7 +16,7 @@ tasks.jar{
 
 dependencies {
     api("org.example.pod:spring-pod")
-    api(project(":Security"))
+    api(project(":security"))
 
     // Web and documentation
     api("org.springframework.boot:spring-boot-starter-web")
