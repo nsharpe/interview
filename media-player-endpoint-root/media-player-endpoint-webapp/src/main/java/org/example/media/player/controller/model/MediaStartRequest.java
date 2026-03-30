@@ -10,7 +10,12 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-
+/**
+ * The start of a media event request chain
+ *
+ * Typically, this occurs when a video either autoplays for a user, or a user manually presses play on some media.
+ *
+ */
 @Getter
 @Setter
 @AllArgsConstructor

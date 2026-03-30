@@ -12,6 +12,10 @@ import org.example.security.SecurityConfiguration;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+
+/**
+ * This class is a pojo of all information each media event must satisfy
+ */
 @Getter
 @Setter
 @Builder

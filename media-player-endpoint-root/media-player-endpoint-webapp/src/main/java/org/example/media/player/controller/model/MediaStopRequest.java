@@ -11,7 +11,10 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-
+/**
+ * A user has stopped consuming a piece of media.  This can happen when a user completes the media, or when a user leaves the page a media is being played on.
+ *
+ */
 @Getter
 @Setter
 @Builder
