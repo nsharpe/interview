@@ -16,4 +16,4 @@ tasks.clean{
     }
 }
 
-group = "org.example.media.management"
+group = "org.amoeba.example.media.management"

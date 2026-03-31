@@ -2,11 +2,11 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.pod.kafka"
+group = "org.amoeba.example.pod.kafka"
 
 dependencies {
-    api("org.example.drivers:kafka-driver")
-    api("org.example.pod:spring-pod")
+    api("org.amoeba.example.drivers:kafka-driver")
+    api("org.amoeba.example.pod:spring-pod")
 }
 
 tasks.clean{

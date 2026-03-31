@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.public.rest"
+group = "org.amoeba.example.public.rest"
 
 tasks.spotbugsTest{
     enabled = false

@@ -2,7 +2,7 @@ plugins{
     id("java-convention")
 }
 
-group = "com.example"
+group = "org.amoeba.example"
 
 tasks.build{
     dependsOn(":media-metric-endpoint-webapp:build")

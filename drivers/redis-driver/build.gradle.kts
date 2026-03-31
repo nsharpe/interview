@@ -2,10 +2,10 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.drivers"
+group = "org.amoeba.example.drivers"
 
 dependencies {
-    api("org.example.core:java-core")
+    api("org.amoeba.example.core:java-core")
     api("org.springframework.boot:spring-boot-starter-data-redis")
 }
 

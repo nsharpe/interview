@@ -2,7 +2,7 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.admin"
+group = "org.amoeba.example.admin"
 
 tasks.openApiGenerate {
     dependsOn(":admin-endpoint-web-app:generateOpenApiDocs")
@@ -20,5 +20,5 @@ sourceSets {
 
 sdkConfig {
     specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint-web-app/build/api-spec.json"))
-    basePackage.set("org.example.admin.sdk")
+    basePackage.set("org.amoeba.example.admin.sdk")
 }

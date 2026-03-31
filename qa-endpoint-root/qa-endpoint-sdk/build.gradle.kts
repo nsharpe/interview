@@ -2,7 +2,7 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.qa"
+group = "org.amoeba.example.qa"
 
 tasks.openApiGenerate {
     dependsOn(":qa-endpoint-webapp:generateOpenApiDocs")
@@ -20,5 +20,5 @@ sourceSets {
 
 sdkConfig {
     specFile.set(rootProject.layout.projectDirectory.file("qa-endpoint-webapp/build/api-spec.json"))
-    basePackage.set("org.example.qa.sdk")
+    basePackage.set("org.amoeba.example.qa.sdk")
 }

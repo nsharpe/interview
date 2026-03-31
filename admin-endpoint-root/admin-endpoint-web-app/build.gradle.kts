@@ -2,7 +2,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.admin"
+group = "org.amoeba.example.admin"
 
 tasks.bootBuildImage {
     imageName= "media-player/admin-endpoint:test"
@@ -27,14 +27,14 @@ openApi {
 }
 
 dependencies {
-    implementation("org.example.web:spring-web")
-    implementation("org.example.libs:users")
+    implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.libs:users")
 
-    implementation("org.example.media.management:media-management-sdk")
-    implementation("org.example.public.rest:user-management-endpoint-sdk")
+    implementation("org.amoeba.example.media.management:media-management-sdk")
+    implementation("org.amoeba.example.public.rest:user-management-endpoint-sdk")
 
     // SQL
-    implementation("org.example.drivers:postgres-driver")
+    implementation("org.amoeba.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

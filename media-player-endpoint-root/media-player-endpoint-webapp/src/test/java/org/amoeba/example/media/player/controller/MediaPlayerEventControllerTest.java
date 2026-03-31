@@ -1,0 +1,113 @@
+package org.amoeba.example.media.player.controller;
+
+import org.amoeba.example.core.model.AuthenticationInfo;
+import org.amoeba.example.media.player.controller.model.MediaPlayerEventBase;
+import org.amoeba.example.media.player.controller.model.MediaStartRequest;
+import org.amoeba.example.media.player.service.MediaEventService;
+import org.amoeba.example.security.SecurityConfiguration;
+import org.amoeba.example.security.TokenRepo;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
+
+import static org.amoeba.example.core.util.Util.OBJECT_MAPPER;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+
+@WebMvcTest(MediaEventController.class)
+@Import(SecurityConfiguration.class)
+class MediaPlayerEventControllerTest {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @MockitoBean
+    MediaEventService eventService;
+
+    @MockitoBean
+    TokenRepo tokenRepo;
+
+    @MockitoBean
+    RedisConnectionFactory redisConnectionFactory;
+
+    @Test
+    void testAcceptStart() throws Exception{
+        UUID userID = UUID.randomUUID();
+        String token = "123";
+        UUID mediaId = UUID.randomUUID();
+        OffsetDateTime now = OffsetDateTime.now();
+
+        AuthenticationInfo authenticationInfo = AuthenticationInfo.builder()
+                .userId(userID)
+                .roles(List.of("ROLE_SUBSCRIBER"))
+                .build();
+
+        MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
+                .eventId(UUID.randomUUID())
+                .mediaPosition(0)
+                .timestamp(now)
+                .build();
+
+        MediaStartRequest startRequest = MediaStartRequest.builder()
+                .eventState(mediaPlayerEventBase)
+                .build();
+
+        when(tokenRepo.infoForToken(token)).thenReturn(authenticationInfo);
+
+        mockMvc.perform(post("/player/media/" + mediaId + "/start")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .content(OBJECT_MAPPER.writeValueAsString(startRequest))
+                )
+                .andExpect(status().isAccepted())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))// Verify HTTP status
+                .andExpect(jsonPath("$.actionId").value(startRequest.getEventState().getEventId().toString()));
+    }
+
+    @Test
+    void testAcceptStop() throws Exception{
+        UUID lastActionId = UUID.randomUUID();
+        UUID userID = UUID.randomUUID();
+        String token = "123";
+        OffsetDateTime now = OffsetDateTime.now();
+
+        AuthenticationInfo authenticationInfo = AuthenticationInfo.builder()
+                .userId(userID)
+                .roles(List.of("ROLE_SUBSCRIBER"))
+                .build();
+
+        MediaPlayerEventBase mediaPlayerEventBase = MediaPlayerEventBase.builder()
+                .eventId(UUID.randomUUID())
+                .mediaPosition(123)
+                .timestamp(now)
+                .build();
+
+        MediaStartRequest request = MediaStartRequest.builder()
+                .eventState(mediaPlayerEventBase)
+                .lastActionId(lastActionId)
+                .build();
+
+        when(tokenRepo.infoForToken(token)).thenReturn(authenticationInfo);
+
+        mockMvc.perform(post("/player/media/stop")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("Authorization", "Bearer " + token)
+                        .content(OBJECT_MAPPER.writeValueAsString(request))
+                )
+                .andExpect(status().isAccepted())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))// Verify HTTP status
+                .andExpect(jsonPath("$.actionId")
+                        .value(request.getEventState().getEventId().toString()));
+    }
+}

@@ -2,7 +2,7 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.media.management"
+group = "org.amoeba.example.media.management"
 
 tasks.openApiGenerate {
     dependsOn(":media-management-webapp:generateOpenApiDocs")
@@ -20,5 +20,5 @@ sourceSets {
 
 sdkConfig {
     specFile.set(rootProject.layout.projectDirectory.file("media-management-webapp/build/api-spec.json"))
-    basePackage.set("org.example.media.management.sdk")
+    basePackage.set("org.amoeba.example.media.management.sdk")
 }

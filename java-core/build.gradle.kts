@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group="org.example.core"
+group="org.amoeba.example.core"
 
 tasks.processResources{
     from(file("../docker-compose.yml"))

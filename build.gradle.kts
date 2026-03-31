@@ -5,7 +5,7 @@ plugins {
 }
 
 allprojects {
-    group = "org.example"
+    group = "org.amoeba.example"
     version = "1.0-SNAPSHOT"
 }
 

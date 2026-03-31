@@ -2,11 +2,11 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.web.security"
+group = "org.amoeba.example.web.security"
 
 dependencies {
     api("org.springframework.boot:spring-boot-starter-security")
-    api("org.example.drivers:redis-driver")
+    api("org.amoeba.example.drivers:redis-driver")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.15")

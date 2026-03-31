@@ -4,7 +4,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.media.player"
+group = "org.amoeba.example.media.player"
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
@@ -23,9 +23,9 @@ openApi {
 }
 
 dependencies {
-    implementation("org.example.web:spring-web")
-    implementation("org.example.avro:avro-model")
-    implementation("org.example.drivers:kafka-driver")
+    implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.avro:avro-model")
+    implementation("org.amoeba.example.drivers:kafka-driver")
 
     implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

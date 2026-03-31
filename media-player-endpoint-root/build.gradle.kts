@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "org.example.media.player"
+group = "org.amoeba.example.media.player"
 
 tasks.build{
     dependsOn(":media-player-endpoint-webapp:build")

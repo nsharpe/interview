@@ -1,4 +1,4 @@
-@namespace("com.example.avro.media.player")
+@namespace("org.amoeba.example.avro.media.player")
 protocol MediaPlayer {
 
   /**

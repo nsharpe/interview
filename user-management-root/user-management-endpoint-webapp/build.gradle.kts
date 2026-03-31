@@ -2,7 +2,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.public.rest"
+group = "org.amoeba.example.public.rest"
 
 tasks.bootBuildImage {
     imageName = "media-player/public-rest-endpoint:test"
@@ -26,11 +26,11 @@ openApi {
 
 
 dependencies {
-    implementation("org.example.web:spring-web")
-    implementation("org.example.libs:users")
+    implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.libs:users")
 
     // SQL
-    implementation("org.example.drivers:postgres-driver")
+    implementation("org.amoeba.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

@@ -19,7 +19,7 @@ tasks.assemble {
 val testcontainersVersion = "2.0.3"
 
 dependencies {
-    implementation("org.example.core:java-core")
+    implementation("org.amoeba.example.core:java-core")
 
     implementation("org.apache.commons:commons-pool2")
 
@@ -31,9 +31,9 @@ dependencies {
     // Using the variable defined above
     testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
 
-    implementation("org.example.qa:qa-endpoint-sdk")
-    implementation("org.example.media.metric:media-metric-endpoint-sdk")
-    testImplementation("org.example.test.data:test-data")
+    implementation("org.amoeba.example.qa:qa-endpoint-sdk")
+    implementation("org.amoeba.example.media.metric:media-metric-endpoint-sdk")
+    testImplementation("org.amoeba.example.test.data:test-data")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:testcontainers-kafka")
     testImplementation("org.springframework.boot:spring-boot-docker-compose")

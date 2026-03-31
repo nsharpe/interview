@@ -4,7 +4,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.qa"
+group = "org.amoeba.example.qa"
 
 tasks.named<BootBuildImage>("bootBuildImage") {
     imageName = "media-player/qa-endpoints:test"
@@ -27,8 +27,8 @@ openApi {
 }
 
 dependencies {
-    implementation("org.example.test.data:test-data")
-    implementation("org.example.web:spring-web")
+    implementation("org.amoeba.example.test.data:test-data")
+    implementation("org.amoeba.example.web:spring-web")
 
     implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

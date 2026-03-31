@@ -2,7 +2,7 @@ plugins{
     id("boot-library")
 }
 
-group = "org.example.web"
+group = "org.amoeba.example.web"
 
 tasks.clean{
     subprojects.forEach { proj ->

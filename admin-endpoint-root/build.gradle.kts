@@ -2,7 +2,7 @@ plugins {
     id("java-convention")
 }
 
-group = "org.example.admin"
+group = "org.amoeba.example.admin"
 
 tasks.spotbugsTest{
     enabled = false

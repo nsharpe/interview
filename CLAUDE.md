@@ -12,7 +12,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-compose.stack.yml -f docker-compose.stack.fixedport.yml up -d --build
 ```
 
-## Documentation
+**React UI (local):**
+```shell
+./gradlew :media-player-ui:npmStart
+```
+
+**Auth token:** `123` (for local development)
+
+Never search from the path `/`.
+
+
+
+## Sub-Agent Routing Rules
+ 
+**Parallel dispatch** (ALL conditions must be met):
+ 
+- 3+ unrelated tasks or independent domains
+- No shared state between tasks
+- Clear file boundaries with no overlap
+ 
+**Sequential dispatch** (ANY condition triggers):
+ 
+- Tasks have dependencies (B needs output from A)
+- Shared files or state (merge conflict risk)
+- Unclear scope (need to understand before proceeding)
+ 
+**Background dispatch**:
+ 
+- Research or analysis tasks (not file modifications)
+- Results aren't blocking your current work
+
+## Documentation Search
+If you are looking for spring documentation you can try the following directories
+
 ** Spring boot **
 ```
 ../spring-boot
@@ -21,7 +53,8 @@ docker compose -f docker-compose.yml -f docker-compose.fixedport.yml -f docker-c
 ** Spring Jpa
 ```
 ../spring-data-jpa
-```
+
+## Gradle
 
 For
 
@@ -33,20 +66,12 @@ for example building the mysql driver should be done as
 ./gradlew :drivers:mysql-driver:build
 ```
 
-**React UI (local):**
-```shell
-cd media-player-ui && npm install && npm start
 ```
-
-**Auth token:** `123` (for local development)
-
-Never search from the path `/`.
-
-## Gradle Build Types
+### Gradle Build Types
 
 This project uses two types of Gradle build structures:
 
-### Composite Builds
+#### Composite Builds
 These are top-level modules that include other builds in the composite:
 - `root` (MediaPlayer) - Main entry point
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
@@ -57,7 +82,7 @@ These are top-level modules that include other builds in the composite:
 
 These are included using `includeBuild("path")` in settings.gradle.kts files.
 
-### Regular Submodules
+#### Regular Submodules
 These are individual projects that exist within composite builds:
 - `drivers/mysql-driver/`
 - `drivers/postgres-driver/`
@@ -70,7 +95,7 @@ These are included using `include(":project-name")` in their parent's settings.g
 - **Composite builds** (`includeBuild`) - These can be built independently and include other builds
 - **Regular submodules** (`include`) - These are projects within a composite build that depend on each other
 
-## Gradle Plugins
+### Gradle Plugins
 Gradle plugins allow centralizing common build tasks into a central location.  They are located in the `gradle-plugins` submodule.
 
 For example, common build tasks for all java applications are in the file `gradle-plugins/src/main/kotlin/java-convention.gradle.kts`
@@ -144,7 +169,7 @@ When looking for dependencies:
 - **Build process**: When `bootJar` is run, Gradle packages all necessary dependencies into executable JARs
 
 This means:
-1. When you reference `org.example.drivers:mysql-driver` in a build.gradle.kts, it resolves to the local project
+1. When you reference `org.amoeba.example.drivers:mysql-driver` in a build.gradle.kts, it resolves to the local project
 2. When you reference external libraries, they are resolved from Maven repositories
 
 ## Architecture
@@ -190,7 +215,7 @@ Information about dependencies for a module are stored in `settings.gradle.kts` 
 
 All applications do the following
 ```
-@SpringBootApplication(scanBasePackages = {"org.example"})  
+@SpringBootApplication(scanBasePackages = {"org.amoeba.example"})  
 ```
 so that libraries that are defined in other modules are automatically imported
 

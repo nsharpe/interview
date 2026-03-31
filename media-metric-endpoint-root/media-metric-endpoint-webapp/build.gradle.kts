@@ -2,7 +2,7 @@ plugins {
     id("web-convention")
 }
 
-group = "org.example.media.metric"
+group = "org.amoeba.example.media.metric"
 
 tasks.bootBuildImage {
     imageName = "media-metric/media-metric-endpoint:test"
@@ -25,10 +25,10 @@ openApi {
 }
 
 dependencies {
-    implementation("org.example.web:spring-web")
+    implementation("org.amoeba.example.web:spring-web")
 
     // SQL
-    implementation("org.example.drivers:postgres-driver")
+    implementation("org.amoeba.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 

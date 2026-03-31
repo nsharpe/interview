@@ -149,7 +149,7 @@ This application provides a collection of submodules to act as opinionated setup
 
 In order to quickly connect with these opinionated pieces, you should have the following in your application at a minimum
 ```java
-@SpringBootApplication(scanBasePackages = {"org.example"})
+@SpringBootApplication(scanBasePackages = {"org.amoeba.example"})
 public class YourApplication {
 
   public static void main(String[] args) {

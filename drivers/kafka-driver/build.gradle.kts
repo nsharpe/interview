@@ -2,11 +2,11 @@ plugins {
     id("boot-library")
 }
 
-group = "org.example.drivers"
+group = "org.amoeba.example.drivers"
 
 dependencies {
-    api("org.example.core:java-core")
-    api("org.example.avro:avro-model")
+    api("org.amoeba.example.core:java-core")
+    api("org.amoeba.example.avro:avro-model")
 
     api("org.springframework.kafka:spring-kafka")
 }

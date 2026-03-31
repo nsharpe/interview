@@ -2,7 +2,7 @@ plugins {
     id("web-sdk")
 }
 
-group = "org.example.public.rest"
+group = "org.amoeba.example.public.rest"
 
 tasks.openApiGenerate {
     dependsOn(":user-management-endpoint-webapp:generateOpenApiDocs")
@@ -20,5 +20,5 @@ sourceSets {
 
 sdkConfig {
     specFile.set(rootProject.layout.projectDirectory.file("user-management-endpoint-webapp/build/api-spec.json"))
-    basePackage.set("org.example.publicrest.sdk")
+    basePackage.set("org.amoeba.example.publicrest.sdk")
 }

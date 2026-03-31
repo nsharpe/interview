@@ -2,7 +2,7 @@ plugins {
     id("java-convention")
 }
 
-group = "org.example.drivers"
+group = "org.amoeba.example.drivers"
 
 tasks.clean{
     subprojects.forEach { proj ->

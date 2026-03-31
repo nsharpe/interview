@@ -5,10 +5,10 @@ plugins {
 
 evaluationDependsOnChildren()
 
-group = "org.example.media.player"
+group = "org.amoeba.example.media.player"
 
 dependencies {
-    api("org.example.core:java-core")
+    api("org.amoeba.example.core:java-core")
     api("org.springframework.boot:spring-boot-starter-webflux")
 
     api("org.openapitools:jackson-databind-nullable:0.2.6")
@@ -41,9 +41,9 @@ openApiGenerate {
     inputSpec.set(specFile.asFile.absolutePath)
     outputDir.set(generatedSourcesDir.map { it.asFile.absolutePath })
 
-    apiPackage.set("org.example.media.player.sdk.api")
-    modelPackage.set("org.example.media.player.sdk.models")
-    invokerPackage.set("org.example.media.player.sdk.invoker")
+    apiPackage.set("org.amoeba.example.media.player.sdk.api")
+    modelPackage.set("org.amoeba.example.media.player.sdk.models")
+    invokerPackage.set("org.amoeba.example.media.player.sdk.invoker")
 
     configOptions.set(mapOf(
         "dateLibrary" to "java8",

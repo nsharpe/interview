@@ -2,7 +2,7 @@ plugins{
     id("boot-library")
 }
 
-group = "org.example.web"
+group = "org.amoeba.example.web"
 
 val projectJarPaths = configurations.implementation.map { config ->
     config.allDependencies
@@ -15,7 +15,7 @@ tasks.jar{
 }
 
 dependencies {
-    api("org.example.pod:spring-pod")
+    api("org.amoeba.example.pod:spring-pod")
     api(project(":security"))
 
     // Web and documentation
