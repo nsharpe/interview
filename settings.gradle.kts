@@ -11,8 +11,6 @@ includeBuild("drivers")
 includeBuild("libs")
 
 includeBuild("avro-model")
-// Pod setup
-includeBuild("kafka-pod")
 
 // Rest Deployable
 includeBuild("admin-endpoint-root")
@@ -23,7 +21,6 @@ includeBuild("qa-endpoint-root")
 
 includeBuild("media-metric-endpoint-root")
 // UI
-
 includeBuild("media-player-ui")
 includeBuild("test-data")
 
