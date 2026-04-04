@@ -13,7 +13,6 @@ includeBuild("libs")
 includeBuild("avro-model")
 // Pod setup
 includeBuild("kafka-pod")
-includeBuild("spring-pod")
 
 // Rest Deployable
 includeBuild("admin-endpoint-root")
