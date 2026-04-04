@@ -2,8 +2,8 @@ package org.amoeba.example.test.data;
 
 import org.amoeba.example.admin.sdk.api.UserAdminControllerApi;
 import org.amoeba.example.admin.sdk.models.AdminAuthorization;
+import org.amoeba.example.apps.user_management.sdk.models.UserModel;
 import org.amoeba.example.core.model.AuthenticationInfo;
-import org.amoeba.example.publicrest.sdk.models.UserModel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -21,7 +21,7 @@ dependencies {
     api("org.amoeba.example.drivers:redis-driver")
     api("net.datafaker:datafaker:2.5.3")
     api("org.amoeba.example.media.management:media-management-sdk")
-    api("org.amoeba.example.public.rest:user-management-endpoint-sdk")
+    api("org.amoeba.example.apps.user_management.sdk:user-management-endpoint-sdk")
     api("org.amoeba.example.media.player:media-player-endpoint-sdk")
     api("org.amoeba.example.admin:admin-sdk")
 

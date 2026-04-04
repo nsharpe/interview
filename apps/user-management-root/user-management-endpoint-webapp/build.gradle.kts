@@ -2,10 +2,10 @@ plugins {
     id("web-convention")
 }
 
-group = "org.amoeba.example.public.rest"
+group = "org.amoeba.example.apps.user-management"
 
 tasks.bootBuildImage {
-    imageName = "media-player/public-rest-endpoint:test"
+    imageName = "media-player/user-rest-endpoint:test"
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {

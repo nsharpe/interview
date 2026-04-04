@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import org.amoeba.example.admin.sdk.api.UserAdminControllerApi;
 import org.amoeba.example.admin.sdk.models.UserModelPage;
-import org.amoeba.example.publicrest.sdk.models.UserModel;
+import org.amoeba.example.apps.user_management.sdk.models.UserModel;
 import org.amoeba.example.test.data.AuthenticationGenerator;
 import org.amoeba.example.test.data.UserGenerator;
 import org.amoeba.example.test.util.TestContainers;

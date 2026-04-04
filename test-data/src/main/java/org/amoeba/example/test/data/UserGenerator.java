@@ -3,10 +3,10 @@ package org.amoeba.example.test.data;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.amoeba.example.publicrest.sdk.api.UserControllerApi;
-import org.amoeba.example.publicrest.sdk.invoker.ApiClient;
-import org.amoeba.example.publicrest.sdk.models.CreateUserModel;
-import org.amoeba.example.publicrest.sdk.models.UserModel;
+import org.amoeba.example.apps.user_management.sdk.api.UserControllerApi;
+import org.amoeba.example.apps.user_management.sdk.invoker.ApiClient;
+import org.amoeba.example.apps.user_management.sdk.models.CreateUserModel;
+import org.amoeba.example.apps.user_management.sdk.models.UserModel;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

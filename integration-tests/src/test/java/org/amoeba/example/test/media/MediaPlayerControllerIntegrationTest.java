@@ -3,10 +3,11 @@ package org.amoeba.example.test.media;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.amoeba.example.apps.user_management.sdk.models.UserModel;
 import org.amoeba.example.media.management.sdk.models.EpisodeModel;
 import org.amoeba.example.media.metric.sdk.api.MediaPerformanceControllerApi;
 import org.amoeba.example.media.metric.sdk.models.MediaMetricModel;
-import org.amoeba.example.publicrest.sdk.models.UserModel;
+
 import org.amoeba.example.test.data.AuthenticationGenerator;
 import org.amoeba.example.test.data.EpisodeGenerator;
 import org.amoeba.example.test.data.UserGenerator;

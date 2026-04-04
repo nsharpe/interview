@@ -1,7 +1,7 @@
 package org.amoeba.example.publicrest.sdk;
 
-import org.amoeba.example.publicrest.sdk.api.UserControllerApi;
-import org.amoeba.example.publicrest.sdk.invoker.ApiClient;
+import org.amoeba.example.apps.user_management.sdk.api.UserControllerApi;
+import org.amoeba.example.apps.user_management.sdk.invoker.ApiClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

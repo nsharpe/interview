@@ -180,6 +180,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── apps/
     ├── admin-endpoint-root/   - Admin API for user management
+    ├── user-management-root/  - User management tools API + SDKs
 ├── libs/
     ├── avro-model         - All avro models are stored here, all kafka streams should use avro for key and records
     ├── series/            - TV series/movies domain (MySQL)
@@ -196,7 +197,6 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── integration-tests/     - Integration tests (runs full docker stack)
 ├── media-management-root/       - Media CRUD endpoints + SDKs
     ├── media-management-webapp/ - The spring boot application for MediaManagement
-├── user-management-root/   - User management tools API + SDKs
 ├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking
 ├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database

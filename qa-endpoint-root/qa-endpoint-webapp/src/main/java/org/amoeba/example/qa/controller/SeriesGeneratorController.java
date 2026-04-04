@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.amoeba.example.media.management.sdk.models.SeriesModel;
-import org.amoeba.example.publicrest.sdk.models.UserModel;
 import org.amoeba.example.test.data.MovieGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

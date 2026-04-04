@@ -23,7 +23,7 @@ public abstract class TestContainers {
                             .withStartupTimeout(Duration.ofMinutes(3)))
                     .withExposedService("redis", REDIS_PORT, Wait.forListeningPort())
                     .withExposedService("broker", 9092, Wait.forListeningPort())
-                    .withExposedService("public-rest", 9080,
+                    .withExposedService("user-management", 9080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("media-management", 9090,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
@@ -43,7 +43,7 @@ public abstract class TestContainers {
                     .withStartupTimeout(Duration.ofMinutes(3))
                     .withOptions("--compatibility")
                     .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
-                    .withLogConsumer("public-rest", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
+                    .withLogConsumer("user-management", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
                     .withLogConsumer("admin-app", new Slf4jLogConsumer(LoggerFactory.getLogger("AdminApp")))
                     .withLogConsumer("qa-endpoint-app", new Slf4jLogConsumer(LoggerFactory.getLogger("QaEndpoint")))
                     .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")));
@@ -55,7 +55,7 @@ public abstract class TestContainers {
     @DynamicPropertySource
     public static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("publicrest.port", TestContainers::getPublicRestPort);
-        registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("public-rest", 9080));
+        registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("user-management", 9080));
 
         registry.add("admin.endpoint.port", TestContainers::getAdminPort);
         registry.add("admin.endpoint.host", TestContainers::getAdminHost);
@@ -85,17 +85,17 @@ public abstract class TestContainers {
         return ENVIRONMENT.getServicePort("media-management", 9090);
     }
 
-    public static org.amoeba.example.publicrest.sdk.invoker.ApiClient publicRestApiClient() {
-        return new org.amoeba.example.publicrest.sdk.invoker.ApiClient(WebClient.builder().build())
+    public static org.amoeba.example.apps.user_management.sdk.invoker.ApiClient publicRestApiClient() {
+        return new org.amoeba.example.apps.user_management.sdk.invoker.ApiClient(WebClient.builder().build())
                 .setBasePath("http://localhost:" + getPublicRestPort());
     }
 
     public static int getPublicRestPort(){
-        return ENVIRONMENT.getServicePort("public-rest", 9080);
+        return ENVIRONMENT.getServicePort("user-management", 9080);
     }
 
     public static String getPublicRestHost(){
-        return ENVIRONMENT.getServiceHost("public-rest", 9080);
+        return ENVIRONMENT.getServiceHost("user-management", 9080);
     }
 
     public static org.amoeba.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {

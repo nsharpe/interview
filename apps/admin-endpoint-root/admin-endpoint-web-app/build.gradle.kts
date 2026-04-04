@@ -31,7 +31,7 @@ dependencies {
     implementation("org.amoeba.example.libs:users")
 
     implementation("org.amoeba.example.media.management:media-management-sdk")
-    implementation("org.amoeba.example.public.rest:user-management-endpoint-sdk")
+    implementation(project(":user-management-root:user-management-endpoint-sdk"))
 
     // SQL
     implementation("org.amoeba.example.drivers:postgres-driver")

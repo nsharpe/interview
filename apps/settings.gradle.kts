@@ -9,11 +9,15 @@ include(":admin-endpoint-root:admin-endpoint-web-app")
 include(":admin-endpoint-root:admin-sdk")
 include(":admin-endpoint-root:admin-typescript-sdk")
 
+include(":user-management-root")
+include(":user-management-root:user-management-endpoint-webapp")
+include(":user-management-root:user-management-endpoint-sdk")
+include(":user-management-root:user-management-endpoint-typescript-sdk")
+
 
 includeBuild("../gradle-plugins")
 includeBuild("../util")
 includeBuild("../spring-util")
 includeBuild("../media-management-root")
-includeBuild("../user-management-root")
 includeBuild("../drivers")
 includeBuild("../libs")

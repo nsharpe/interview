@@ -1,6 +1,6 @@
 services:
 
-  public-rest:
+  user-management:
     ports:
       - "9080:9080"
       - "9081:9081"

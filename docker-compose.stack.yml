@@ -26,10 +26,10 @@ services:
              done; 
              echo 'kafka, kafka-connect And Schema Registry is up';"
 
-  public-rest:
+  user-management:
     build:
-      context: user-management-root/user-management-endpoint-webapp
-      dockerfile: ../../Dockerfile
+      context: apps/user-management-root/user-management-endpoint-webapp
+      dockerfile: ../../../Dockerfile
     ports:
       - "9080"
       - "9081"
@@ -184,7 +184,7 @@ services:
     depends_on:
       admin-app:
         condition: service_healthy
-      public-rest:
+      user-management:
         condition: service_healthy
       media-management:
         condition: service_healthy

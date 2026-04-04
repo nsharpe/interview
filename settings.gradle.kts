@@ -13,7 +13,6 @@ includeBuild("libs")
 includeBuild("apps")
 // Rest Deployable
 includeBuild("media-management-root")
-includeBuild("user-management-root")
 includeBuild("media-player-endpoint-root")
 includeBuild("qa-endpoint-root")
 

@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.amoeba.example.admin.config.openapi.UserModelPage;
-import org.amoeba.example.publicrest.sdk.api.UserControllerApi;
+import org.amoeba.example.apps.user_management.sdk.api.UserControllerApi;
 import org.amoeba.example.users.UserModel;
 import org.amoeba.example.users.UserRepository;
 import org.springdoc.core.annotations.ParameterObject;
