@@ -2,14 +2,13 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name = "admin-endpoint-root"
+rootProject.name = "apps"
 
-include(":admin-endpoint-web-app")
-include(":admin-sdk")
-include(":admin-typescript-sdk")
+include(":admin-endpoint-root")
+include(":admin-endpoint-root:admin-endpoint-web-app")
+include(":admin-endpoint-root:admin-sdk")
+include(":admin-endpoint-root:admin-typescript-sdk")
 
-project(":admin-endpoint-web-app").name = "admin-endpoint-web-app"
-project(":admin-sdk").name = "admin-sdk"
 
 includeBuild("../gradle-plugins")
 includeBuild("../util")

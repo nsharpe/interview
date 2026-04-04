@@ -10,8 +10,8 @@ includeBuild("spring-util")
 includeBuild("drivers")
 includeBuild("libs")
 
+includeBuild("apps")
 // Rest Deployable
-includeBuild("admin-endpoint-root")
 includeBuild("media-management-root")
 includeBuild("user-management-root")
 includeBuild("media-player-endpoint-root")

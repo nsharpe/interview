@@ -1,0 +1,12 @@
+plugins {
+    id("typescript-sdk")
+}
+
+tasks.openApiGenerate {
+    dependsOn(":admin-endpoint-root:admin-endpoint-web-app:generateOpenApiDocs")
+}
+
+sdkConfig {
+    specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint-root/admin-endpoint-web-app/build/api-spec.json"))
+    npmName.set("media-player-admin-client")
+}
