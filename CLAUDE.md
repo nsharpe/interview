@@ -184,17 +184,18 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 │   ├── series/            - TV series/movies domain (MySQL)
 │   └── users/             - User domain (PostgreSQL)
 ├── util/                  - Utility packages
-│   └── java-core/         - Shared java models and utilities that don't require spring
+    └── java-core/         - Shared java models and utilities that don't require spring
 ├── drivers/               - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
     ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations
     ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion
     ├── postgres-driver/   - Embeded jpa classes for postgres, along with postgres helpers and configurations
     ├── redis-driver/      - Everything needed for redis
+├── spring-util/           - Provides a variety of spring specific utilities
+    └── spring-rest/       - Provides beans for rest controllers   
 ├── integration-tests/     - Integration tests (runs full docker stack)
 ├── media-management-root/       - Media CRUD endpoints + SDKs
     ├── media-management-webapp/ - The spring boot application for MediaManagement
 ├── user-management-root/   - User management tools API + SDKs
-├── spring-rest/            - Common Spring config, beans, and classes (security, web)
 ├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking
 ├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database

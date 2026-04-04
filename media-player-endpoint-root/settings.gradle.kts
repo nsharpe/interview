@@ -10,7 +10,7 @@ include(":media-player-typescript-sdk")
 
 includeBuild("../gradle-plugins")
 includeBuild("../util")
-includeBuild("../spring-rest")
+includeBuild("../spring-util")
 includeBuild("../drivers")
 includeBuild("../libs")
 
