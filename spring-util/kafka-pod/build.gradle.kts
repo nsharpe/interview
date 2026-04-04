@@ -6,6 +6,7 @@ group = "org.amoeba.example.pod.kafka"
 
 dependencies {
     api("org.amoeba.example.drivers:kafka-driver")
+    api("org.amoeba.example.avro:avro-model")
     api("org.amoeba.example.pod:spring-pod")
 }
 

@@ -10,8 +10,6 @@ includeBuild("spring-util")
 includeBuild("drivers")
 includeBuild("libs")
 
-includeBuild("avro-model")
-
 // Rest Deployable
 includeBuild("admin-endpoint-root")
 includeBuild("media-management-root")

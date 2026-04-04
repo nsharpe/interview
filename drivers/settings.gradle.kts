@@ -10,5 +10,3 @@ include("kafka-driver")
 include("redis-driver")
 
 includeBuild("../gradle-plugins")
-includeBuild("../avro-model")
-

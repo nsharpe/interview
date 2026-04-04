@@ -177,12 +177,12 @@ This means:
 This is a **monorepo** with Spring Boot Gradle composite build, organized by domain:
 
 ```
-├── avro-model              - All avro models are stored here, and all kafka streams use avro for key and records
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
-├── admin-endpoint-root/         - Admin API for user management
+├── admin-endpoint-root/   - Admin API for user management
 ├── libs/
-│   ├── series/            - TV series/movies domain (MySQL)
-│   └── users/             - User domain (PostgreSQL)
+    ├── avro-model         - All avro models are stored here, all kafka streams should use avro for key and records
+    ├── series/            - TV series/movies domain (MySQL)
+    └── users/             - User domain (PostgreSQL)
 ├── util/                  - Utility packages
     └── java-core/         - Shared java models and utilities that don't require spring
 ├── drivers/               - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts

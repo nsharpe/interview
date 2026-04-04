@@ -6,6 +6,7 @@ rootProject.name="libs"
 
 include("series")
 include("users")
+include("avro-model")
 
 includeBuild("../util")
 includeBuild("../gradle-plugins")
