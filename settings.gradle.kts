@@ -6,7 +6,7 @@ rootProject.name = "media-ecosystem"
 
 includeBuild("gradle-plugins")
 includeBuild("avro-model")
-includeBuild("java-core")
+includeBuild("util")
 includeBuild("drivers")
 includeBuild("libs")
 

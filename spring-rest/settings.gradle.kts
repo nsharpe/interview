@@ -8,6 +8,6 @@ include("security")
 include("spring-web")
 
 includeBuild("../spring-pod")
-includeBuild("../java-core")
+includeBuild("../util")
 includeBuild("../gradle-plugins")
 includeBuild("../drivers")

@@ -183,7 +183,8 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── libs/
 │   ├── series/            - TV series/movies domain (MySQL)
 │   └── users/             - User domain (PostgreSQL)
-├── java-core/             - Shared java models and utilities that don't require spring
+├── util/                  - Utility packages
+│   └── java-core/         - Shared java models and utilities that don't require spring
 ├── drivers/               - Database drivers (MySQL, PostgreSQL, Redis, Kafka), and flyway migration scripts
     ├── kafka-driver/      - Kafka helper functions, configurations, and topic locations
     ├── mysql-driver/      - Embeded jpa classes for mysql, along with mysql helpers and configurstion

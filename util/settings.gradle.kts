@@ -2,7 +2,8 @@ pluginManagement {
     includeBuild("../gradle-plugins")
 }
 
-rootProject.name = "spring-pod"
+rootProject.name="util"
+
+include("java-core")
 
 includeBuild("../gradle-plugins")
-includeBuild("../util")

@@ -9,7 +9,7 @@ include(":user-management-endpoint-sdk")
 include(":user-management-endpoint-typescript-sdk")
 
 includeBuild("../gradle-plugins")
-includeBuild("../java-core")
+includeBuild("../util")
 includeBuild("../spring-rest")
 includeBuild("../drivers")
 includeBuild("../libs")
