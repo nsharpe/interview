@@ -19,6 +19,10 @@ include(":media-management-root:media-management-webapp")
 include(":media-management-root:media-management-sdk")
 include(":media-management-root:media-management-typescript-sdk")
 
+include(":media-metric-endpoint-root:media-metric-endpoint-webapp")
+include(":media-metric-endpoint-root:media-metric-endpoint-sdk")
+include(":media-metric-endpoint-root:media-metric-typescript-sdk")
+
 includeBuild("../gradle-plugins")
 includeBuild("../util")
 includeBuild("../spring-util")

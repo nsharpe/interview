@@ -17,7 +17,7 @@
     "media-player-public-rest-client": "file:../apps/user-management-root/user-management-endpoint-typescript-sdk/build/src/generated",
     "media-player-qa-client": "file:../qa-endpoint-root/qa-endpoint-typescript-sdk/build/src/generated",
     "media-player-media-player-client": "file:../media-player-endpoint-root/media-player-typescript-sdk/build/src/generated",
-    "media-metric-media-player-client": "file:../media-metric-endpoint-root/media-metric-typescript-sdk/build/src/generated",
+    "media-metric-media-player-client": "file:../apps/media-metric-endpoint-root/media-metric-typescript-sdk/build/src/generated",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",

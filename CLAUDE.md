@@ -181,6 +181,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── apps/
     ├── admin-endpoint-root/   - Admin API for user management
     ├── user-management-root/  - User management tools API + SDKs
+    ├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
 ├── libs/
     ├── avro-model         - All avro models are stored here, all kafka streams should use avro for key and records
     ├── series/            - TV series/movies domain (MySQL)
@@ -200,7 +201,6 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking
 ├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database
-├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
 └── qa-endpoint-root/      - QA/generator endpoints
 ```
 

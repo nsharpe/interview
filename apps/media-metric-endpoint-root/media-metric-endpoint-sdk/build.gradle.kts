@@ -5,7 +5,7 @@ plugins {
 group = "org.amoeba.example.media.metric"
 
 tasks.openApiGenerate {
-    dependsOn(":media-metric-endpoint-webapp:generateOpenApiDocs")
+    dependsOn(":media-metric-endpoint-root:media-metric-endpoint-webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +19,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("media-metric-endpoint-webapp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("media-metric-endpoint-root/media-metric-endpoint-webapp/build/api-spec.json"))
     basePackage.set("org.amoeba.example.media.metric.sdk")
 }
