@@ -5,7 +5,7 @@ plugins {
 group = "org.amoeba.example.media.management"
 
 tasks.openApiGenerate {
-    dependsOn(":media-management-webapp:generateOpenApiDocs")
+    dependsOn(":media-management-root:media-management-webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +19,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("media-management-webapp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("media-management-root/media-management-webapp/build/api-spec.json"))
     basePackage.set("org.amoeba.example.media.management.sdk")
 }

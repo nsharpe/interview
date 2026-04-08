@@ -55,8 +55,8 @@ services:
 
   media-management:
     build:
-      context: media-management-root/media-management-webapp
-      dockerfile: ../../Dockerfile
+      context: apps/media-management-root/media-management-webapp
+      dockerfile: ../../../Dockerfile
     ports:
       - "9090"
       - "9091"
