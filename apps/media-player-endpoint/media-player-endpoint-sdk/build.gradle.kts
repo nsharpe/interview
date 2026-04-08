@@ -20,11 +20,11 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
 }
 
-val specFile = rootProject.layout.projectDirectory.file("media-player-endpoint-root/media-player-endpoint-webapp/build/api-spec.json")
+val specFile = rootProject.layout.projectDirectory.file("media-player-endpoint/media-player-endpoint-webapp/build/api-spec.json")
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
 
 tasks.openApiGenerate {
-    dependsOn(":media-player-endpoint-root:media-player-endpoint-webapp:generateOpenApiDocs")
+    dependsOn(":media-player-endpoint:media-player-endpoint-webapp:generateOpenApiDocs")
 }
 
 tasks.spotbugsMain{

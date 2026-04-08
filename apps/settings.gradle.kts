@@ -24,9 +24,9 @@ include(":media-metric-endpoint:media-metric-endpoint-sdk")
 include(":media-metric-endpoint:media-metric-typescript-sdk")
 
 
-include(":media-player-endpoint-root:media-player-endpoint-webapp")
-include(":media-player-endpoint-root:media-player-endpoint-sdk")
-include(":media-player-endpoint-root:media-player-typescript-sdk")
+include(":media-player-endpoint:media-player-endpoint-webapp")
+include(":media-player-endpoint:media-player-endpoint-sdk")
+include(":media-player-endpoint:media-player-typescript-sdk")
 
 includeBuild("../gradle-plugins")
 includeBuild("../util")

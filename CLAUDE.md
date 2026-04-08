@@ -199,7 +199,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── media-management/       - Media CRUD endpoints + SDKs
     ├── media-management-webapp/ - The spring boot application for MediaManagement
 ├── test-data/              - Test data generators.  This creates random users, movies etc
-├── media-player-endpoint-root/ - Media player event tracking
+├── media-player-endpoint/ - Media player event tracking
 ├── migration-scripts/      -  Holds all database migration scripts.  These scripts can be used to get information about the database
 └── qa-endpoint-root/      - QA/generator endpoints
 ```
