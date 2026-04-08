@@ -76,7 +76,7 @@ These are top-level modules that include other builds in the composite:
 - `root` (MediaPlayer) - Main entry point
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
 - `libs/` - Domain-specific modules
-- `media-management-root/` - Media CRUD endpoints
+- `media-management/` - Media CRUD endpoints
 - `user-management-root/` - Public API endpoints
 - And others...
 
@@ -196,7 +196,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── spring-util/           - Provides a variety of spring specific utilities
     └── spring-rest/       - Provides beans for rest controllers   
 ├── integration-tests/     - Integration tests (runs full docker stack)
-├── media-management-root/       - Media CRUD endpoints + SDKs
+├── media-management/       - Media CRUD endpoints + SDKs
     ├── media-management-webapp/ - The spring boot application for MediaManagement
 ├── test-data/              - Test data generators.  This creates random users, movies etc
 ├── media-player-endpoint-root/ - Media player event tracking
