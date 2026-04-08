@@ -179,7 +179,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ```
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── apps/
-    ├── admin-endpoint-root/   - Admin API for user management
+    ├── admin-endpoint/        - Admin API for user management
     ├── user-management-root/  - User management tools API + SDKs
     ├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
 ├── libs/

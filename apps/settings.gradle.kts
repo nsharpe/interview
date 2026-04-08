@@ -4,10 +4,10 @@ pluginManagement {
 
 rootProject.name = "apps"
 
-include(":admin-endpoint-root")
-include(":admin-endpoint-root:admin-endpoint-web-app")
-include(":admin-endpoint-root:admin-sdk")
-include(":admin-endpoint-root:admin-typescript-sdk")
+include(":admin-endpoint")
+include(":admin-endpoint:admin-endpoint-web-app")
+include(":admin-endpoint:admin-sdk")
+include(":admin-endpoint:admin-typescript-sdk")
 
 include(":user-management-root")
 include(":user-management-root:user-management-endpoint-webapp")

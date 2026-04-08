@@ -135,7 +135,7 @@ services:
 
   admin-app:
     build:
-      context: apps/admin-endpoint-root/admin-endpoint-web-app
+      context: apps/admin-endpoint/admin-endpoint-web-app
       dockerfile: ../../../Dockerfile
     ports:
       - "9110"
