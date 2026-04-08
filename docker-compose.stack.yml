@@ -110,8 +110,8 @@ services:
 
   media-player-endpoint:
     build:
-      context: media-player-endpoint-root/media-player-endpoint-webapp
-      dockerfile: ../../Dockerfile
+      context: apps/media-player-endpoint-root/media-player-endpoint-webapp
+      dockerfile: ../../../Dockerfile
     ports:
       - "9100"
       - "9101"

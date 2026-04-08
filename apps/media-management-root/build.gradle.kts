@@ -10,10 +10,4 @@ tasks.build{
     dependsOn(":media-management-root:media-management-typescript-sdk:publishSdkLocally")
 }
 
-tasks.clean{
-    subprojects.forEach { proj ->
-        dependsOn(proj.tasks.matching { it.name == "clean" })
-    }
-}
-
 group = "org.amoeba.example.media.management"

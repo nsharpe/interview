@@ -12,7 +12,6 @@ includeBuild("libs")
 
 includeBuild("apps")
 // Rest Deployable
-includeBuild("media-player-endpoint-root")
 includeBuild("qa-endpoint-root")
 
 // UI

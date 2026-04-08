@@ -23,6 +23,11 @@ include(":media-metric-endpoint-root:media-metric-endpoint-webapp")
 include(":media-metric-endpoint-root:media-metric-endpoint-sdk")
 include(":media-metric-endpoint-root:media-metric-typescript-sdk")
 
+
+include(":media-player-endpoint-root:media-player-endpoint-webapp")
+include(":media-player-endpoint-root:media-player-endpoint-sdk")
+include(":media-player-endpoint-root:media-player-typescript-sdk")
+
 includeBuild("../gradle-plugins")
 includeBuild("../util")
 includeBuild("../spring-util")
