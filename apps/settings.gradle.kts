@@ -19,9 +19,9 @@ include(":media-management:media-management-webapp")
 include(":media-management:media-management-sdk")
 include(":media-management:media-management-typescript-sdk")
 
-include(":media-metric-endpoint-root:media-metric-endpoint-webapp")
-include(":media-metric-endpoint-root:media-metric-endpoint-sdk")
-include(":media-metric-endpoint-root:media-metric-typescript-sdk")
+include(":media-metric-endpoint:media-metric-endpoint-webapp")
+include(":media-metric-endpoint:media-metric-endpoint-sdk")
+include(":media-metric-endpoint:media-metric-typescript-sdk")
 
 
 include(":media-player-endpoint-root:media-player-endpoint-webapp")

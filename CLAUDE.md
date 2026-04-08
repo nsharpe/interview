@@ -181,7 +181,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── apps/
     ├── admin-endpoint/        - Admin API for user management
     ├── user-management-root/  - User management tools API + SDKs
-    ├── media-metric-endpoint-root/ - provides endpoints for users to get information about the performance of a piece of media
+    ├── media-metric-endpoint/ - provides endpoints for users to get information about the performance of a piece of media
 ├── libs/
     ├── avro-model         - All avro models are stored here, all kafka streams should use avro for key and records
     ├── series/            - TV series/movies domain (MySQL)

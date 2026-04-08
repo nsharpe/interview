@@ -85,7 +85,7 @@ services:
 
   media-metrics:
     build:
-      context: apps/media-metric-endpoint-root/media-metric-endpoint-webapp
+      context: apps/media-metric-endpoint/media-metric-endpoint-webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "8080"
