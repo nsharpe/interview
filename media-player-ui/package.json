@@ -14,7 +14,7 @@
     "axios": "^1.13.4",
     "media-player-media-management-client": "file:../apps/media-management/media-management-typescript-sdk/build/src/generated",
     "media-player-admin-client": "file:../apps/admin-endpoint/admin-typescript-sdk/build/src/generated",
-    "media-player-public-rest-client": "file:../apps/user-management-root/user-management-endpoint-typescript-sdk/build/src/generated",
+    "media-player-public-rest-client": "file:../apps/user-management/user-management-endpoint-typescript-sdk/build/src/generated",
     "media-player-qa-client": "file:../qa-endpoint-root/qa-endpoint-typescript-sdk/build/src/generated",
     "media-player-media-player-client": "file:../apps/media-player-endpoint/media-player-typescript-sdk/build/src/generated",
     "media-metric-media-player-client": "file:../apps/media-metric-endpoint/media-metric-typescript-sdk/build/src/generated",

@@ -28,7 +28,7 @@ services:
 
   user-management:
     build:
-      context: apps/user-management-root/user-management-endpoint-webapp
+      context: apps/user-management/user-management-endpoint-webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "9080"

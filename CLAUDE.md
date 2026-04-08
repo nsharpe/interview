@@ -77,7 +77,7 @@ These are top-level modules that include other builds in the composite:
 - `drivers/` - Database drivers module (includes mysql-driver, postgres-driver, etc.)
 - `libs/` - Domain-specific modules
 - `media-management/` - Media CRUD endpoints
-- `user-management-root/` - Public API endpoints
+- `user-management/` - Public API endpoints
 - And others...
 
 These are included using `includeBuild("path")` in settings.gradle.kts files.
@@ -180,7 +180,7 @@ This is a **monorepo** with Spring Boot Gradle composite build, organized by dom
 ├── kafka-connect          - All configuration/shell scripts for running kafka connect
 ├── apps/
     ├── admin-endpoint/        - Admin API for user management
-    ├── user-management-root/  - User management tools API + SDKs
+    ├── user-management/  - User management tools API + SDKs
     ├── media-metric-endpoint/ - provides endpoints for users to get information about the performance of a piece of media
 ├── libs/
     ├── avro-model         - All avro models are stored here, all kafka streams should use avro for key and records
