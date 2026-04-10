@@ -7,6 +7,10 @@ evaluationDependsOnChildren()
 
 group = "org.amoeba.example.media.player"
 
+base {
+    archivesName = "media-player-sdk"
+}
+
 dependencies {
     api("org.amoeba.example.core:java-core")
     api("org.springframework.boot:spring-boot-starter-webflux")

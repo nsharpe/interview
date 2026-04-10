@@ -4,6 +4,10 @@ plugins {
 
 group = "org.amoeba.example.apps.user_management.sdk"
 
+base {
+    archivesName = "user-management-sdk"
+}
+
 tasks.openApiGenerate {
     dependsOn(":user-management:user-management-endpoint-webapp:generateOpenApiDocs")
 }

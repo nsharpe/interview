@@ -4,6 +4,10 @@ plugins {
 
 group = "org.amoeba.example.media.management"
 
+base {
+    archivesName = "media-management-sdk"
+}
+
 tasks.openApiGenerate {
     dependsOn(":media-management:media-management-webapp:generateOpenApiDocs")
 }

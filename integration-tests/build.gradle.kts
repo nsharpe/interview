@@ -32,7 +32,7 @@ dependencies {
     testImplementation(platform("org.testcontainers:testcontainers-bom:$testcontainersVersion"))
 
     implementation("org.amoeba.example.qa:qa-endpoint-sdk")
-    implementation("org.amoeba.example.media.metric:media-metric-endpoint-sdk")
+    implementation("org.amoeba.example.media.metric:sdk")
     testImplementation("org.amoeba.example.test.data:test-data")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:testcontainers-kafka")

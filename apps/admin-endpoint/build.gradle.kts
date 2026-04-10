@@ -4,6 +4,10 @@ plugins {
 
 group = "org.amoeba.example.admin"
 
+base {
+    archivesName = "admin-sdk"
+}
+
 tasks.spotbugsTest{
     enabled = false
 }
@@ -15,8 +19,8 @@ tasks.spotbugsMain{
 tasks.build{
     dependsOn(":admin-endpoint:admin-endpoint-web-app:build")
     dependsOn(":admin-endpoint:admin-endpoint-web-app:bootJar")
-    dependsOn(":admin-endpoint:admin-sdk:build")
-    dependsOn(":admin-endpoint:admin-sdk:openApiGenerate")
+    dependsOn(":admin-endpoint:sdk:build")
+    dependsOn(":admin-endpoint:sdk:openApiGenerate")
     dependsOn(":admin-endpoint:admin-typescript-sdk:publishSdkLocally")
 }
 

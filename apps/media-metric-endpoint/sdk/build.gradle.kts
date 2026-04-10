@@ -4,6 +4,10 @@ plugins {
 
 group = "org.amoeba.example.media.metric"
 
+base {
+    archivesName = "media-metric-sdk"
+}
+
 tasks.openApiGenerate {
     dependsOn(":media-metric-endpoint:media-metric-endpoint-webapp:generateOpenApiDocs")
 }

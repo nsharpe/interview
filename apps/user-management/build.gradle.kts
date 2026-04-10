@@ -15,8 +15,8 @@ tasks.spotbugsMain{
 tasks.build{
     dependsOn(":user-management:user-management-endpoint-webapp:build")
     dependsOn(":user-management:user-management-endpoint-webapp:bootJar")
-    dependsOn(":user-management:user-management-endpoint-sdk:build")
-    dependsOn(":user-management:user-management-endpoint-sdk:openApiGenerate")
+    dependsOn(":user-management:sdk:build")
+    dependsOn(":user-management:sdk:openApiGenerate")
     dependsOn(":user-management:user-management-endpoint-typescript-sdk:publishSdkLocally")
 }
 

@@ -30,8 +30,8 @@ dependencies {
     implementation("org.amoeba.example.web:spring-web")
     implementation("org.amoeba.example.libs:users")
 
-    implementation("org.amoeba.example.media.management:media-management-sdk")
-    implementation(project(":user-management:user-management-endpoint-sdk"))
+    implementation("org.amoeba.example.media.management:sdk")
+    implementation(project(":user-management:sdk"))
 
     // SQL
     implementation("org.amoeba.example.drivers:postgres-driver")
