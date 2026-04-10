@@ -1,10 +1,17 @@
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
-
 plugins {
     id("web-convention")
 }
 
-group = "org.amoeba.example.media.player"
+group = "org.amoeba.example.media.metric"
+
+base {
+    archivesName = "media-metric-webapp"
+}
+
+
+tasks.bootBuildImage {
+    imageName = "media-metric/media-metric-endpoint:test"
+}
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
@@ -13,7 +20,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8086/api-docs")
+    apiDocsUrl.set("http://localhost:8087/api-docs")
 
     customBootRun {
         args.set(listOf("--spring.profiles.active=openapi"))
@@ -24,8 +31,12 @@ openApi {
 
 dependencies {
     implementation("org.amoeba.example.web:spring-web")
-    implementation("org.amoeba.example.avro:avro-model")
-    implementation("org.amoeba.example.drivers:kafka-driver")
 
-    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
+    // SQL
+    implementation("org.amoeba.example.drivers:postgres-driver")
+    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("com.h2database:h2")
+
+    // Cache
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 }

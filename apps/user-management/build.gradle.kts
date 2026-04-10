@@ -13,8 +13,8 @@ tasks.spotbugsMain{
 }
 
 tasks.build{
-    dependsOn(":user-management:user-management-endpoint-webapp:build")
-    dependsOn(":user-management:user-management-endpoint-webapp:bootJar")
+    dependsOn(":user-management:webapp:build")
+    dependsOn(":user-management:webapp:bootJar")
     dependsOn(":user-management:sdk:build")
     dependsOn(":user-management:sdk:openApiGenerate")
     dependsOn(":user-management:user-management-endpoint-typescript-sdk:publishSdkLocally")

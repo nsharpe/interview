@@ -9,7 +9,7 @@ base {
 }
 
 tasks.openApiGenerate {
-    dependsOn(":user-management:user-management-endpoint-webapp:generateOpenApiDocs")
+    dependsOn(":user-management:webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -23,6 +23,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("user-management/user-management-endpoint-webapp/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("user-management/webapp/build/api-spec.json"))
     basePackage.set("org.amoeba.example.apps.user-management.sdk")
 }

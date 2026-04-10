@@ -6,7 +6,7 @@ This project handles all requests relating media, how it is structured, along wi
 ## Structure
 
 ```
-├── sdk/               - a java sdk built from media-management-webapp
-├── media-management-typescript-sdk     - a typescript sdk built from media-management-webapp
-├── media-management-webapp             - a deployable spring boot webapp with rest controllers
+├── sdk/               - a java sdk built from media-management:webapp
+├── media-management-typescript-sdk     - a typescript sdk built from media-management:webapp
+├── webapp             - a deployable spring boot webapp with rest controllers
 ```

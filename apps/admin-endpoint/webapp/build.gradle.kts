@@ -2,10 +2,14 @@ plugins {
     id("web-convention")
 }
 
-group = "org.amoeba.example.media.management"
+group = "org.amoeba.example.admin"
+
+base {
+    archivesName = "admin-webapp"
+}
 
 tasks.bootBuildImage {
-    imageName= "media-player/media-management:test"
+    imageName= "media-player/admin-endpoint:test"
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
@@ -15,7 +19,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8082/api-docs")
+    apiDocsUrl.set("http://localhost:8084/admin/api-docs")
 
     customBootRun {
         systemProperties.set(mapOf(
@@ -28,14 +32,15 @@ openApi {
 
 dependencies {
     implementation("org.amoeba.example.web:spring-web")
-    implementation("org.amoeba.example.libs:series")
+    implementation("org.amoeba.example.libs:users")
+
+    implementation("org.amoeba.example.media.management:sdk")
+    implementation(project(":user-management:sdk"))
 
     // SQL
-    implementation("org.amoeba.example.drivers:mysql-driver")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.amoeba.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 
-    // Cache
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 }

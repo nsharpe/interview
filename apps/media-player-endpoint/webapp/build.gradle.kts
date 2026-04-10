@@ -1,12 +1,15 @@
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
     id("web-convention")
 }
 
-group = "org.amoeba.example.apps.user-management"
+group = "org.amoeba.example.media.player"
 
-tasks.bootBuildImage {
-    imageName = "media-player/user-rest-endpoint:test"
+base {
+    archivesName = "media-player-webapp"
 }
+
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
@@ -15,7 +18,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8080/api-docs")
+    apiDocsUrl.set("http://localhost:8086/api-docs")
 
     customBootRun {
         args.set(listOf("--spring.profiles.active=openapi"))
@@ -24,16 +27,10 @@ openApi {
     }
 }
 
-
 dependencies {
     implementation("org.amoeba.example.web:spring-web")
-    implementation("org.amoeba.example.libs:users")
+    implementation("org.amoeba.example.avro:avro-model")
+    implementation("org.amoeba.example.drivers:kafka-driver")
 
-    // SQL
-    implementation("org.amoeba.example.drivers:postgres-driver")
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("com.h2database:h2")
-
-    // Cache
-    implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

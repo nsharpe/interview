@@ -17,8 +17,8 @@ tasks.spotbugsMain{
 }
 
 tasks.build{
-    dependsOn(":admin-endpoint:admin-endpoint-web-app:build")
-    dependsOn(":admin-endpoint:admin-endpoint-web-app:bootJar")
+    dependsOn(":admin-endpoint:webapp:build")
+    dependsOn(":admin-endpoint:webapp:bootJar")
     dependsOn(":admin-endpoint:sdk:build")
     dependsOn(":admin-endpoint:sdk:openApiGenerate")
     dependsOn(":admin-endpoint:admin-typescript-sdk:publishSdkLocally")

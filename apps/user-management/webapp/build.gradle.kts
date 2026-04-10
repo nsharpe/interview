@@ -2,10 +2,15 @@ plugins {
     id("web-convention")
 }
 
-group = "org.amoeba.example.media.metric"
+group = "org.amoeba.example.apps.user-management"
+
+base {
+    archivesName = "user-management-webapp"
+}
+
 
 tasks.bootBuildImage {
-    imageName = "media-metric/media-metric-endpoint:test"
+    imageName = "media-player/user-rest-endpoint:test"
 }
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
@@ -15,7 +20,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 openApi {
     outputDir.set(file("build"))
     outputFileName.set("api-spec.json")
-    apiDocsUrl.set("http://localhost:8087/api-docs")
+    apiDocsUrl.set("http://localhost:8080/api-docs")
 
     customBootRun {
         args.set(listOf("--spring.profiles.active=openapi"))
@@ -24,8 +29,10 @@ openApi {
     }
 }
 
+
 dependencies {
     implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.libs:users")
 
     // SQL
     implementation("org.amoeba.example.drivers:postgres-driver")

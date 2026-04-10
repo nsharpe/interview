@@ -28,7 +28,7 @@ services:
 
   user-management:
     build:
-      context: apps/user-management/user-management-endpoint-webapp
+      context: apps/user-management/webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "9080"
@@ -55,7 +55,7 @@ services:
 
   media-management:
     build:
-      context: apps/media-management/media-management-webapp
+      context: apps/media-management/webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "9090"
@@ -85,7 +85,7 @@ services:
 
   media-metrics:
     build:
-      context: apps/media-metric-endpoint/media-metric-endpoint-webapp
+      context: apps/media-metric-endpoint/webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "8080"
@@ -110,7 +110,7 @@ services:
 
   media-player-endpoint:
     build:
-      context: apps/media-player-endpoint/media-player-endpoint-webapp
+      context: apps/media-player-endpoint/webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "9100"
@@ -135,7 +135,7 @@ services:
 
   admin-app:
     build:
-      context: apps/admin-endpoint/admin-endpoint-web-app
+      context: apps/admin-endpoint/webapp
       dockerfile: ../../../Dockerfile
     ports:
       - "9110"

@@ -4,8 +4,12 @@ plugins {
 
 group = "org.amoeba.example.admin"
 
+base {
+    archivesName = "admin-sdk"
+}
+
 tasks.openApiGenerate {
-    dependsOn(":admin-endpoint:admin-endpoint-web-app:generateOpenApiDocs")
+    dependsOn(":admin-endpoint:webapp:generateOpenApiDocs")
 }
 
 val generatedSourcesDir = layout.buildDirectory.dir("generated/sdk")
@@ -19,6 +23,6 @@ sourceSets {
 }
 
 sdkConfig {
-    specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint/admin-endpoint-web-app/build/api-spec.json"))
+    specFile.set(rootProject.layout.projectDirectory.file("admin-endpoint/webapp/build/api-spec.json"))
     basePackage.set("org.amoeba.example.admin.sdk")
 }
