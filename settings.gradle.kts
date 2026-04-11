@@ -9,13 +9,13 @@ includeBuild("util")
 includeBuild("spring-util")
 includeBuild("drivers")
 includeBuild("libs")
-
 includeBuild("apps")
-// Rest Deployable
+
+// Qa Specific modules
 includeBuild("qa-endpoint-root")
+includeBuild("test-data")
 
 // UI
 includeBuild("media-player-ui")
-includeBuild("test-data")
 
 include("integration-tests")
