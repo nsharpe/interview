@@ -245,9 +245,9 @@ Generated from OpenAPI specs. Build flow:
 4. `npm link` enables local consumption
 
 Subprojects with TS SDKs:
-- `admin-typescript-sdk`
-- `user-management-endpoint-typescript-sdk`
-- `media-management-typescript-sdk`
+- `typescript-sdk`
+- `typescript-sdk`
+- `typescript-sdk`
 - `media-player-typescript-sdk`
 - `qa-endpoint-typescript-sdk`
 

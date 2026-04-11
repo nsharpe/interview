@@ -1,1 +1,0 @@
-project.name="media-metric-typescript-sdk"

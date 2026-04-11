@@ -1,1 +1,0 @@
-rootProject.name = "user-management-endpoint-typescript-sdk"

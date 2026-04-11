@@ -17,7 +17,7 @@ tasks.build{
     dependsOn(":user-management:webapp:bootJar")
     dependsOn(":user-management:sdk:build")
     dependsOn(":user-management:sdk:openApiGenerate")
-    dependsOn(":user-management:user-management-endpoint-typescript-sdk:publishSdkLocally")
+    dependsOn(":user-management:typescript-sdk:publishSdkLocally")
 }
 
 tasks.clean{
