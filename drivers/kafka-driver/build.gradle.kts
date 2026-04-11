@@ -6,7 +6,6 @@ group = "org.amoeba.example.drivers"
 
 dependencies {
     api("org.amoeba.example.core:java-core")
-    api("org.amoeba.example.avro:avro-model")
 
     api("org.springframework.kafka:spring-kafka")
 }
