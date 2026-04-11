@@ -30,7 +30,7 @@ openApi {
 }
 
 dependencies {
-    implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.spring.util:spring-web")
 
     // SQL
     implementation("org.amoeba.example.drivers:postgres-driver")

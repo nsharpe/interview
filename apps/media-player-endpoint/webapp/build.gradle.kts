@@ -28,7 +28,7 @@ openApi {
 }
 
 dependencies {
-    implementation("org.amoeba.example.web:spring-web")
+    implementation("org.amoeba.example.spring.util:spring-web")
     implementation("org.amoeba.example.avro:avro-model")
     implementation("org.amoeba.example.drivers:kafka-driver")
 

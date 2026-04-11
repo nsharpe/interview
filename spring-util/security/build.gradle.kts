@@ -2,7 +2,7 @@ plugins {
     id("boot-library")
 }
 
-group = "org.amoeba.example.web.security"
+group = "org.amoeba.example.spring.util"
 
 dependencies {
     api("org.springframework.boot:spring-boot-starter-security")

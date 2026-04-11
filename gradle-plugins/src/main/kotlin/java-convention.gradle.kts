@@ -30,10 +30,6 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))
 }
 
-//configure<com.github.spotbugs.snom.SpotBugsExtension> {
-//    excludeFilter.set(file("${rootDir}/spotbugs-exclude.xml"))
-//}
-
 tasks.withType<Test> {
     useJUnitPlatform()
     maxHeapSize = "512m"

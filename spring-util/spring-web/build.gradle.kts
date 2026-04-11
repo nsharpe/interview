@@ -2,7 +2,7 @@ plugins{
     id("boot-library")
 }
 
-group = "org.amoeba.example.web"
+group = "org.amoeba.example.spring.util"
 
 val projectJarPaths = configurations.implementation.map { config ->
     config.allDependencies
