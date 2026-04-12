@@ -1,3 +1,4 @@
+import gradle.kotlin.dsl.accessors._bf117e2e4a6f3fe89b8812506a833cd1.testImplementation
 
 plugins {
     id("java-convention")
@@ -31,5 +32,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
 
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+3
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }

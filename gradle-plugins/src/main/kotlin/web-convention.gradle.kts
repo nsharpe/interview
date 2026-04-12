@@ -33,7 +33,3 @@ val projectJarPaths = configurations.implementation.map { config ->
 tasks.named("forkedSpringBootRun"){
     dependsOn(projectJarPaths)
 }
-
-dependencies {
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
