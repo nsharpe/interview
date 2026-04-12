@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
     public SecurityFilterChain filterChain(HttpSecurity http, TokenRepo tokenRepo) throws Exception {
         http.cors(cors->cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
