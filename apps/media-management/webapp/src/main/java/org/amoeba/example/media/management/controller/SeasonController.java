@@ -55,7 +55,7 @@ public class SeasonController {
     @Operation(summary = "Create a season",
             responses = {
                     @ApiResponse(description = "The season",
-                            responseCode = "204",
+                            responseCode = "201",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SeasonModel.class)))})
     @PostMapping("/series/{seriesId}/season")

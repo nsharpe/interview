@@ -60,7 +60,7 @@ public class EpisodeController {
     @Operation(summary = "Create a episode",
             responses = {
                     @ApiResponse(description = "The episode",
-                            responseCode = "204",
+                            responseCode = "201",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = EpisodeModel.class)))})
     @PostMapping("/series/{seriesId}/season/{seasonId}/episode")
