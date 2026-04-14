@@ -29,6 +29,11 @@ include(":media-player-endpoint:webapp")
 include(":media-player-endpoint:sdk")
 include(":media-player-endpoint:typescript-sdk")
 
+
+include(":media-comment")
+include(":media-comment:webapp")
+include(":media-comment:sdk")
+
 includeBuild("../gradle-plugins")
 includeBuild("../util")
 includeBuild("../spring-util")

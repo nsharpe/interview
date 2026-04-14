@@ -8,6 +8,15 @@ services:
              done; 
              echo 'MySQL is up';"
 
+  postgres-loaded:
+    image: eclipse-temurin:21-jre-alpine
+    command: >
+      sh -c "while ! nc -z postgres 5432; do 
+               echo 'Waiting for postgres...'; 
+               sleep 1; 
+             done; 
+             echo 'Postgres is up';"
+
   redis-loaded:
     image: eclipse-temurin:21-jre-alpine
     command: >
@@ -48,7 +57,7 @@ services:
       retries: 3
       start_period: 35s
     depends_on:
-      mysql-loaded:
+      postgres-loaded:
         condition: service_completed_successfully
       redis-loaded:
         condition: service_completed_successfully
@@ -97,7 +106,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: postgres
     depends_on:
-      mysql-loaded:
+      postgres-loaded:
         condition: service_completed_successfully
       redis-loaded:
         condition: service_completed_successfully
@@ -133,6 +142,31 @@ services:
       retries: 3
       start_period: 35s
 
+  media-comment:
+    build:
+      context: apps/media-comment/webapp
+      dockerfile: ../../../Dockerfile
+    ports:
+      - "8080"
+      - "8081"
+    environment:
+      REDIS_HOST: redis
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: postgres
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
+      interval: 10s
+      timeout: 55s
+      retries: 3
+      start_period: 35s
+    depends_on:
+      postgres-loaded:
+        condition: service_completed_successfully
+      redis-loaded:
+        condition: service_completed_successfully
+
   admin-app:
     build:
       context: apps/admin-endpoint/webapp
@@ -156,6 +190,8 @@ services:
       retries: 3
       start_period: 35s
     depends_on:
+      postgres-loaded:
+        condition: service_completed_successfully
       mysql-loaded:
         condition: service_completed_successfully
       redis-loaded:

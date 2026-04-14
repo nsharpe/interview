@@ -193,16 +193,6 @@ services:
     labels:
       org.springframework.boot.datasource.name: flyway
 
-  postgres-init:
-    image: postgres:18.1
-    command: /bin/bash /docker-entrypoint-initdb.d/init-postgres.sh
-    restart: "no"
-    depends_on:
-      flyway-migrate-postgres:
-        condition: service_completed_successfully
-    labels:
-      org.springframework.boot.datasource.name: postgres-init
-
   redis:
     image: redis:8.4.0
     entrypoint: [ "sh", "/usr/local/bin/init-redis.sh" ]

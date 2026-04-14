@@ -6,6 +6,7 @@ rootProject.name="libs"
 
 include("series")
 include("users")
+include("comments")
 include("avro-model")
 
 includeBuild("../util")
