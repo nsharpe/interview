@@ -26,8 +26,14 @@ public class CommentGet {
     private UUID userId;
     private String recordType;
     private UUID recordId;
+    private Long createdTimestamp;
 
     public static CommentGet of(CommentPostgres source){
-        return OBJECT_MAPPER.convertValue(source, CommentGet.class);
+        CommentGet commentGet = OBJECT_MAPPER.convertValue(source, CommentGet.class);
+        // Set the created timestamp from the embedded timeStamp
+        if (source.getTimeStamp() != null) {
+            commentGet.setCreatedTimestamp(source.getTimeStamp().getCreationTimestamp().toInstant().toEpochMilli());
+        }
+        return commentGet;
     }
 }
