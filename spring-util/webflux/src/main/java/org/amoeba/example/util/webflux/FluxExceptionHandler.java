@@ -3,14 +3,14 @@ package org.amoeba.example.util.webflux;
 import lombok.extern.slf4j.Slf4j;
 import org.amoeba.example.core.exceptions.ExampleException;
 import org.slf4j.spi.LoggingEventBuilder;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Configuration
+@ControllerAdvice
 @Slf4j
 public class FluxExceptionHandler {
 

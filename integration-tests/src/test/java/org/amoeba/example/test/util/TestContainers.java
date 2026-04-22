@@ -45,7 +45,7 @@ public abstract class TestContainers {
                     .withStartupTimeout(Duration.ofMinutes(3))
                     .withOptions("--compatibility")
                     .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
-                    .withLogConsumer("user-management", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
+                    .withLogConsumer("user-management", new Slf4jLogConsumer(LoggerFactory.getLogger("UserManagement")))
                     .withLogConsumer("admin-app", new Slf4jLogConsumer(LoggerFactory.getLogger("AdminApp")))
                     .withLogConsumer("qa-endpoint-app", new Slf4jLogConsumer(LoggerFactory.getLogger("QaEndpoint")))
                     .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")))

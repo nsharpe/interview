@@ -1,5 +1,6 @@
 package org.amoeba.example.test.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -11,7 +12,6 @@ import org.amoeba.example.qa.sdk.api.UserGeneratorControllerApi;
 import org.amoeba.example.test.data.AuthenticationGenerator;
 import org.amoeba.example.test.util.TestContainers;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +36,8 @@ import static org.junit.jupiter.api.Assertions.*;
         pattern = "org\\.example\\.media.*"
 ))
 @DirtiesContext
-public class TestUsersIntegration extends TestContainers {
+public class UserControllerIntegrationTest extends TestContainers {
+    private int emailCount = 100;
 
     @Autowired
     private UserGeneratorControllerApi userGeneratorApi;
@@ -62,7 +63,7 @@ public class TestUsersIntegration extends TestContainers {
 
     @Test
     void testUserLifecycle() throws Exception {
-        String body = MAPPER.writeValueAsString(createUserPojo());
+        String body = MAPPER.writeValueAsString(createUserPojo("3399john.smith@test.com"));
 
         // create user
         JsonPath jsonPath = given()
@@ -75,7 +76,7 @@ public class TestUsersIntegration extends TestContainers {
                 .and()
                 .body("firstName", equalTo("John")) // Verify specific fields in the response body
                 .body("lastName", equalTo("Smith"))
-                .body("email", equalTo("13487john.smith@test.com"))
+                .body("email", equalTo("3399john.smith@test.com"))
                 .body("id", notNullValue())
                 .extract()
                 .body()
@@ -92,7 +93,7 @@ public class TestUsersIntegration extends TestContainers {
                 .and()
                 .body("firstName", equalTo("John")) // Verify specific fields in the response body
                 .body("lastName", equalTo("Smith"))
-                .body("email", equalTo("13487john.smith@test.com"))
+                .body("email", equalTo("3399john.smith@test.com"))
                 .body("id", equalTo(id))
                 .extract()
                 .response();
@@ -112,6 +113,81 @@ public class TestUsersIntegration extends TestContainers {
         given()
                 .header("Authorization", authenticationGenerator.getAdminBearerHeader())
                 .when().get("/user/{id}", id)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
+    void testUserUpdate() throws Exception {
+        // First create a user
+        String body = MAPPER.writeValueAsString(createUserPojo());
+
+        JsonPath jsonPath = given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(body)
+                .when().post("/user")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .jsonPath();
+
+        String id = jsonPath.get("id");
+
+        // Update the user
+        Map<String, Object> updatePojo = new HashMap<>();
+        updatePojo.put("firstName", "Jane");
+        updatePojo.put("lastName", "Doe");
+        updatePojo.put("email", "12487jane.doe@test.com");
+
+        given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(MAPPER.writeValueAsString(updatePojo))
+                .when().put("/user/{id}", id)
+                .then()
+                .statusCode(200)
+                .and()
+                .body("firstName", equalTo("Jane"))
+                .body("lastName", equalTo("Doe"))
+                .body("email", equalTo("12487jane.doe@test.com"))
+                .body("id", equalTo(id));
+
+        // Verify the update by getting the user
+        Response getBody = given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .when().get("/user/{id}", id)
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        assertEquals("Jane", getBody.jsonPath().get("firstName"));
+        assertEquals("Doe", getBody.jsonPath().get("lastName"));
+        assertEquals("12487jane.doe@test.com", getBody.jsonPath().get("email"));
+    }
+
+    @Test
+    void testUserNotFound() throws JsonProcessingException {
+        // Try to get a non-existent user
+        given()
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .when().get("/user/{id}", UUID.randomUUID())
+                .then()
+                .statusCode(404);
+
+        // Try to update a non-existent user
+        Map<String, Object> updatePojo = new HashMap<>();
+        updatePojo.put("firstName", "Jane");
+        updatePojo.put("lastName", "Doe");
+        updatePojo.put("email", "jane.doe@test.com");
+
+        given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(MAPPER.writeValueAsString(updatePojo))
+                .when().put("/user/{id}", UUID.randomUUID())
                 .then()
                 .statusCode(404);
     }
@@ -140,12 +216,57 @@ public class TestUsersIntegration extends TestContainers {
         assertEquals(userIds.get(1),getUser.getId());
     }
 
-    private static Map<String,Object> createUserPojo(){
+    @Test
+    void testCreateUserValidation() throws JsonProcessingException {
+        // Test with invalid email (empty)
+        Map<String, Object> invalidUserPojo = new HashMap<>();
+        invalidUserPojo.put("firstName", "John");
+        invalidUserPojo.put("lastName", "Smith");
+        invalidUserPojo.put("email", "");
+
+        given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(MAPPER.writeValueAsString(invalidUserPojo))
+                .when().post("/user")
+                .then()
+                .statusCode(400);
+
+        // Test with missing first name
+        invalidUserPojo.put("firstName", "");
+        invalidUserPojo.put("email", "john.smith+00@test.com");
+
+        given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(MAPPER.writeValueAsString(invalidUserPojo))
+                .when().post("/user")
+                .then()
+                .statusCode(400);
+
+        // Test with missing last name
+        invalidUserPojo.put("firstName", "John");
+        invalidUserPojo.put("lastName", "");
+
+        given()
+                .header("Content-type", "application/json")
+                .header("Authorization", authenticationGenerator.getAdminBearerHeader())
+                .body(MAPPER.writeValueAsString(invalidUserPojo))
+                .when().post("/user")
+                .then()
+                .statusCode(400);
+    }
+
+    private Map<String,Object> createUserPojo(){
+        return createUserPojo(++emailCount + "john.smith@test.com");
+    }
+
+    private Map<String,Object> createUserPojo(String email){
         Map<String,Object> userPojo = new HashMap<>();
 
         userPojo.put("firstName","John");
         userPojo.put("lastName","Smith");
-        userPojo.put("email","13487john.smith@test.com");
+        userPojo.put("email",email);
 
         return userPojo;
     }

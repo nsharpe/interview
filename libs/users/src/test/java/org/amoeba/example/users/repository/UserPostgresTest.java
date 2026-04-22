@@ -46,8 +46,9 @@ class UserPostgresTest {
                 .build();
 
         userPostgres.update(updateUserModel);
-        assertEquals(updateUserModel.getFirstName(), userPostgres.getFirstName());
-        assertEquals(updateUserModel.getLastName(), userPostgres.getLastName());
-        assertEquals(updateUserModel.getEmail(), userPostgres.getEmail());
+        assertEquals(1L, userPostgres.getId());
+        assertEquals("fjoe", userPostgres.getFirstName());
+        assertEquals("fsmith", userPostgres.getLastName());
+        assertEquals("ftest@test.com", userPostgres.getEmail());
     }
 }

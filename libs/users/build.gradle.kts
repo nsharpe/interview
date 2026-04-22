@@ -9,6 +9,7 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
 }
 
 dependencies {
+    api("org.springframework.boot:spring-boot-starter-validation")
     api("org.amoeba.example.core:java-core")
     api("org.amoeba.example.drivers:postgres-driver")
     runtimeOnly("org.postgresql:postgresql")

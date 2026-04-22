@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -40,33 +41,36 @@ public class UserController {
                                     schema = @Schema(implementation = UserModel.class))),
                     @ApiResponse(responseCode = "404", description = "User not found")})
     @GetMapping("/user/{id}")
-    public @ResponseBody UserModel getUser(@PathVariable("id") UUID id){
-        return userService.getUser(id);
+    public Mono<UserModel> getUser(@PathVariable("id") UUID id){
+        return Mono.fromCallable(() ->userService.getUser(id))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     @Operation(summary = "Create a User",
             responses = {
                     @ApiResponse(description = "The user",
-                            responseCode = "204",
+                            responseCode = "201",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = CreateUserModel.class))),
+                                    schema = @Schema(implementation = UserModel.class))),
                     // TODO: Fix status code
                     @ApiResponse(responseCode = "500", description = "Email already exists")})
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserModel create(@RequestBody @Valid CreateUserModel userModel){
-        return userService.createUser(userModel.toUserModel());
+    public Mono<UserModel> create(@Valid @RequestBody Mono<CreateUserModel> userModel){
+        return userModel.map(um-> userService.createUser(um.toUserModel()))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     @Operation(summary = "Modify a User",
             responses = {
                     @ApiResponse(description = "The user after modification",
                             content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = UpdateUserModel.class))),
+                                    schema = @Schema(implementation = UserModel.class))),
                     @ApiResponse(responseCode = "404", description = "User not found")})
     @PutMapping("/user/{id}")
-    public UserModel modify(@PathVariable("id")UUID id, @RequestBody UpdateUserModel userModel){
-        return userService.updateUser(id, userModel);
+    public Mono<UserModel> modify(@PathVariable("id")UUID id, @Valid @RequestBody Mono<UpdateUserModel> userModel){
+        return userModel.map(um -> userService.updateUser(id, um))
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     @Operation(summary = "Delete a User",
@@ -74,8 +78,11 @@ public class UserController {
                     @ApiResponse(responseCode = "204", description = "User deleted")})
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id")UUID id){
-        userService.deleteUser(id);
-    }
+    public Mono<Void> deleteUser(@PathVariable("id")UUID id){
 
+        return Mono.fromCallable(() -> {
+                    userService.deleteUser(id);
+                    return (Void)null;
+                }).subscribeOn(Schedulers.boundedElastic());
+    }
 }
