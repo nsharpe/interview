@@ -5,6 +5,7 @@ pluginManagement {
 rootProject.name="spring-util"
 
 include("security")
+include("security-flux")
 include("spring-web")
 include("spring-pod")
 include("webflux")

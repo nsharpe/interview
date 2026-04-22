@@ -17,8 +17,8 @@ services:
 
   media-comment:
     ports:
-      - "8080:9130"
-      - "8081:9131"
+      - "9140:8080"
+      - "9141:8081"
 
   admin-app:
     ports:

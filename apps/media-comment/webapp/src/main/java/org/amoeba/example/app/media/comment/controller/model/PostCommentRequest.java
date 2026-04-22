@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PostComment {
+public class PostCommentRequest {
 
     private String comment;
     private Long mediaPositionMs;

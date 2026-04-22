@@ -122,7 +122,7 @@ To see a list of all the endpoints, while the application is running go to
 The health of the system can be viewed through  
 [healthcheck](http://localhost:8081/actuator/health)
 
-### Public Rest Endpoint
+### User Management Endpoint
 To see a list of all the endpoints, while the application is running go to
 [swagger](http://localhost:9080/swagger-ui/index.html)
 
@@ -142,6 +142,19 @@ The health of the system can be viewed through
 In order to see how many entries have been cached
 [metric cache size](http://localhost:9091/actuator/metrics/cache.size)
 
+### Media Metrics Endpoints
+To see a list of all the endpoints, while the application is running go to
+[swagger](http://localhost:9130/swagger-ui/index.html)
+
+The health of the system can be viewed through  
+[healthcheck](http://localhost:9131/actuator/health)
+
+### Media Comments Endpoints
+To see a list of all the endpoints, while the application is running go to
+[swagger](http://localhost:9140/swagger-ui/index.html)
+
+The health of the system can be viewed through  
+[healthcheck](http://localhost:9141/actuator/health)
 
 ## Spring Boot Conventions
 

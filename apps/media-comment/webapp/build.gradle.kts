@@ -29,7 +29,6 @@ openApi {
 }
 
 dependencies {
-    implementation("org.amoeba.example.spring.util:spring-web")
     implementation("org.amoeba.example.spring.util:webflux")
     implementation("org.amoeba.example.libs:comments")
 

@@ -8,12 +8,12 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class CommentResponse {
+public class CommentPostResponse {
 
     private UUID id;
 
-    public static CommentResponse of(CommentPostgres databaseRecord){
-        return CommentResponse.builder()
+    public static CommentPostResponse of(CommentPostgres databaseRecord){
+        return CommentPostResponse.builder()
                 .id(databaseRecord.getPublicId())
                 .build();
     }

@@ -33,6 +33,8 @@ dependencies {
 
     implementation("org.amoeba.example.qa:qa-endpoint-sdk")
     implementation("org.amoeba.example.media.metric:sdk")
+    implementation("org.amoeba.example.app.media.comment:sdk")
+
     testImplementation("org.amoeba.example.test.data:test-data")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:testcontainers-kafka")

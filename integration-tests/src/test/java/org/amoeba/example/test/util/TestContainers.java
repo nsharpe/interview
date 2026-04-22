@@ -31,6 +31,8 @@ public abstract class TestContainers {
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     ).withExposedService("media-metrics", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
+                    .withExposedService("media-comment", 8080,
+                                         Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("postgres", 5432, Wait.forListeningPort())
 
                     .withExposedService("media-player-endpoint",9100,
@@ -46,7 +48,8 @@ public abstract class TestContainers {
                     .withLogConsumer("user-management", new Slf4jLogConsumer(LoggerFactory.getLogger("PublicRest")))
                     .withLogConsumer("admin-app", new Slf4jLogConsumer(LoggerFactory.getLogger("AdminApp")))
                     .withLogConsumer("qa-endpoint-app", new Slf4jLogConsumer(LoggerFactory.getLogger("QaEndpoint")))
-                    .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")));
+                    .withLogConsumer("media-management", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaManagement")))
+                    .withLogConsumer("media-comment", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaComment")));
 
     static {
         ENVIRONMENT.start();
@@ -114,6 +117,10 @@ public abstract class TestContainers {
 
     public static int getMediaPlayPort(){
         return ENVIRONMENT.getServicePort("media-player-endpoint", 9100);
+    }
+
+    public static int getMediaCommentPort(){
+        return ENVIRONMENT.getServicePort("media-comment", 8080);
     }
 
     public static String getAdminHost(){
