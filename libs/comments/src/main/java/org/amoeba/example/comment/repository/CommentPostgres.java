@@ -1,6 +1,7 @@
 package org.amoeba.example.comment.repository;
 
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -52,6 +53,7 @@ public class CommentPostgres {
     private Long mediaPositionMs;
 
     @Embedded
+    @JsonUnwrapped
     private PostgresTimeStamp timeStamp;
 
     @Embedded

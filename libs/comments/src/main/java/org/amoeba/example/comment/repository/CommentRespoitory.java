@@ -1,5 +1,7 @@
 package org.amoeba.example.comment.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -12,5 +14,7 @@ public interface CommentRespoitory extends PagingAndSortingRepository<CommentPos
     Optional<CommentPostgres> findByPublicId(UUID publicId);
 
     void deleteByPublicId(UUID uuid);
+
+    Page<CommentPostgres> findAllByRecordId(UUID recordId, Pageable pageable);
 
 }

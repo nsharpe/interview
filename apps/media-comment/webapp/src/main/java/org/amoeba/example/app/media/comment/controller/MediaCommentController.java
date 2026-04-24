@@ -5,20 +5,28 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.amoeba.example.app.media.comment.controller.model.CommentGet;
+import org.amoeba.example.app.media.comment.controller.model.CommentGetPage;
 import org.amoeba.example.app.media.comment.controller.model.CommentPostResponse;
 import org.amoeba.example.app.media.comment.controller.model.PostCommentRequest;
 import org.amoeba.example.comment.CommentService;
 import org.amoeba.example.comment.repository.CommentPostgres;
 import org.amoeba.example.core.model.AuthenticationInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.UUID;
 
@@ -50,5 +58,26 @@ public class MediaCommentController {
                         .build())
                 .map(commentService::createComment)
                 .map(CommentPostResponse::of);
+    }
+
+    @Operation(summary = "Get All Comments for a piece of media",
+            responses = {
+                    @ApiResponse(description = "Gets the comments for a piece of media that is not soft deleted",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = CommentGetPage.class)
+                            ))})
+    @GetMapping
+    public @ResponseBody Mono<Page<CommentGet>> getCommentsForMedia(@RequestParam(defaultValue = "0") int page,
+                                                                    @RequestParam(defaultValue = "10") int size,
+                                                                      @PathVariable("mediaId") UUID mediaId){
+        System.out.println("startingFunction");
+        return Mono.fromCallable(()-> commentService.getAllForRecord(PageRequest.of(page, size),mediaId)
+                        .map(CommentGet::of)
+                )
+                .doOnNext(x->x.forEach(c->System.out.println("Comment:" + c.getComment())))
+                .doOnError(Throwable::printStackTrace)
+                .subscribeOn(Schedulers.boundedElastic());
     }
 }

@@ -33,4 +33,8 @@ public class CommentService {
     public Page<CommentPostgres> getAll(Pageable pageable){
         return commentRespoitory.findAll(pageable);
     }
+
+    public Page<CommentPostgres> getAllForRecord(Pageable pageable, UUID recordId){
+        return commentRespoitory.findAllByRecordId(recordId, pageable);
+    }
 }

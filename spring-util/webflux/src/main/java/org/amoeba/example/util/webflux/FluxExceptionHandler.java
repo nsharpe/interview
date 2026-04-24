@@ -14,23 +14,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class FluxExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleAllExceptions(Exception ex, ServerHttpRequest request) {
-
-        HttpStatusCode status = HttpStatus.INTERNAL_SERVER_ERROR;
-        String message = "An internal server error occurred";
+    @ExceptionHandler(ExampleException.class)
+    public ResponseEntity<String> handleAllExceptions(ExampleException ex, ServerHttpRequest request) {
 
         LoggingEventBuilder loggingEventBuilder = log.atError()
                 .setCause(ex);
 
-        if(ex instanceof ExampleException reportableException){
-            status = HttpStatusCode.valueOf(reportableException.httpStatusCode());
-            message = reportableException.publicMessage();
-            loggingEventBuilder = reportableException.addToLog(loggingEventBuilder);
-        }
-
+        loggingEventBuilder = ex.addToLog(loggingEventBuilder);
         loggingEventBuilder.log("An unexpected error occurred: {}", ex.getMessage());
 
-        return new ResponseEntity<>(message, status);
+        return new ResponseEntity<>(ex.publicMessage(), HttpStatusCode.valueOf(ex.httpStatusCode()));
     }
 }

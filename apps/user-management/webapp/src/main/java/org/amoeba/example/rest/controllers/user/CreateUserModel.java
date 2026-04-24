@@ -1,5 +1,6 @@
 package org.amoeba.example.rest.controllers.user;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,14 +26,11 @@ public class CreateUserModel {
 
     private static ModelMapper MODEL_MAPPER = new ModelMapper();
 
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "Email cannot be empty")
     private String email;
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "firstName cannot be empty")
     private String firstName;
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "lastName cannot be empty")
     private String lastName;
 
     public UserModel toUserModel(){

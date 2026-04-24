@@ -23,4 +23,8 @@ tasks.build{
     subprojects.forEach { proj ->
         dependsOn(proj.tasks.matching { it.name == "build" })
     }
+
+    subprojects.forEach { proj ->
+        dependsOn(proj.tasks.matching { it.name == "bootJar" })
+    }
 }
