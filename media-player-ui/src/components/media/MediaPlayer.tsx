@@ -207,10 +207,12 @@ const MediaPlayer: React.FC = () => {
     const postComment = async () => {
         if (!media?.id || !commentText.trim()) return;
 
+        const cMediaPosition = isPlaying ? mediaPosition + (Date.now() - startTime) : mediaPosition;
+
         try {
             const commentRequest = {
                 comment: commentText,
-                mediaPositionMs: mediaPosition + (Date.now() - startTime)
+                mediaPositionMs: cMediaPosition
             };
 
             await mediaCommentControllerApi().postComment(media.id, commentRequest);
