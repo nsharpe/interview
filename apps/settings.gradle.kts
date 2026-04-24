@@ -33,6 +33,7 @@ include(":media-player-endpoint:typescript-sdk")
 include(":media-comment")
 include(":media-comment:webapp")
 include(":media-comment:sdk")
+include(":media-comment:typescript-sdk")
 
 includeBuild("../gradle-plugins")
 includeBuild("../util")

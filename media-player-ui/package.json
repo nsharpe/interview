@@ -18,6 +18,7 @@
     "media-player-qa-client": "file:../qa-endpoint-root/qa-endpoint-typescript-sdk/build/src/generated",
     "media-player-media-player-client": "file:../apps/media-player-endpoint/typescript-sdk/build/src/generated",
     "media-metric-media-player-client": "file:../apps/media-metric-endpoint/typescript-sdk/build/src/generated",
+    "media-comment-client": "file:../apps/media-comment/typescript-sdk/build/src/generated",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",

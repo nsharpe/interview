@@ -6,7 +6,7 @@ export const mediaControllerApi  = () => {
 
     if(token== null){
         const config = new Configuration({
-            basePath: "http://localhost:9090"
+            basePath: "http://localhost:9130"
         });
         return new MediaPerformanceControllerApi(config);
     }
