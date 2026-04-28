@@ -17,15 +17,13 @@ afterEvaluate {
 
         customBootRun {
             systemProperties.set(mapOf(
-                 "server.port" to openApiPort.toString(),
-                 "management.server.port" to openApiPort.toString(),
-                 "spring.profiles.active" to "openapi",
-                 "spring.jpa.database-platform" to "org.hibernate.dialect.H2Dialect",
-                 "spring.jpa.hibernate.ddl-auto" to "none",
                 "server.port" to openApiPort.toString(),
                 "management.server.port" to openApiPort.toString(),
-             ))
-         }
+                "spring.profiles.active" to "openapi",
+                "spring.jpa.database-platform" to "org.hibernate.dialect.H2Dialect",
+                "spring.jpa.hibernate.ddl-auto" to "none",
+            ))
+        }
     }
 }
 
@@ -45,14 +43,10 @@ tasks.compileTestJava{
     dependsOn("generateOpenApiDocs")
 }
 
-tasks.named("generateOpenApiDocs") {
-     // This ensures the spec is updated whenever the code changes
-}
-
 val projectJarPaths = configurations.implementation.map { config ->
     config.allDependencies
-         .withType<ProjectDependency>()
-         .map { "${it.path}:jar" }
+        .withType<ProjectDependency>()
+        .map { "${it.path}:jar" }
 }
 
 tasks.named("forkedSpringBootRun"){
