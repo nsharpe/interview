@@ -14,18 +14,6 @@ configure<com.github.spotbugs.snom.SpotBugsExtension> {
     excludeFilter.set(file("${rootDir}/../spotbugs-exclude.xml"))
 }
 
-openApi {
-    apiDocsUrl.set("http://localhost:8085/api-docs")
-    outputDir.set(file("build"))
-    outputFileName.set("api-spec.json")
-
-    customBootRun {
-        systemProperties.set(mapOf(
-            "spring.profiles.active" to "openapi"
-        ))
-    }
-}
-
 dependencies {
     implementation("org.amoeba.example.test.data:test-data")
     implementation("org.amoeba.example.spring.util:spring-web")

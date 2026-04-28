@@ -1,4 +1,3 @@
-
 plugins {
     id("boot-convention")
     id("org.openapi.generator")
