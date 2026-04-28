@@ -10,6 +10,11 @@ tasks.bootRun{
     enabled = false
 }
 
+tasks.build {
+    val otherBuild = gradle.includedBuild("apps")
+    dependsOn(otherBuild.task(":build"))
+}
+
 group = "org.amoeba.example.test.data"
 
 configure<com.github.spotbugs.snom.SpotBugsExtension> {
