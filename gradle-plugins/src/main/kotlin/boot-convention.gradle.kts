@@ -12,8 +12,8 @@ tasks.bootJar{
 
 val copyDockerConfig = tasks.register<Copy>("copyDockerConfig") {
     // Look two levels up for the source files
-    from(file("../../docker-compose.yml"))
-    from(file("../../docker-compose.fixedport.yml"))
+    from(file("../../../docker-compose.yml"))
+    from(file("../../../docker-compose.fixedport.yml"))
 
     into(layout.buildDirectory.dir("docker-config"))
 }
@@ -25,6 +25,7 @@ tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
         .split(",")
         .joinToString(",") { "${dockerConfigDir.get().asFile.absolutePath}/$it" }
     systemProperty("spring.docker.compose.file", dockerFiles)
+    systemProperty("spring.profiles.active", "local")
 }
 
 dependencies {
