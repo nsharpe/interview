@@ -40,18 +40,16 @@ services:
       context: apps/user-management/webapp
       dockerfile: ../../../Dockerfile
     ports:
-      - "9080"
-      - "9081"
+      - "8080"
+      - "8081"
     environment:
-      SERVER_PORT: 9080
-      MANAGEMENT_SERVER_PORT: 9081
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: postgres
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9081"]
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
       interval: 10s
       timeout: 55s
       retries: 3
@@ -67,12 +65,10 @@ services:
       context: apps/media-management/webapp
       dockerfile: ../../../Dockerfile
     ports:
-      - "9090"
-      - "9091"
+      - "8080"
+      - "8081"
     environment:
       REDIS_HOST: redis
-      SERVER_PORT: 9090
-      MANAGEMENT_SERVER_PORT: 9091
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_HOST: mysql
@@ -86,7 +82,7 @@ services:
       redis-loaded:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9091"]
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
       interval: 10s
       timeout: 35s
       retries: 3
@@ -122,12 +118,10 @@ services:
       context: apps/media-player-endpoint/webapp
       dockerfile: ../../../Dockerfile
     ports:
-      - "9100"
-      - "9101"
+      - "8080"
+      - "8081"
     environment:
       REDIS_HOST: redis
-      SERVER_PORT: 9100
-      MANAGEMENT_SERVER_PORT: 9101
       KAFKA_SCHEMA_REGISTRY_URL: http://schema-registry:8091
       KAFKA_BOOTSTRAP_SERVERS: broker:29092
     depends_on:
@@ -136,7 +130,7 @@ services:
       redis-loaded:
         condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9101"]
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
       interval: 10s
       timeout: 35s
       retries: 3
@@ -172,19 +166,17 @@ services:
       context: apps/admin-endpoint/webapp
       dockerfile: ../../../Dockerfile
     ports:
-      - "9110"
-      - "9111"
+      - "8080"
+      - "8081"
     environment:
-      SERVER_PORT: 9110
-      PUBLIC_REST_PORT: 9080
-      MANAGEMENT_SERVER_PORT: 9111
+      PUBLIC_REST_PORT: 8080
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_HOST: postgres
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9111"]
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
       interval: 10s
       timeout: 35s
       retries: 3
@@ -202,17 +194,15 @@ services:
       context: qa-endpoint-root/qa-endpoint-webapp
       dockerfile: ../../Dockerfile
     ports:
-      - "9120"
-      - "9121"
+      - "8080"
+      - "8081"
     environment:
-      SERVER_PORT: 9120
-      MANAGEMENT_SERVER_PORT: 9121
       REDIS_HOST: redis
-      PUBLIC_REST_PORT: 9080
-      ADMIN_ENDOPOINT_PORT: 9110
-      MEDIA_MANAGEMENT_PORT: 9090
+      PUBLIC_REST_PORT: 8080
+      ADMIN_ENDOPOINT_PORT: 8080
+      MEDIA_MANAGEMENT_PORT: 8080
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "9121"]
+      test: ["CMD", "nc", "-z", "localhost", "8081"]
       interval: 10s
       timeout: 35s
       retries: 3

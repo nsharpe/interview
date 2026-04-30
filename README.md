@@ -1,9 +1,47 @@
 # Interview environment
 
+<!-- TOC -->
+* [Interview environment](#interview-environment)
+  * [Introduction](#introduction)
+  * [Quick start](#quick-start)
+    * [Requirements](#requirements)
+      * [MAC](#mac)
+      * [PC](#pc)
+  * [What the application does](#what-the-application-does)
+  * [Gradle Submodules](#gradle-submodules)
+    * [Media Player Workflow](#media-player-workflow)
+  * [Assumptions](#assumptions)
+  * [IDE Setup](#ide-setup)
+  * [Running the application](#running-the-application)
+    * [Run the full stack](#run-the-full-stack)
+  * [Interacting with the application](#interacting-with-the-application)
+    * [Running an appliction via `bootrun`](#running-an-appliction-via-bootrun)
+    * [User Management Endpoint](#user-management-endpoint)
+    * [Media Management Endpoint](#media-management-endpoint)
+    * [Media Metrics Endpoints](#media-metrics-endpoints)
+    * [Media Comments Endpoints](#media-comments-endpoints)
+  * [Spring Boot Conventions](#spring-boot-conventions)
+  * [MYSQL](#mysql)
+  * [POSTGRES](#postgres)
+    * [Connect](#connect)
+    * [Helper Functions](#helper-functions)
+      * [List Tables](#list-tables)
+      * [List All Users](#list-all-users)
+      * [List All Episodes](#list-all-episodes)
+    * [Add kafka_sink to search path](#add-kafka_sink-to-search-path)
+  * [Kafka](#kafka)
+  * [Framework Documentation](#framework-documentation)
+    * [Reference Documentation](#reference-documentation)
+    * [Guides](#guides)
+    * [Additional Links](#additional-links)
+<!-- TOC -->
+
+## Introduction
+
 The purpose of this repo is to provide the following information
 * Provides examples of monorepo architecture for small/medium sized project
 * Demonstrate module setup to allow for parallel development between multiple developers in a single repo
-* Provide example of integration tests with separate executables each defined in it's own submodule. See [IntegrationTests](IntegrationTests/README.md)
+* Provide example of integration tests with separate executables each defined in it's own submodule. See [IntegrationTests](integration-tests/README.md)
 * Demonstrate basic knowledge in a variety of technologies and frameworks
 * Demonstrate the usefulness of Docker Compose
 * Provide a template to try new technologies
@@ -19,7 +57,7 @@ This environment does not cover the following as these are tasks that can be wor
 
 ### Requirements
 * Java 21 
-  * older version chosen intentionally to reduce problems as this is publicly available
+  * older version chosen intentionally to reduce problems as people are often slow to migrate version
 * Docker 
   * Development was done with orbstack
 * npm
@@ -54,21 +92,44 @@ npm start;
 ```
 
 Actions from the ui
-1. Log in with the token 123 (will redirect you to the qa page)
+1. Set the bearer token 123 (will redirect you to the qa page)
 2. Generate Users
-3. log in as user (It will redirect you to the series tab)
-4. press play on movie of your choice ( this will redirect you to the movie which will automatically play)
+   - Optionally you can generate a movie, though the application starts with one.
+3. log in as a user (It will redirect you to the series tab)
+   - Users can be found on the user tab
+   - When generating a user, a login button will appear allowing you to login as the user you just made.
+4. press play on a movie of your choice 
+   - this will redirect you to the movie which will automatically play
 5. press stop
-6. The number of views and total view time should now be visible for 
+6. The number of views and total view time should now be updated to show 
+   - You may need to press stop or play the first time as the kafka consumer may be slow consuming the first message.
 
 
 ## What the application does
 This is a mock application for a netflix like company.
 
 This is a monorepo with several executables required to do the following
-* Manage Users.  See [Users](libs/Users/README.md) for user structures
-* Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](libs/Series/README.md) for definitions
+* Manage Users.  See [Users](libs/users/README.md) for user structures
+* Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](libs/series/README.md) for definitions
 * Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
+
+## Gradle Submodules
+
+This is a composite Gradle build. Each includeBuild is an independent module that can be developed and built in parallel:
+
+| Module                                           | Description                                                                                                                    |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| [apps](apps/README.md)                           | Java Applications                                                                                                              |                                                                                                             |
+| [drivers](drivers/README.md)                     | Drivers and conventions for third party applications. For example, kafka, and mysql.                                           |
+| [libs](libs/README.md)                           | Domain logic modules (avro-model, series, users)                                                                               |
+| [util](util/README.md)                           | Shared utilities ([java-core](util/java-core/README.md) for plain Java, [spring-util](spring-util/README.md) for Spring beans) |
+| [gradle-plugins](gradle-plugins/README.md)       | Custom Gradle plugins that define build convention and logic                                                                   |
+| [media-player-ui](media-player-ui/README.md)     | TypeScript UI application                                                                                                      |
+| [qa-endpoint-root](qa-endpoint-root/README.md)   | QA-specific endpoint modules                                                                                                   |
+| [test-data](test-data/README.md)                 | Test data generation utilities                                                                                                 |
+| [integration-tests](integration-tests/README.md) | All integration tests (built as a regular include, not includeBuild)                                                           |
+
+All `./gradlew` commands must be run from the root directory.
 
 ### Media Player Workflow
 When the application plays some media it interacts with the backend system in the following manner.
@@ -81,7 +142,7 @@ When the application plays some media it interacts with the backend system in th
 
 ## IDE Setup
 
-It is recommended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that has not been setup yet. 
+It is recommended that you set your ide to run `./gradlew clean` task before it runs `./gradlew test`.  This is because integration tests require the fat jars produced by other submodules, and an elegant way to handle that automatically has not been setup yet. 
 
 ## Running the application
 
@@ -112,49 +173,15 @@ Documentation on running the apps in this manner has been removed until correct 
 
 ## Interacting with the application
 
-You can use an auth token of `123` for local development.
+[Run the entire stack](#quick-start)
 
-### Running an appliction via `bootrun`
+You can use a bearer token of `123` to act as an admin user.
 
-To see a list of all the endpoints, while the application is running go to
-[swagger](http://localhost:8081/swagger-ui/index.html)
+There are links to swagger documentation in each [apps](./apps) `README.md` file.
 
-The health of the system can be viewed through  
-[healthcheck](http://localhost:8081/actuator/health)
+### Running an application via `bootRun`
 
-### User Management Endpoint
-To see a list of all the endpoints, while the application is running go to
-[swagger](http://localhost:9080/swagger-ui/index.html)
-
-The health of the system can be viewed through  
-[healthcheck](http://localhost:9080/actuator/health)
-
-In order to see how many entries have been cached
-[metric cache size](http://localhost:9080/actuator/metrics/cache.size)
-
-### Media Management Endpoint
-To see a list of all the endpoints, while the application is running go to
-[swagger](http://localhost:9090/swagger-ui/index.html)
-
-The health of the system can be viewed through  
-[healthcheck](http://localhost:9091/actuator/health)
-
-In order to see how many entries have been cached
-[metric cache size](http://localhost:9091/actuator/metrics/cache.size)
-
-### Media Metrics Endpoints
-To see a list of all the endpoints, while the application is running go to
-[swagger](http://localhost:9130/swagger-ui/index.html)
-
-The health of the system can be viewed through  
-[healthcheck](http://localhost:9131/actuator/health)
-
-### Media Comments Endpoints
-To see a list of all the endpoints, while the application is running go to
-[swagger](http://localhost:9140/swagger-ui/index.html)
-
-The health of the system can be viewed through  
-[healthcheck](http://localhost:9141/actuator/health)
+This should be fixed when `.env` is removed from being used by the `docker-compose` files as they are not necessary.
 
 ## Spring Boot Conventions
 
@@ -170,7 +197,6 @@ public class YourApplication {
   }
 
 }
-
 ```
 
 ## MYSQL
@@ -227,7 +253,7 @@ SET search_path TO kafka_sink, public;
 Creating a topic
 
 ## Framework Documentation
-This was generated via the start.spring.io process
+This was generated via the [start.spring.io](https://start.spring.io/) 
 
 ### Reference Documentation
 For further reference, please consider the following sections:

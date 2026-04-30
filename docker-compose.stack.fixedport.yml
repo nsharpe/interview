@@ -2,18 +2,18 @@ services:
 
   user-management:
     ports:
-      - "9080:9080"
-      - "9081:9081"
+      - "9080:8080"
+      - "9081:8081"
 
   media-management:
     ports:
-      - "9090:9090"
-      - "9091:9091"
+      - "9090:8080"
+      - "9091:8081"
 
   media-player-endpoint:
     ports:
-      - "9100:9100"
-      - "9101:9101"
+      - "9100:8080"
+      - "9101:8081"
 
   media-comment:
     ports:
@@ -22,13 +22,13 @@ services:
 
   admin-app:
     ports:
-      - "9110:9110"
-      - "9111:9111"
+      - "9110:8080"
+      - "9111:8081"
 
   qa-endpoint-app:
     ports:
-      - "9120:9120"
-      - "9121:9121"
+      - "9120:8080"
+      - "9121:8081"
 
   media-metrics:
     ports:

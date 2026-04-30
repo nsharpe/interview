@@ -2,6 +2,9 @@
 
 This module provides Spring Security configuration and authentication utilities for the application.
 
+## WebFlux
+if you are using webflux use [security-flux](../security-flux/README.md)
+
 ## Overview
 
 The security module implements a flexible authentication system that supports:

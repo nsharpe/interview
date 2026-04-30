@@ -27,12 +27,7 @@ public class MediaEventController {
     @Autowired
     private MediaEventService mediaEventService;
 
-    @Operation(summary = "Start tracking media play",
-            responses = {
-                    @ApiResponse(description = "The episode",
-                            responseCode = "202",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MediaEventResponse.class)))})
+    @Operation(summary = "Start tracking media play")
     @PostMapping("/media/{mediaId}/start")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public MediaEventResponse start(@RequestBody @Valid MediaStartRequest mediaStartRequest,
@@ -44,12 +39,7 @@ public class MediaEventController {
                 .build();
     }
 
-    @Operation(summary = "Signals that a media is no longer being consumed",
-            responses = {
-                    @ApiResponse(description = "The episode",
-                            responseCode = "202",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MediaEventResponse.class)))})
+    @Operation(summary = "Signals that a media is no longer being consumed")
     @PostMapping("/media/stop")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public MediaEventResponse stop(@RequestBody @Valid MediaStopRequest mediaStopRequest) throws ExecutionException, InterruptedException {

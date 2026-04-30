@@ -29,30 +29,32 @@ import java.util.List;
 @Configuration
 public class SecurityConfiguration {
 
-    @Value(value = "${application.role:ANY}")
+     @Value(value = "${application.role:ANY}")
     private String role;
 
-    @Bean
-    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
+     @Bean
+     @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true",matchIfMissing = true)
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, TokenRepo tokenRepo) {
         return http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange(exchanges -> {
+                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                 .authorizeExchange(exchanges -> {
                     var match = exchanges.pathMatchers("/api-docs/**",
-                                    "/swagger-ui.html",
-                                    "/swagger-ui/**")
-                            .permitAll();
+                                     "/swagger-ui.html",
+                                     "/swagger-ui/**",
+                                     "/actuator",
+                                     "/actuator/**")
+                             .permitAll();
 
                     if ("ANY".equals(role)) {
                         match.anyExchange().permitAll();
-                    } else {
+                     } else {
                         match.anyExchange().hasRole(role);
-                    }
-                })
-                .addFilterAt(new TokenProcessor(tokenRepo), SecurityWebFiltersOrder.AUTHENTICATION)
-                .build();
-    }
+                     }
+                 })
+                 .addFilterAt(new TokenProcessor(tokenRepo), SecurityWebFiltersOrder.AUTHENTICATION)
+                 .build();
+     }
 
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -64,21 +66,21 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
+     }
 
-    @Bean
-    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "false")
+     @Bean
+     @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "false")
     public SecurityWebFilterChain securityDisabledFilterChain(ServerHttpSecurity http) throws Exception {
         return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .authorizeExchange(auth -> auth
-                        .anyExchange()
-                        .permitAll()
-                ).build();
-    }
+                 .authorizeExchange(auth -> auth
+                         .anyExchange()
+                         .permitAll()
+                 ).build();
+     }
 
-    @Bean
-    @Primary
-    @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true", matchIfMissing = true)
+     @Bean
+     @Primary
+     @ConditionalOnProperty(value = "spring.security.enabled",havingValue = "true", matchIfMissing = true)
     public RedisTemplate<String, AuthenticationInfo> authenticationTemplate(RedisConnectionFactory connectionFactory){
         RedisTemplate<String, AuthenticationInfo> redisTemplate = new RedisTemplate<>();
 
@@ -89,11 +91,11 @@ public class SecurityConfiguration {
                 new Jackson2JsonRedisSerializer<>(AuthenticationInfo.class));
 
         return redisTemplate;
-    }
+     }
 
     public static Mono<AuthenticationInfo> getAuthenticationInfo() {
         return ReactiveSecurityContextHolder.getContext()
-                .map(SecurityContext::getAuthentication)
-                .map(x->(AuthenticationInfo)x.getPrincipal());
-    }
+                 .map(SecurityContext::getAuthentication)
+                 .map(x->(AuthenticationInfo)x.getPrincipal());
+     }
 }

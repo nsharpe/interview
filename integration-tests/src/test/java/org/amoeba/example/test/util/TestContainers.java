@@ -23,21 +23,20 @@ public abstract class TestContainers {
                             .withStartupTimeout(Duration.ofMinutes(3)))
                     .withExposedService("redis", REDIS_PORT, Wait.forListeningPort())
                     .withExposedService("broker", 9092, Wait.forListeningPort())
-                    .withExposedService("user-management", 9080,
+                    .withExposedService("postgres", 5432, Wait.forListeningPort())
+                    .withExposedService("user-management", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
-                    .withExposedService("media-management", 9090,
+                    .withExposedService("media-management", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
-                    ).withExposedService("qa-endpoint-app", 9120,
+                    ).withExposedService("qa-endpoint-app", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1)
                     ).withExposedService("media-metrics", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withExposedService("media-comment", 8080,
                                          Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
-                    .withExposedService("postgres", 5432, Wait.forListeningPort())
-
-                    .withExposedService("media-player-endpoint",9100,
+                    .withExposedService("media-player-endpoint",8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
-                    .withExposedService("admin-app", 9110,
+                    .withExposedService("admin-app", 8080,
                             Wait.forLogMessage(".*Started .* in .* seconds.*\\n", 1))
                     .withEnv("COMPOSE_PROJECT_NAME", "test-project")
                     .withLocalCompose(true)
@@ -58,7 +57,7 @@ public abstract class TestContainers {
     @DynamicPropertySource
     public static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("publicrest.port", TestContainers::getPublicRestPort);
-        registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("user-management", 9080));
+        registry.add("publicrest.host", () -> ENVIRONMENT.getServiceHost("user-management", 8080));
 
         registry.add("admin.endpoint.port", TestContainers::getAdminPort);
         registry.add("admin.endpoint.host", TestContainers::getAdminHost);
@@ -85,7 +84,7 @@ public abstract class TestContainers {
     }
 
     public static int getMediaManagmentPort(){
-        return ENVIRONMENT.getServicePort("media-management", 9090);
+        return ENVIRONMENT.getServicePort("media-management", 8080);
     }
 
     public static org.amoeba.example.apps.user_management.sdk.invoker.ApiClient publicRestApiClient() {
@@ -94,11 +93,11 @@ public abstract class TestContainers {
     }
 
     public static int getPublicRestPort(){
-        return ENVIRONMENT.getServicePort("user-management", 9080);
+        return ENVIRONMENT.getServicePort("user-management", 8080);
     }
 
     public static String getPublicRestHost(){
-        return ENVIRONMENT.getServiceHost("user-management", 9080);
+        return ENVIRONMENT.getServiceHost("user-management", 8080);
     }
 
     public static org.amoeba.example.media.player.sdk.invoker.ApiClient mediaPlayerApiClient() {
@@ -116,7 +115,7 @@ public abstract class TestContainers {
     }
 
     public static int getMediaPlayPort(){
-        return ENVIRONMENT.getServicePort("media-player-endpoint", 9100);
+        return ENVIRONMENT.getServicePort("media-player-endpoint", 8080);
     }
 
     public static int getMediaCommentPort(){
@@ -124,19 +123,19 @@ public abstract class TestContainers {
     }
 
     public static String getAdminHost(){
-        return ENVIRONMENT.getServiceHost("admin-app", 9110);
+        return ENVIRONMENT.getServiceHost("admin-app", 8080);
     }
 
     public static int getAdminPort(){
-        return ENVIRONMENT.getServicePort("admin-app", 9110);
+        return ENVIRONMENT.getServicePort("admin-app", 8080);
     }
 
     public static String getQaHost(){
-        return ENVIRONMENT.getServiceHost("qa-endpoint-app", 9120);
+        return ENVIRONMENT.getServiceHost("qa-endpoint-app", 8080);
     }
 
     public static int getQaPort(){
-        return ENVIRONMENT.getServicePort("qa-endpoint-app", 9120);
+        return ENVIRONMENT.getServicePort("qa-endpoint-app", 8080);
     }
 
 }

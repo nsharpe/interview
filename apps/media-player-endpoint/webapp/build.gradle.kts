@@ -19,6 +19,4 @@ dependencies {
     implementation("org.amoeba.example.spring.util:spring-web")
     implementation("org.amoeba.example.avro:avro-model")
     implementation("org.amoeba.example.drivers:kafka-driver")
-
-    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
 }

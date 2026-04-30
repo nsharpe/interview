@@ -18,5 +18,5 @@ dependencies {
     implementation("org.amoeba.example.test.data:test-data")
     implementation("org.amoeba.example.spring.util:spring-web")
 
-    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.32")
+    implementation("io.swagger.core.v3:swagger-annotations-jakarta:2.2.41")
 }
