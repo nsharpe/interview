@@ -5,6 +5,7 @@
   * [Introduction](#introduction)
   * [Quick start](#quick-start)
     * [Requirements](#requirements)
+    * [Run The Full Stack](#run-the-full-stack)
       * [MAC](#mac)
       * [PC](#pc)
   * [What the application does](#what-the-application-does)
@@ -13,13 +14,9 @@
   * [Assumptions](#assumptions)
   * [IDE Setup](#ide-setup)
   * [Running the application](#running-the-application)
-    * [Run the full stack](#run-the-full-stack)
+    * [Run the full stack](#run-the-full-stack-1)
   * [Interacting with the application](#interacting-with-the-application)
-    * [Running an appliction via `bootrun`](#running-an-appliction-via-bootrun)
-    * [User Management Endpoint](#user-management-endpoint)
-    * [Media Management Endpoint](#media-management-endpoint)
-    * [Media Metrics Endpoints](#media-metrics-endpoints)
-    * [Media Comments Endpoints](#media-comments-endpoints)
+    * [Running an application via `bootRun`](#running-an-application-via-bootrun)
   * [Spring Boot Conventions](#spring-boot-conventions)
   * [MYSQL](#mysql)
   * [POSTGRES](#postgres)
@@ -70,6 +67,7 @@ The following scripts does the following
 3) start npm locally
 4) tear down the docker compose file when npm has stopped
 
+### Run The Full Stack
 
 #### MAC
 This has been tested and is how this developer does quick spot checks that everything is working as intended
@@ -106,9 +104,9 @@ Actions from the ui
 
 
 ## What the application does
-This is a mock application for a netflix like company.
+This is a mock tech stack for a netflix, hulu, youtube like company.
 
-This is a monorepo with several executables required to do the following
+It is implemented as a monorepo with several executables required to do the following
 * Manage Users.  See [Users](libs/users/README.md) for user structures
 * Manage TvSeries/movies (Does not actually store media files as part of this demo). See [Series](libs/series/README.md) for definitions
 * Capture Metrics on viewers viewing habits (how long was a viewing session, how many episodes etc)
