@@ -55,13 +55,19 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
     @Test
     void testPlayerStartAccept() throws Exception {
 
+        // Create and login as a user
         UserModel user = userGenerator.generate();
         String authToken = authenticationGenerator.generateTokenForSubscriber(user);
+
+        // Create a unique episode for the user to watch
         EpisodeModel episodeModel = episodeGenerator.generate();
         assertNotNull(episodeModel.getLength());
         Duration episodeDuration = Duration.parse(episodeModel.getLength());
+
+        // The id for the start view event
         UUID actionID = UUID.randomUUID();
 
+        // Start watching the media
         String body = MAPPER.writeValueAsString(
                 Map.of("eventState",
                         Map.of("eventId", actionID,
@@ -86,6 +92,7 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
         assertNotNull(UUID.fromString(actionId));
 
 
+        // Stop watching the media
         body = MAPPER.writeValueAsString(
                 Map.of("eventState",
                         Map.of("eventId", UUID.randomUUID(),
@@ -113,6 +120,7 @@ public class MediaPlayerControllerIntegrationTest extends TestContainers {
 
         assertNotNull(episodeModel.getId());
 
+        // Validate that the metrics are captured and returned
         await()
                 .atMost(Duration.ofSeconds(10))
                 .pollInterval(Duration.ofMillis(50))
