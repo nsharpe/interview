@@ -45,8 +45,8 @@ services:
     environment:
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securePostgresPassword123
       POSTGRES_HOST: postgres
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "8081"]
@@ -69,12 +69,12 @@ services:
       - "8081"
     environment:
       REDIS_HOST: redis
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: user
+      MYSQL_PASSWORD: securePassword123
       MYSQL_HOST: mysql
       POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securePostgresPassword123
       POSTGRES_HOST: postgres
     depends_on:
       mysql-loaded:
@@ -98,8 +98,8 @@ services:
     environment:
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securePostgresPassword123
       POSTGRES_HOST: postgres
     depends_on:
       postgres-loaded:
@@ -146,8 +146,8 @@ services:
     environment:
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securePostgresPassword123
       POSTGRES_HOST: postgres
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "8081"]
@@ -172,8 +172,8 @@ services:
       PUBLIC_REST_PORT: 8080
       REDIS_HOST: redis
       POSTGRES_PORT: 5432
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: securePostgresPassword123
       POSTGRES_HOST: postgres
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "8081"]
