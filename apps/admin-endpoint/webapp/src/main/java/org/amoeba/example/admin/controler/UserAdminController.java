@@ -13,6 +13,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class UserAdminController {
         return userRepository.getAllUsers(pageable);
     }
 
-    @PostMapping("/{id}/loginas")
+    @PostMapping(value = "/{id}/loginas", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody AdminAuthorization loginAsUser(@PathVariable("id") UUID userId){
         return userControllerApi.getUser(userId)
                 .map(x->userRepository.loginAs(userId))

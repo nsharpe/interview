@@ -41,7 +41,7 @@ public abstract class TestContainers {
                     .withEnv("COMPOSE_PROJECT_NAME", "test-project")
                     .withLocalCompose(true)
                     .withBuild(true)
-                    .withStartupTimeout(Duration.ofMinutes(3))
+                    .withStartupTimeout(Duration.ofMinutes(6))
                     .withOptions("--compatibility")
                     .withLogConsumer("media-player-endpoint", new Slf4jLogConsumer(LoggerFactory.getLogger("MediaPlayerEndpoint")))
                     .withLogConsumer("user-management", new Slf4jLogConsumer(LoggerFactory.getLogger("UserManagement")))

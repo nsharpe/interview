@@ -28,7 +28,8 @@ tasks.withType<GenerateTask>().configureEach {
     configOptions.set(mapOf(
         "npmName" to sdkConfig.npmName.get(),
         "supportsES6" to "true",
-        "npmVersion" to "20.11.0"
+        "npmVersion" to "20.11.0",
+        "axiosVersion" to "1.16.0"
     ))
 }
 
